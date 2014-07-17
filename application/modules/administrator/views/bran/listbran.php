@@ -1,15 +1,25 @@
 <h3>Danh sách các thương hiệu</h3>
 <head>
     <style type="text/css">
-        input{
+        label{
+            float:left;
+            width: 120px;
+            font-weight: bold;
+        }
+        input.txt{
             width: 50px;
         }
     </style>
 </head>
 <body>
     <form action = '' method = 'post'>
-        <label>Số brand trên 1 trang: </label>
-        <input type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
+        <label>Số brand/trang: </label>
+        <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>><br/>
+        <label>Sắp xếp:</label>
+        <span>Tăng dần</span>
+        <input type = 'radio' name = 'sort' value = 'asc' <?php echo isset($sort_type) && $sort_type == 'asc' ? "checked" : "";?>>
+        <span>Giảm dần</span>
+        <input type = 'radio' name = 'sort' value = 'desc' <?php echo isset($sort_type) && $sort_type == 'desc' ? "checked" : "";?>><br/>
         <input type = 'submit' name = 'btnok' value = 'Gửi'>
     </form>
 
@@ -21,10 +31,11 @@
             <?php
                 foreach ($listbran as $list) {
 
-                    # code...
+                    $id = isset($list['bran_id']) ? $list['bran_id'] : "error";
+                    $name = isset($list['bran_name']) ? $list['bran_name'] : "error";
                     echo "<tr>";
-                        echo "<td>" . $list['bran_id'] . "</td>";
-                        echo "<td>" . $list['bran_name'] . "</td>";
+                        echo "<td>" . $id . "</td>";
+                        echo "<td>" . $name . "</td>";
                     echo "</tr>";
                 } // end foreach $listbran
             ?>

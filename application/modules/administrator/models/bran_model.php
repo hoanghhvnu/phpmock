@@ -16,6 +16,26 @@ class bran_model extends CI_Model{
         return $this->db->count_all_results();
         // return $this->db->get($this->_table)->result_array();
     }
+
+    public function get_order($type = '', $limit = '', $start = ''){
+        // $this->db->select("*");
+        // $this->db->from($this->_table);
+        // $this->db->order_by("bran_name");
+        // return $this->db->get($this->_table);
+        $sql = "SELECT * FROM {$this->_table}";
+        if($type) $sql .=" ORDER BY bran_name {$type}";
+        $sql .= " LIMIT {$limit},{$start}";
+        
+        // echo $sql;
+        $result = mysql_query($sql);
+        $data = array();
+        while($row = mysql_fetch_assoc($result)){
+            $data[] = $row; 
+        }
+        // echo "<pre>";
+        // print_r($data);
+        return $data;
+    }
     public function getAll(){
         return $this->db->get($this->_table)->result_array();
     } // end listUser();
