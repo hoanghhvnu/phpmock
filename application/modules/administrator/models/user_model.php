@@ -22,6 +22,8 @@ class user_model extends CI_Model{
         $this->db->where("usr_id = $id");
         return $this->db->get($this->_table)->row_array(); 
     } // end getOnce
+
+    
 }
 // end class CI_model
 // end file model/user_model.php
