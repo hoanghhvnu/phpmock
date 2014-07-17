@@ -14,7 +14,9 @@
 <body>
     <form action = '' method = 'post'>
         <label>Số brand/trang: </label>
-        <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>><br/>
+        <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
+        <span>Hiện tất cả </span><input type = 'checkbox' name = 'show_all' value = 'show'>
+        <br/>
         <label>Sắp xếp:</label>
         <span>Tăng dần</span>
         <input type = 'radio' name = 'sort' value = 'asc' <?php echo isset($sort_type) && $sort_type == 'asc' ? "checked" : "";?>>

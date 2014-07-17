@@ -32,16 +32,21 @@ class bran extends CI_Controller{
     } // end listbran()
 
     public function page(){
-        // echo $this->input->ge
-        // $page = 0;
-        // $config['per_page'] = isset($this->input->post('per_page')) ? $this->input->post('per_page') : 5;
-        // echo $this->input->post('btnok');
+        $this->load->model("bran_model");
+        $this->load->library('pagination');
+
         $sort_type = "";
         
         if ($this->input->post('btnok')){
-            if ($this->input->post('per_page')){
-                $_SESSION['per_page'] = $this->input->post('per_page');
+            if ($this->input->post('show_all')){
+                $_SESSION['show_all'] = $this->input->post('show_all');
+            } else{
+                unset($_SESSION['show_all']);
+                if ($this->input->post('per_page')){
+                    $_SESSION['per_page'] = $this->input->post('per_page');
+                }
             }
+            
             if($this->input->post('sort')){
                 $_SESSION['sort_type'] = $this->input->post('sort');
             }
@@ -49,6 +54,7 @@ class bran extends CI_Controller{
         }
         $_SESSION['per_page']  = isset($_SESSION['per_page']) ? $_SESSION['per_page'] : 5;
         $_SESSION['sort_type'] = isset($_SESSION['sort_type']) ? $_SESSION['sort_type'] : "";
+        $_SESSION['show_all'] = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "";
 
         // echo $sort_type;
         $config['per_page'] = $_SESSION['per_page'];
@@ -56,12 +62,12 @@ class bran extends CI_Controller{
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
         // echo $page;
         // echo $config['per_page'];
-        $this->load->model("bran_model");
-        $this->load->library('pagination');
+        
         $config['base_url'] = base_url("administrator/bran/page");
         $config['total_rows'] = $this->bran_model->count_all();
-        if($config['per_page'] > $config['total_rows']){
+        if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
             $config['per_page'] = $config['total_rows'];
+            $page = 1;
         }
         // echo $config['total_rows'];
         // $config['per_page'] = 6;
@@ -85,6 +91,7 @@ class bran extends CI_Controller{
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['sort_type'] = $_SESSION['sort_type'];
+        $data['show_all'] = $_SESSION['show_all'];
         // echo $data['per'];
         $this->load->view("bran/listbran",$data);
 
