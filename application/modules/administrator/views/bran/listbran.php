@@ -19,7 +19,11 @@
         <span>Tăng dần</span>
         <input type = 'radio' name = 'sort' value = 'asc' <?php echo isset($sort_type) && $sort_type == 'asc' ? "checked" : "";?>>
         <span>Giảm dần</span>
-        <input type = 'radio' name = 'sort' value = 'desc' <?php echo isset($sort_type) && $sort_type == 'desc' ? "checked" : "";?>><br/>
+        <input type = 'radio' name = 'sort' value = 'desc' <?php 
+        echo isset($sort_type) && $sort_type == 'desc' ? "checked" : "";?>>
+        <span>Không sắp xếp</span>
+        <input type = 'radio' name = 'sort' value = 'none' <?php echo isset($sort_type) && $sort_type == 'none' ? "checked" : "";?>>
+        <br/>
         <input type = 'submit' name = 'btnok' value = 'Gửi'>
     </form>
 

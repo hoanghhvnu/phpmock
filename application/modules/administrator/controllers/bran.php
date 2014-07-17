@@ -52,7 +52,7 @@ class bran extends CI_Controller{
 
         // echo $sort_type;
         $config['per_page'] = $_SESSION['per_page'];
-        $sort_type          = $_SESSION['sort_type'];
+        $sort_type          = ($_SESSION['sort_type'] != "none") ? $_SESSION['sort_type'] : "";
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
         // echo $page;
         // echo $config['per_page'];
@@ -84,7 +84,7 @@ class bran extends CI_Controller{
         // print_r($data);
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
-        $data['sort_type'] = $sort_type;
+        $data['sort_type'] = $_SESSION['sort_type'];
         // echo $data['per'];
         $this->load->view("bran/listbran",$data);
 
