@@ -15,49 +15,62 @@ class cate extends CI_Controller{
     } // end index()
 
     public function listcate(){
+        // $this->load->view("main/mainhead");
         $data = $this->cate_model->getAll();
         // echo "<pre>";
         // print_r($data);
-        $listedByID = array();
+        $_SESSION['listedByID'] = array();
 
         foreach ($data as $key => $cateDetail) {
+            // echo "<div id = 'center'>";
             echo "<ul>";
             $cate_id     = $cateDetail['cate_id'];
             $cate_name   = $cateDetail['cate_name'];
             $cate_parent = $cateDetail['cate_parent'];
             $cate_order  = $cateDetail['cate_order'];
             echo "<li>";
-            echo "<pre>";
-            print_r($listedByID);
-            if(!in_array($cate_id, $listedByID)){
+            // echo "<pre>" . "listedByID: ";
+            // print_r($listedByID);
+            // echo "cate_id: " . $cate_id;
+            if(!in_array($cate_id, $_SESSION['listedByID'])){
                 echo $cate_name;
-                $listedByID[] = $cate_id;
+                $_SESSION['listedByID'][] = $cate_id;
             }
             
             
-            $this->recursive($cate_id,$data,$listedByID);
+            $this->recursive($cate_id,$data);
             echo "</li>";
             echo "</ul>";
-        }
+
+        } // end foreach
+        // echo "<pre>";
+        // print_r($listedByID);
+        // echo "</div>"; // end div center
+        // $this->load->view("main/mainfoot");
     } // end listcate()
 
-    private function recursive($cate_id_parent,$data,$listedByID){
+    private function recursive($cate_id_parent,$data){
         foreach ($data as $key => $cateDetail) {
             $cate_id     = $cateDetail['cate_id'];
             $cate_name   = $cateDetail['cate_name'];
             $cate_parent = $cateDetail['cate_parent'];
             $cate_order  = $cateDetail['cate_order'];
             if($cate_parent == $cate_id_parent){
-                echo "<ul>";
-                echo "<li>";
-                if(!in_array($cate_id, $listedByID)){
+                // echo "<pre>" . "listedByID: ";
+                // print_r($listedByID);
+                // echo "cate_id: " . $cate_id;
+                if(!in_array($cate_id, $_SESSION['listedByID'])){
+                    // echo "inarray" .  in_array($cate_id, $listedByID);
+                    echo "<ul>";
+                    echo "<li>";
                     echo $cate_name;
-                    $listedByID[] = $cate_id;
+                    $_SESSION['listedByID'][] = $cate_id;
+                    $this->recursive($cate_id,$data);
+                    echo "</li>";
+                    echo "</ul>";
                 }
                 
-                $this->recursive($cate_id,$data,$listedByID);
-                echo "</li>";
-                echo "</ul>";
+                
             } // end if $cate_parent
         }
     } // end class recursive

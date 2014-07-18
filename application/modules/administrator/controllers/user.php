@@ -6,12 +6,12 @@ class user extends CI_Controller{
         $this->load->library("form_validation");
         $this->load->model("user_model");
         $this->load->library('pagination');
-        session_start();
+        // session_start();
 
     } // end __construct
 
     public function index(){
-
+        $this->login();
 
     } // end index()
 
@@ -174,7 +174,49 @@ class user extends CI_Controller{
                 }
             }
             $this->load->view("user/update", $data);
-    }    
+    } // update()
+
+    // DucTM
+    public function login(){
+        $this->load->view("user/loginView");
+        //echo "dcn";
+        if($this->input->post("btnLogin")){
+        
+            $this->form_validation->set_rules('txtUser','Username','trim|required');
+            $this->form_validation->set_rules('txtPass','Password','trim|required|min_length[5]|max_length[12]');
+    
+            
+            $this->form_validation->set_message("required","%s khong duoc bo trong");
+            $this->form_validation->set_error_delimiters('<div class="error">','</div>'); 
+            echo 'alid: ' . $this->form_validation->run();
+            if($this->form_validation->run()){
+                $dataUser =array(
+                    "username"=>$this->input->post("txtUser"),
+                    "password"=>$this->input->post("txtPass")
+                );
+                $check = $this->user_model->is_Validate($dataUser);
+                if($check){
+                   $this->session->set_userdata('user',$check);
+                    redirect(base_url('administrator/user/listuser'));
+                }else{
+                    $this->_check = false;
+                }
+            } // end if run
+        } // end if btLogin
+    } // end login()
+    
+    public function logout(){
+        $this->session->unset_userdata('user');
+         // $this->load->view("user/loginView");
+        $this->login();
+        //$obj = new user;
+        //$obj->login();
+    }
+    public function success(){
+        //$dataUser['user']=$this->session->set_userdata('user',"");
+        $this->load->view("user/success");
+       //$this->load>view('user/success',$dataUser);
+    }
 }
 // end class user
 // end file controller/user.php

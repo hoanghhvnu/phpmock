@@ -8,6 +8,7 @@ class user_model extends CI_Model{
     public function __construct(){
         parent::__construct();
         $this->load->database();
+        $this->load->library("session");
 
     } // end __construct()
 
@@ -63,6 +64,19 @@ class user_model extends CI_Model{
             $this->db->where("usr_id = $usr_id");
             $this->db->update($this->_table, $data);
     }
+
+
+    // DucTM
+    // is_Validate($dataUser);
+    public function is_Validate($dataUser){
+            $data = $this->db->select()->where('usr_name',$dataUser['username'])->where('usr_password',$dataUser['password'])           
+            ->get($this->_table)->row_array();
+            if(count($data)>0){
+                return $data;
+            }else{
+                return false;
+            }  
+    } // end is_validate()
 }
 // end class CI_model
 // end file model/user_model.php

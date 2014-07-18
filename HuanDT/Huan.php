@@ -40,7 +40,7 @@ public function update($data, $usr_id){
         $this->db->where("usr_id = $usr_id");
         $this->db->update($this->_table, $data);
 }
-
+?>
 
 // update.php view
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

@@ -4,6 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>WEB BÁN HÀNG</title>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/public/phpmock/css/style.css" />
+<script type="text/javascript">
+            function CheckDelete(){
+
+                    r = confirm("Bạn chắc chắn xoá không?");
+                    if(r == false) return false;
+                    else return true;
+                                               
+            } 
+</script>
 </head>
 <body>
     <div id="banner">&nbsp;</div>
@@ -20,7 +29,13 @@
                 </ul>
             </div>
             <div class="category" style="margin-top:10px; border-top:1px solid #CCC; background:#FFF;">
-                <p>Chào bạn: admin</p>
+                <?php
+                    
+                    // $ob = new user();
+                    // $usrname = $ob->session->userdata['user'];
+                    // print_r($usrname);
+                ?>
+                 <p>Chào bạn: Admin<?php //echo $usrname['usr_name']; ?></p>
                 <p><a href="#">Đăng xuất tài khoản</a></p>
             </div>
         </div>
