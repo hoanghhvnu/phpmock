@@ -23,7 +23,12 @@ class user_model extends CI_Model{
         return $this->db->get($this->_table)->row_array(); 
     } // end getOnce
 
-    
+    // writen by VietDQ
+    public function deleteUser($id)
+    {
+        $this->db->where("usr_id = $id");
+        $this->db->delete($this->_table);
+    }
 }
 // end class CI_model
 // end file model/user_model.php

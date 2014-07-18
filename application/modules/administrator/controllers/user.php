@@ -4,6 +4,8 @@ class user extends CI_Controller{
         parent::__construct();
         $this->load->helper("url");
         $this->load->library("form_validation");
+        $this->load->model("user_model");
+
 
     } // end __construct
 
@@ -61,6 +63,15 @@ class user extends CI_Controller{
         } // end isset btnok
         $this->load->view('user/insertuser',$dataUser);
     } // end insertUser()
+
+    // writen by VietDQ
+    public function delete()
+    {
+        $id = $this->uri->segment(4);
+        $this->user_model->deleteUser($id);
+        // redirect(base_url("/administrator/user/listuser"));
+        redirect(base_url("administrator/user/listuser"));
+    }
 }
 // end class user
 // end file controller/user.php

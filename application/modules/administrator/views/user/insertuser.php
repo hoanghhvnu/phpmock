@@ -1,19 +1,5 @@
-<head>
-    <style type="text/css">
-        label{
-            float: left;
-            width: 130px;
-        }
-        input.input_text{
-            /*float: left;*/
-            width: 250px;
-        }
-        .error{
-            color: red;
-        }
-    </style>
 </head>
-
+<?php $this->load->view('main/mainhead')?>
 <h3>Insert User</h3>
 <?php
     $this->load->helper('form');
@@ -108,15 +94,7 @@
 
     echo form_dropdown('usr_level',$level, '2') . "<br/>";
     // echo $usr_level;
-    ?>
-
-    <!-- <select name="dl_level">
-    <option value="1" <?php echo isset($usr_level) && $usr_level == 1  ? "checked" :  ""; ?> >Administrator</option>
-    <option value="2" <?php  echo isset($usr_level) && $usr_level == 2  ? "checked" :  "";  ?> >User<option>
-    </select>
-    </br> -->
-
-    <?php
+ 
     $submit = array(
         'type' => 'submit',
         'name' => 'btnok',
@@ -128,5 +106,5 @@
     echo form_close();
 
     echo form_fieldset_close();
-
-
+    ?>
+    <?php $this->load->view('main/mainfoot')?>

@@ -1,21 +1,57 @@
 <?php
-class bran extends CI_Controller{
+class cate extends CI_Controller{
     function __construct(){
         parent::__construct();
         $this->load->helper("url");
         $this->load->library("form_validation");
-        $this->load->model("bran_model");
+        $this->load->model("cate_model");
         session_start();
 
     } // end __construct
 
     public function index(){
-        $this->listbran();
+        $this->listcate();
 
     } // end index()
 
-    public function listbran(){
-        $this->load->model("bran_model");
+    public function listcate(){
+        $data = $this->cate_model->getAll();
+        // echo "<pre>";
+        // print_r($data);
+
+        foreach ($data as $key => $cateDetail) {
+            echo "<ul>";
+            $cate_id     = $cateDetail['cate_id'];
+            $cate_name   = $cateDetail['cate_name'];
+            $cate_parent = $cateDetail['cate_parent'];
+            $cate_order  = $cateDetail['cate_order'];
+            echo "<li>";
+            echo $cate_name;
+            $this->recursive($cate_id,$data);
+            echo "</li>";
+            echo "</ul>";
+        }
+    } // end listcate()
+
+    private function recursive($cate_id_parent,$data){
+        foreach ($data as $key => $cateDetail) {
+            $cate_id     = $cateDetail['cate_id'];
+            $cate_name   = $cateDetail['cate_name'];
+            $cate_parent = $cateDetail['cate_parent'];
+            $cate_order  = $cateDetail['cate_order'];
+            if($cate_parent == $cate_id_parent){
+                echo "<ul>";
+                echo "<li>";
+                echo $cate_name;
+                $this->recursive($cate_id,$data);
+                echo "</li>";
+                echo "</ul>";
+            } // end if $cate_parent
+        }
+    } // end class recursive
+
+    /*public function listcate(){
+        $this->load->model("cate_model");
         $this->load->library('pagination');
 
         $sort_type = "";
@@ -43,8 +79,8 @@ class bran extends CI_Controller{
         $sort_type          = ($_SESSION['sort_type'] != "none") ? $_SESSION['sort_type'] : "";
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
 
-        $config['base_url']   = base_url("administrator/bran/listbran");
-        $config['total_rows'] = $this->bran_model->count_all();
+        $config['base_url']   = base_url("administrator/cate/listcate");
+        $config['total_rows'] = $this->cate_model->count_all();
         if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
@@ -62,57 +98,16 @@ class bran extends CI_Controller{
         // echo "start: " . $start . "<br/>";
         // echo "per_page" . $config['per_page'] . "<br/>";
         // echo "page: " . $page;
-        $data['listbran'] = $this->bran_model->get_order($sort_type,$start,$config['per_page']);
+        $data['listcate'] = $this->cate_model->get_order($sort_type,$start,$config['per_page']);
 
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['sort_type'] = $_SESSION['sort_type'];
         $data['show_all'] = $_SESSION['show_all'];
 
-        $this->load->view("bran/listbran",$data);
+        $this->load->view("cate/listcate",$data);
         // $this->load->view("main/main");
 
-    }
-
-    // writen by VietDQ
-    public function update()
-    {
-        $id = $this->uri->segment(4);
-        $data['branInfo'] = $this->bran_model->detail($id);
-        
-        if($this->input->post("ok")){
-            $this->form_validation->set_rules("name","Tên brand ","trim|required");          
-            $this->form_validation->set_message("required","%s không được bỏ trống");
-
-            $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
-            $updateName=$this->input->post("name");
-            
-       
-            if($this->form_validation->run()){
-                $listall=$this->bran_model->getAll();
-                
-             foreach ($listall as $row) {
-                if (in_array(trim($updateName),$row)&& ($row['bran_id']!=$id)) $data['errorName']="Đã tồn tại";
-
-             }   
-             
-             if (!isset($data['errorName']))
-            
-             {
-         
-    
-                $dataBran = array(
-                                "bran_name"=>$this->input->post("name"),
-
-                            );
-                $this->bran_model->update($dataBran,$id);
-                
-                redirect(base_url("administrator/bran/listbran"));
-                }
-            }
-        }
-        $this->load->view("administrator/bran/update",$data);
-        
-    }
-} // end class bran
-// end file bran.php
+    } // end list_cate()*/
+} // end class cate
+// end file cate.php

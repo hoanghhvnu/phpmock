@@ -1,8 +1,8 @@
 <?php
-class bran_model extends CI_Model{
+class cate_model extends CI_Model{
 
-    protected $_table = 'tbl_bran';
-    protected $_primary = 'bran_id';
+    protected $_table = 'tbl_category';
+    protected $_primary = 'cate_id';
 
 
     public function __construct(){
@@ -20,10 +20,10 @@ class bran_model extends CI_Model{
     public function get_order($type = '', $limit = '', $start = ''){
         // $this->db->select("*");
         // $this->db->from($this->_table);
-        // $this->db->order_by("bran_name");
+        // $this->db->order_by("cate_name");
         // return $this->db->get($this->_table);
         $sql = "SELECT * FROM {$this->_table}";
-        if($type) $sql .=" ORDER BY bran_name {$type}";
+        if($type) $sql .=" ORDER BY cate_name {$type}";
         $sql .= " LIMIT {$limit},{$start}";
         
         // echo $sql;
@@ -44,7 +44,7 @@ class bran_model extends CI_Model{
     } // end insert()
 
     public function getOnce($id){
-        $this->db->where("bran_id = $id");
+        $this->db->where("cate_id = $id");
         return $this->db->get($this->_table)->row_array(); 
     } // end getOnce
 
@@ -52,19 +52,6 @@ class bran_model extends CI_Model{
         $this->db->limit($limit,$start);
         return $this->db->get($this->_table)->result_array();
     } // end get_page()
-
-    // writen by VIetdq
-    public function update($data,$id)
-    {
-        $this->db->where("bran_id = $id");
-        $this->db->update($this->_table,$data);
-    } // end update()
-
-    public function detail($id)
-    {
-        $this->db->where("bran_id = $id");
-        return $this->db->get($this->_table)->row_array();
-    }
 }
-// end class bran_model
-// end file model/bran_model.php
+// end class cate_model
+// end file model/cate_model.php
