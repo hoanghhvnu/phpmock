@@ -9,29 +9,11 @@ class bran extends CI_Controller{
     } // end __construct
 
     public function index(){
-        $this->page();
+        $this->listbran();
 
     } // end index()
 
     public function listbran(){
-        $this->load->model("bran_model");
-
-        $data['listbran'] = $this->bran_model->getAll();
-        // $data['count_all'] = $this->bran_model->count_all();
-        
-        $this->load->view("bran/listbran",$data);
-    } // end listbran()
-
-    public function listsort($type = 'asc'){
-        $this->load->model("bran_model");
-        $data['listbran'] = $this->bran_model->get_order($type);
-        // echo $data['listbran'];
-        
-        
-        $this->load->view("bran/listbran",$data);
-    } // end listbran()
-
-    public function page(){
         $this->load->model("bran_model");
         $this->load->library('pagination');
 
@@ -56,21 +38,17 @@ class bran extends CI_Controller{
         $_SESSION['sort_type'] = isset($_SESSION['sort_type']) ? $_SESSION['sort_type'] : "";
         $_SESSION['show_all'] = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "";
 
-        // echo $sort_type;
         $config['per_page'] = $_SESSION['per_page'];
         $sort_type          = ($_SESSION['sort_type'] != "none") ? $_SESSION['sort_type'] : "";
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
-        // echo $page;
-        // echo $config['per_page'];
-        
-        $config['base_url'] = base_url("administrator/bran/page");
+
+        $config['base_url'] = base_url("administrator/bran/listbran");
         $config['total_rows'] = $this->bran_model->count_all();
         if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
         }
-        // echo $config['total_rows'];
-        // $config['per_page'] = 6;
+
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 4;
         $config['next_link'] = "Sau";
@@ -78,21 +56,18 @@ class bran extends CI_Controller{
         $this->pagination->initialize($config); 
 
         $start = ($page - 1) * $config['per_page'];
-        // echo $start;
-        // $data['listbran'] = $this->bran_model->get_page($config['per_page'],$start);
-        // echo $config['per_page'];
-        echo "sort_type " . $sort_type . "<br/>";
-        echo "start: " . $start . "<br/>";
-        echo "per_page" . $config['per_page'] . "<br/>";
-        echo "page: " . $page;
+
+        // echo "sort_type " . $sort_type . "<br/>";
+        // echo "start: " . $start . "<br/>";
+        // echo "per_page" . $config['per_page'] . "<br/>";
+        // echo "page: " . $page;
         $data['listbran'] = $this->bran_model->get_order($sort_type,$start,$config['per_page']);
-        // echo "<pre>";
-        // print_r($data);
+
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['sort_type'] = $_SESSION['sort_type'];
         $data['show_all'] = $_SESSION['show_all'];
-        // echo $data['per'];
+
         $this->load->view("bran/listbran",$data);
 
     }
