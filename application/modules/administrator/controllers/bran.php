@@ -72,7 +72,7 @@ class bran extends CI_Controller{
         $this->load->view("bran/listbran",$data);
         // $this->load->view("main/main");
 
-    }
+    } // end class list bran
 
     // writen by VietDQ
     public function update()
@@ -114,5 +114,15 @@ class bran extends CI_Controller{
         $this->load->view("administrator/bran/update",$data);
         
     }
+
+    // Huan
+    // delete bran controller
+    public function delete()
+        {
+            $bran_id = $this->uri->segment(4);
+            $this->bran_model->delete($bran_id);
+            
+            redirect(base_url("administrator/bran/listbran"));
+        }    
 } // end class bran
 // end file bran.php

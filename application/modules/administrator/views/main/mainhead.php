@@ -14,7 +14,7 @@
                 <h1>MENU CHỨC NĂNG</h1>
                 <ul>
                     <li><a href="<?php echo base_url('administrator/user/listuser');?>">Quản lý thành viên</a></li>
-                    <li><a href="<?php echo base_url('administrator/category/listcategory');?>">Quản lý chuyên mục</a></li>
+                    <li><a href="<?php echo base_url('administrator/cate/listcate');?>">Quản lý chuyên mục</a></li>
                     <li><a href="<?php echo base_url('administrator/product/listproduct');?>">Quản lý sản phẩm</a></li>
                     <li><a href="<?php echo base_url('administrator/bran/listbran');?>">Quản lý thương hiệu</a></li>
                 </ul>

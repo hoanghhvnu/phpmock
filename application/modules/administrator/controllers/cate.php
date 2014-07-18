@@ -18,6 +18,7 @@ class cate extends CI_Controller{
         $data = $this->cate_model->getAll();
         // echo "<pre>";
         // print_r($data);
+        $listedByID = array();
 
         foreach ($data as $key => $cateDetail) {
             echo "<ul>";
@@ -26,14 +27,21 @@ class cate extends CI_Controller{
             $cate_parent = $cateDetail['cate_parent'];
             $cate_order  = $cateDetail['cate_order'];
             echo "<li>";
-            echo $cate_name;
-            $this->recursive($cate_id,$data);
+            echo "<pre>";
+            print_r($listedByID);
+            if(!in_array($cate_id, $listedByID)){
+                echo $cate_name;
+                $listedByID[] = $cate_id;
+            }
+            
+            
+            $this->recursive($cate_id,$data,$listedByID);
             echo "</li>";
             echo "</ul>";
         }
     } // end listcate()
 
-    private function recursive($cate_id_parent,$data){
+    private function recursive($cate_id_parent,$data,$listedByID){
         foreach ($data as $key => $cateDetail) {
             $cate_id     = $cateDetail['cate_id'];
             $cate_name   = $cateDetail['cate_name'];
@@ -42,8 +50,12 @@ class cate extends CI_Controller{
             if($cate_parent == $cate_id_parent){
                 echo "<ul>";
                 echo "<li>";
-                echo $cate_name;
-                $this->recursive($cate_id,$data);
+                if(!in_array($cate_id, $listedByID)){
+                    echo $cate_name;
+                    $listedByID[] = $cate_id;
+                }
+                
+                $this->recursive($cate_id,$data,$listedByID);
                 echo "</li>";
                 echo "</ul>";
             } // end if $cate_parent

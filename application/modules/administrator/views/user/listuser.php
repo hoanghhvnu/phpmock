@@ -9,8 +9,24 @@
             }
 </script>
 <h2 style = "align:'center'">Danh sách user</h2>
+    <div id = 'modlistbran'>
+        <?php echo form_fieldset("Tuỳ chọn"); ?>
+        <form action = '' method = 'post'>
+            <label>Số brand/trang: </label>
+            <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
+            <span>Hiện tất cả </span><input type = 'checkbox' name = 'show_all' value = 'show'>
+            <br/>
+            <input type = 'submit' name = 'btnok' value = 'Gửi'>
+        </form>
+            <?php echo form_fieldset_close();;?>
+    </div>
+
+
     <a href="insertuser">Thêm User</a>
+
     <div id = 'center'>
+        <?php  echo "Trang: ";
+                echo isset($link) ? $link : "";  ?>
         <table border = 1 id = 'listuser'>
             <th>ID</th>
             <th>name</th>

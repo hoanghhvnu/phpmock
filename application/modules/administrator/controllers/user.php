@@ -5,7 +5,8 @@ class user extends CI_Controller{
         $this->load->helper("url");
         $this->load->library("form_validation");
         $this->load->model("user_model");
-
+        $this->load->library('pagination');
+        session_start();
 
     } // end __construct
 
@@ -14,13 +15,76 @@ class user extends CI_Controller{
 
     } // end index()
 
-    public function listUser(){
-        $this->load->model("user_model");
+    // public function listUser(){
+    //     $this->load->model("user_model");
 
-        $data['listuser'] = $this->user_model->getAll();
+    //     $data['listuser'] = $this->user_model->getAll();
         
+    //     $this->load->view("user/listuser",$data);
+    // } // end class l
+
+
+    public function listuser(){
+        // $this->load->model("user_model");
+        
+
+        $sort_type = "";
+        
+        if ($this->input->post('btnok')){
+            if ($this->input->post('show_all')){
+                $_SESSION['show_all'] = $this->input->post('show_all');
+            } else{
+                unset($_SESSION['show_all']);
+                if ($this->input->post('per_page')){
+                    $_SESSION['per_page'] = $this->input->post('per_page');
+                }
+            }
+            
+            // if($this->input->post('sort')){
+            //     $_SESSION['sort_type'] = $this->input->post('sort');
+            // }
+            
+        }
+        $_SESSION['per_page']  = isset($_SESSION['per_page']) ? $_SESSION['per_page'] : 5;
+        // $_SESSION['sort_type'] = isset($_SESSION['sort_type']) ? $_SESSION['sort_type'] : "";
+        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "";
+
+        $config['per_page'] = $_SESSION['per_page'];
+        // $sort_type          = ($_SESSION['sort_type'] != "none") ? $_SESSION['sort_type'] : "";
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
+
+        $config['base_url']   = base_url("administrator/user/listuser");
+        $config['total_rows'] = $this->user_model->count_all();
+        if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
+            $config['per_page'] = $config['total_rows'];
+            $page = 1;
+            echo "page = 1";
+        }
+
+        $config['use_page_numbers'] = TRUE;
+        $config['uri_segment'] = 4;
+        $config['next_link'] = "Sau";
+        $config['prev_link'] = "Trước";
+        $this->pagination->initialize($config); 
+
+        $start = ($page - 1) * $config['per_page'];
+
+        // echo "sort_type " . $sort_type . "<br/>";
+        // echo "start: " . $start . "<br/>";
+        // echo "per_page" . $config['per_page'] . "<br/>";
+        // echo "page: " . $page;
+        $data['listuser'] = $this->user_model->get_order($sort_type,$start,$config['per_page']);
+
+        $data['link'] = $this->pagination->create_links();
+        $data['per'] = $config['per_page'];
+        // $data['sort_type'] = $_SESSION['sort_type'];
+        $data['show_all'] = $_SESSION['show_all'];
+
         $this->load->view("user/listuser",$data);
-    } // 
+        // $this->load->view("main/main");
+
+    } // end class list user
+
     public function insertUser(){
         $this->load->model("user_model");
         $dataUser = array();
@@ -72,6 +136,45 @@ class user extends CI_Controller{
         // redirect(base_url("/administrator/user/listuser"));
         redirect(base_url("administrator/user/listuser"));
     }
+
+
+    // Huan
+    public function update(){
+            $usr_id = $this->uri->segment(4);
+            $data['userInfo'] = $this->user_model->getOnce($usr_id);
+            if($this->input->post("ok")){
+                 $this->form_validation->set_rules("usr_name", "Ten thanh vien", "trim|required");
+                $this->form_validation->set_rules("usr_password", "Ten thanh vien", "trim|required");
+                $this->form_validation->set_rules("usr_email", "Email", "trim|required|valid_email");
+                $this->form_validation->set_rules("usr_address", "Dia chi khach hang", "trim|required");
+                $this->form_validation->set_rules("usr_phone", "So dien thoai", "trim|required");
+                $this->form_validation->set_rules("usr_gender", "Gioi tinh", "trim|required");
+                $this->form_validation->set_rules("usr_level", "Level", "trim|required");
+
+                $this->form_validation->set_message("required", "%s khong duoc bo trong");
+                $this->form_validation->set_message("min_length", "%s khong duoc nho hon %d ky tu");
+                $this->form_validation->set_message("matches", "%s khong dung");
+                $this->form_validation->set_message("valid_email", "%s khong dung dinh dang");
+                $this->form_validation->set_message("numeric", "%s phai la so");
+
+                $this->form_validation->set_error_delimiters("<span class='error'>", "</span>");
+                if($this->form_validation->run()){
+                     $dataUser = array(
+                                    "usr_name"=>$this->input->post("usr_name"),
+                                    "usr_password"=>$this->input->post("usr_password"),
+                                    "usr_email"=>$this->input->post("usr_email"),
+                                    "usr_address"=>$this->input->post("usr_address"),
+                                    "usr_phone"=>$this->input->post("usr_phone"),
+                                    "usr_gender"=>$this->input->post("usr_gender"),
+                                    "usr_level"=>$this->input->post("usr_level")
+                                );
+                    $this->user_model->update($dataUser,$usr_id);
+                    //redirect(base_url("administrator/users/listusers"));
+                    redirect(base_url("administrator/user/listuser"));
+                }
+            }
+            $this->load->view("user/update", $data);
+    }    
 }
 // end class user
 // end file controller/user.php
