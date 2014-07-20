@@ -21,118 +21,87 @@ class cate extends CI_Controller{
         // print_r($data);
         $_SESSION['listedByID'] = array();
 
+        echo "<table border = '1'>";
+        echo "<th>CategoryID</th>";
+        echo "<th>Category Name</th>";
+        echo "<th>Category Parent</th>";
+        echo "<th>Category Order</th>";
+        echo "<th>Edit</th>";
+        echo "<th>Delete</th>";
         foreach ($data as $key => $cateDetail) {
             // echo "<div id = 'center'>";
-            echo "<ul>";
+            // echo $key;
             $cate_id     = $cateDetail['cate_id'];
             $cate_name   = $cateDetail['cate_name'];
             $cate_parent = $cateDetail['cate_parent'];
             $cate_order  = $cateDetail['cate_order'];
-            echo "<li>";
-            // echo "<pre>" . "listedByID: ";
-            // print_r($listedByID);
-            // echo "cate_id: " . $cate_id;
+            
+            // echo $cate_name . "<br>";
+
+            $strLevel = "";
             if(!in_array($cate_id, $_SESSION['listedByID'])){
-                echo $cate_name;
+                // echo "<ul>";
+                // echo "<li>";
+                echo "<tr>";
+                echo "<td>" . $cate_id . "</td>";
+                echo "<td>" . $strLevel . $cate_name . "</td>";
+                echo "<td>" . $cate_parent . "</td>";
+                echo "<td>" . $cate_order . "</td>";
+                echo "<td><a href = '" . base_url("/administrator/cate/update/") . "/" . $cate_id . "'>Edit</a></td>";
+                echo "<td><a href = '" . base_url("/administrator/cate/delete/") . "/" . $cate_id . "'>Delete</a></td>";
+                echo "</tr>";
+                // echo $cate_name;
                 $_SESSION['listedByID'][] = $cate_id;
-            }
+                /*$keyDelete = "'" . $key.  "'";
+                echo $keyDelete . "= " . $data[$key]['cate_name'] . "ok";
+                echo "<pre>";
+                print_r($data);
+                unset($data[$key]);*/
+                $this->recursive($cate_id,$data,$strLevel);
+                // echo "</li>";
+                // echo "</ul>";
+            } // end if (!inarray)
             
-            
-            $this->recursive($cate_id,$data);
-            echo "</li>";
-            echo "</ul>";
 
         } // end foreach
-        // echo "<pre>";
-        // print_r($listedByID);
-        // echo "</div>"; // end div center
-        // $this->load->view("main/mainfoot");
+        echo "</table>";
+        
     } // end listcate()
 
-    private function recursive($cate_id_parent,$data){
+    private function recursive($cate_id_parent,&$data,$strLevel){
+        $strLevel .= "--";
         foreach ($data as $key => $cateDetail) {
             $cate_id     = $cateDetail['cate_id'];
             $cate_name   = $cateDetail['cate_name'];
             $cate_parent = $cateDetail['cate_parent'];
             $cate_order  = $cateDetail['cate_order'];
+
+            // echo $cate_name . "<br>";
+
             if($cate_parent == $cate_id_parent){
-                // echo "<pre>" . "listedByID: ";
-                // print_r($listedByID);
-                // echo "cate_id: " . $cate_id;
+  
                 if(!in_array($cate_id, $_SESSION['listedByID'])){
                     // echo "inarray" .  in_array($cate_id, $listedByID);
-                    echo "<ul>";
-                    echo "<li>";
-                    echo $cate_name;
+                    echo "<tr>";
+                    echo "<td>" . $cate_id . "</td>";
+                    echo "<td>" . $strLevel . $cate_name . "</td>";
+                    echo "<td>" . $cate_parent . "</td>";
+                    echo "<td>" . $cate_order . "</td>";
+                    echo "<td><a href = '" . base_url("/administrator/cate/update") . "/" . $cate_id . "'>Edit</a></td>";
+                    echo "<td><a href = '" . base_url("/administrator/cate/delete") . "/" . $cate_id . "'>Delete</a></td>";
+                    echo "</tr>";
                     $_SESSION['listedByID'][] = $cate_id;
-                    $this->recursive($cate_id,$data);
-                    echo "</li>";
-                    echo "</ul>";
-                }
+                    /*$keyDelete = "'" . $key.  "'";
+                    unset($data[$key]);*/
+                    $this->recursive($cate_id,$data,$strLevel);
+                    // echo "</li>";
+                    // echo "</ul>";
+                } // end if
                 
                 
             } // end if $cate_parent
         }
     } // end class recursive
 
-    /*public function listcate(){
-        $this->load->model("cate_model");
-        $this->load->library('pagination');
-
-        $sort_type = "";
-        
-        if ($this->input->post('btnok')){
-            if ($this->input->post('show_all')){
-                $_SESSION['show_all'] = $this->input->post('show_all');
-            } else{
-                unset($_SESSION['show_all']);
-                if ($this->input->post('per_page')){
-                    $_SESSION['per_page'] = $this->input->post('per_page');
-                }
-            }
-            
-            if($this->input->post('sort')){
-                $_SESSION['sort_type'] = $this->input->post('sort');
-            }
-            
-        }
-        $_SESSION['per_page']  = isset($_SESSION['per_page']) ? $_SESSION['per_page'] : 5;
-        $_SESSION['sort_type'] = isset($_SESSION['sort_type']) ? $_SESSION['sort_type'] : "";
-        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "";
-
-        $config['per_page'] = $_SESSION['per_page'];
-        $sort_type          = ($_SESSION['sort_type'] != "none") ? $_SESSION['sort_type'] : "";
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
-
-        $config['base_url']   = base_url("administrator/cate/listcate");
-        $config['total_rows'] = $this->cate_model->count_all();
-        if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
-            $config['per_page'] = $config['total_rows'];
-            $page = 1;
-        }
-
-        $config['use_page_numbers'] = TRUE;
-        $config['uri_segment'] = 4;
-        $config['next_link'] = "Sau";
-        $config['prev_link'] = "Trước";
-        $this->pagination->initialize($config); 
-
-        $start = ($page - 1) * $config['per_page'];
-
-        // echo "sort_type " . $sort_type . "<br/>";
-        // echo "start: " . $start . "<br/>";
-        // echo "per_page" . $config['per_page'] . "<br/>";
-        // echo "page: " . $page;
-        $data['listcate'] = $this->cate_model->get_order($sort_type,$start,$config['per_page']);
-
-        $data['link'] = $this->pagination->create_links();
-        $data['per'] = $config['per_page'];
-        $data['sort_type'] = $_SESSION['sort_type'];
-        $data['show_all'] = $_SESSION['show_all'];
-
-        $this->load->view("cate/listcate",$data);
-        // $this->load->view("main/main");
-
-    } // end list_cate()*/
 } // end class cate
 // end file cate.php
