@@ -1,5 +1,9 @@
 <div id = 'center'>
     <h3>List Category</h3>
+    
+
+     <a  href='<?php echo base_url("administrator/cate/insertCategory");?>'>
+                <button style = "style=background-color:green;float:right;">Thêm Category</button></a>
     <table border = '1'>
     <th>CategoryID</th>
     <th>Category Name</th>

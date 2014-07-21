@@ -1,4 +1,4 @@
-</head>
+
 <?php $this->load->view('main/mainhead')?>
 <h3>Insert User</h3>
 <?php

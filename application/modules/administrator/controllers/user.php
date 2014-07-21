@@ -88,7 +88,6 @@ class user extends CI_Controller{
     } // end class list user
 
     public function insertUser(){
-        $this->load->model("user_model");
         $dataUser = array();
         if ($this->input->post('btnok')){
             $this->form_validation->set_rules('usr_name','Username', 'required|alpha_numeric|min_length[6]');
@@ -100,6 +99,7 @@ class user extends CI_Controller{
             $this->form_validation->set_rules('usr_gender','Gender', 'required');
 
             $this->form_validation->set_message("required","%s không được bỏ trống");
+            $this->form_validation->set_message("alpha_numeric","%s chỉ được chứa chữ cái và số");
             $this->form_validation->set_message("min_length","%s không được nhỏ hơn %d ký tự");
             $this->form_validation->set_message("max_length","%s không được lớn hơn %d ký tự");
             $this->form_validation->set_message("matches","%s không khớp");

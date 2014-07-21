@@ -14,22 +14,14 @@ class cate extends CI_Controller{
 
     } // end index()
 
+    // List Category
+    // Writen by HoangHH
     public function listcate(){
-        $ref = 'a';
-        // $this->load->view("main/mainhead");
         $rawList = $this->cate_model->getAll();
         $orderList = array();
-        // echo "<pre>";
-        // print_r($rawList);
+
         $_SESSION['listedByID'] = array();
 
-        // echo "<table border = '1'>";
-        // echo "<th>CategoryID</th>";
-        // echo "<th>Category Name</th>";
-        // echo "<th>Category Parent</th>";
-        // echo "<th>Category Order</th>";
-        // echo "<th>Edit</th>";
-        // echo "<th>Delete</th>";
         foreach ($rawList as $key => $cateDetail) {
             // echo "<div id = 'center'>";
             // echo $key;
@@ -38,27 +30,10 @@ class cate extends CI_Controller{
             $cate_parent = $cateDetail['cate_parent'];
             $cate_order  = $cateDetail['cate_order'];
             
-            // echo $cate_name . "<br>";
-
             $strLevel = "";
             if(!in_array($cate_id, $_SESSION['listedByID'])){
-                // echo "<ul>";
-                // echo "<li>";
-                // echo "<tr>";
-                // echo "<td>" . $cate_id . "</td>";
-                // echo "<td>" . $strLevel . $cate_name . "</td>";
-                // echo "<td>" . $cate_parent . "</td>";
-                // echo "<td>" . $cate_order . "</td>";
-                // echo "<td><a href = '" . base_url("/administrator/cate/update/") . "/" . $cate_id . "'>Edit</a></td>";
-                // echo "<td><a href = '" . base_url("/administrator/cate/delete/") . "/" . $cate_id . "'>Delete</a></td>";
-                // echo "</tr>";
-                // echo $cate_name;
                 $_SESSION['listedByID'][] = $cate_id;
-                /*$keyDelete = "'" . $key.  "'";
-                echo $keyDelete . "= " . $rawList[$key]['cate_name'] . "ok";
-                echo "<pre>";
-                print_r($rawList);
-                unset($rawList[$key]);*/
+
                 $orderList[] = array(
                     'cate_id' => $cate_id,
                     'cate_name' => $strLevel . $cate_name,
@@ -66,24 +41,93 @@ class cate extends CI_Controller{
                     'cate_order' => $cate_order
                     );
                 $this->recursive($cate_id,$rawList,$strLevel,$orderList);
-                // echo "</li>";
-                // echo "</ul>";
+
             } // end if (!inarray)
             
 
         } // end foreach
-        echo "</table>";
-        // echo "<pre>";
-        // print_r($orderList);
+        // echo "</table>";
+
         $data['orderList'] = array_merge($orderList);
-        // echo "<pre>";
-        // print_r($data);
-        // echo $a;
+
         $data['template'] = "cate/listcategory";
         $this->load->view('layout/layout',$data);
         
     } // end listcate()
 
+    // Insert Category (account 5)
+    // Writen by HoangHH
+    public function insertCategory(){
+
+        // get information exist category
+        $rawList = $this->cate_model->getAll();
+        $orderList = array();
+        $_SESSION['listedByID'] = array();
+
+        foreach ($rawList as $key => $cateDetail) {
+            $cate_id     = $cateDetail['cate_id'];
+            $cate_name   = $cateDetail['cate_name'];
+            $cate_parent = $cateDetail['cate_parent'];
+            $cate_order  = $cateDetail['cate_order'];
+            
+            $strLevel = "";
+            if(!in_array($cate_id, $_SESSION['listedByID'])){
+                $_SESSION['listedByID'][] = $cate_id;
+
+                $orderList[] = array(
+                    'cate_id' => $cate_id,
+                    'cate_name' => $strLevel . $cate_name,
+                    'cate_parent' => $cate_parent,
+                    'cate_order' => $cate_order
+                    );
+                $this->recursive($cate_id,$rawList,$strLevel,$orderList);
+
+            } // end if (!inarray)
+        } // end foreach
+
+        // list Category name for insert
+        $ListInsert = array();
+        foreach ($orderList as $key => $value) {
+            // $CateID = $value['cate_id'];
+            $ListInsert[] = array(
+                'cate_id' => $value['cate_id'],
+                'cate_name' => $value['cate_name']
+                );
+        } // 
+
+        // echo "<pre>";
+        // print_r($ListInsert);
+        $data['ListInsert'] = array_merge($ListInsert);
+        $data['template'] = "cate/insertcategory";
+        
+        $DataCate = array();
+        if ($this->input->post('btnok')){
+            $this->form_validation->set_rules('cate_name','Tên Category', 'required');
+            // $this->form_validation->set_rules('cate_order','Thứ tự');
+            
+            $this->form_validation->set_message("required","%s không được bỏ trống");
+            $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
+
+            if($this->form_validation->run()){
+                $DataCate = array(
+                        'cate_name'           => $this->input->post('cate_name'),
+                        'cate_parent'          => $this->input->post('cate_parent'),
+                        'cate_order'           => $this->input->post('cate_order')
+                        ); // end array
+                // echo "<pre>";
+                // print_r($DataCate);
+                $this->cate_model->insert($DataCate);
+                redirect(base_url("administrator/cate/listcateg"));
+            } // end from_validation->run()
+
+        } // end isset btnok
+
+        $this->load->view("layout/layout",$data);
+    } // end insertCategory()
+
+
+    // recursive for list Category (account 2)
+    // writen by HoangHH
     private function recursive($cate_id_parent,$rawList,$strLevel,&$orderList){
         $strLevel .= "--";
         // $a = 'b';
@@ -93,20 +137,10 @@ class cate extends CI_Controller{
             $cate_parent = $cateDetail['cate_parent'];
             $cate_order  = $cateDetail['cate_order'];
 
-            // echo $cate_name . "<br>";
-
             if($cate_parent == $cate_id_parent){
   
                 if(!in_array($cate_id, $_SESSION['listedByID'])){
-                    // echo "inarray" .  in_array($cate_id, $listedByID);
-                    // echo "<tr>";
-                    // echo "<td>" . $cate_id . "</td>";
-                    // echo "<td>" . $strLevel . $cate_name . "</td>";
-                    // echo "<td>" . $cate_parent . "</td>";
-                    // echo "<td>" . $cate_order . "</td>";
-                    // echo "<td><a href = '" . base_url("/administrator/cate/update") . "/" . $cate_id . "'>Edit</a></td>";
-                    // echo "<td><a href = '" . base_url("/administrator/cate/delete") . "/" . $cate_id . "'>Delete</a></td>";
-                    // echo "</tr>";
+
                     $orderList[] = array(
                     'cate_id' => $cate_id,
                     'cate_name' => $strLevel . $cate_name,
@@ -114,11 +148,9 @@ class cate extends CI_Controller{
                     'cate_order' => $cate_order
                     );
                     $_SESSION['listedByID'][] = $cate_id;
-                    /*$keyDelete = "'" . $key.  "'";
-                    unset($rawList[$key]);*/
+
                     $this->recursive($cate_id,$rawList,$strLevel,$orderList);
-                    // echo "</li>";
-                    // echo "</ul>";
+
                 } // end if
                 
                 

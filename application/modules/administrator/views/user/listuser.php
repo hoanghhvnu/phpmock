@@ -17,8 +17,10 @@
                     <?php echo form_fieldset_close();?>
             </div>
 
-
-            <a href="insertuser">Thêm User</a>
+            
+            <a  href='<?php echo base_url("administrator/user/insertuser");?>'>
+                <button style = "style=background-color:green;float:right;">Thêm User</button></a>
+            
 
         <?php  echo "Trang: ";
                 echo isset($link) ? $link : "";  ?>
