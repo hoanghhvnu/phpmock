@@ -14,7 +14,8 @@ class product extends CI_Controller{
           session_start();
     }
     public function index(){
-        $this->load->view("product/productList");
+        // $this->load->view("product/productList");
+        redirect(base_url("administrator/product/listproduct"));
     }
     
 //    public function listAll(){
@@ -22,6 +23,7 @@ class product extends CI_Controller{
 //        $this->load->view("product/productList",$data);
 //    }
     
+    // Writen by DucTM
     public function listproduct(){
             $sort_type = "";
         
@@ -72,8 +74,16 @@ class product extends CI_Controller{
 
         $this->load->view("product/listproduct",$data);
 
-    }
-}
+    } // end listproduct()
+
+    // writen by HoangHH
+    public function delete(){
+        $pro_id = $this->uri->segment(4);
+        $this->product_model->deleteProduct($pro_id);
+        
+        redirect(base_url("administrator/product/listproduct"));
+    } // end delete()
+} // end class product
     
 
 ?>

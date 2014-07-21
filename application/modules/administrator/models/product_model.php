@@ -39,7 +39,14 @@ class product_model extends CI_Model{
             $data[] = $row; 
         }
         return $data;
+    } // end get_order()
+
+    // writen by HoangHH
+    public function deleteProduct($id){
+        $this->db->where("pro_id = $id");
+        $this->db->delete($this->_table);
+    
     }
-}
+} // end class product_model
 
 ?>

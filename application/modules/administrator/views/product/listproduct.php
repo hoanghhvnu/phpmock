@@ -18,16 +18,19 @@
     <?php
     echo "<table border='1' cellpadding='0' cellspacing='0'>";
         echo "<tr>";
-        echo "<td>Product ID</td>";
-        echo "<td>Product Name</td>";
-        echo "<td>Product Price</td>";
-        echo "<td>Product Price Sale</td>";
-        echo "<td>Product Image</td>";
-        echo "<td>Product Description</td>";
-        echo "<td>Product Infomation</td>";
-        echo "<td>Product Status</td>";
-        echo "<td>Product Brand</td>";
-        echo "<td>Product Country</td>";
+        echo "<th>ID</th>";
+        echo "<th>Name</th>";
+        echo "<th>Price</th>";
+        echo "<th>Price Sale</th>";
+        echo "<th>Image</th>";
+        echo "<th>Description</th>";
+        echo "<th>Infomation</th>";
+        echo "<th>Status</th>";
+        echo "<th>Brand</th>";
+        echo "<th>Country</th>";
+        echo "<th>Edit</th>";
+        echo "<th>Delete</th>";
+
         echo "</tr>";
         if(isset($listproduct) && $listproduct !=null){
         foreach($listproduct as $list){
@@ -42,6 +45,8 @@
             echo "<td>".$list['pro_status']."</td>";
             echo "<td>".$list['bran_id']."</td>";
             echo "<td>".$list['country_id']."</td>";
+            echo "<td><a href = '" . base_url("/administrator/product/update/") . "/" . $list['pro_id'] . "'>Edit</a></td>";
+            echo "<td><a href = '" . base_url("/administrator/product/delete/") . "/" . $list['pro_id'] . "'>Delete</a></td>";
             echo "</tr>";
         }
     }
