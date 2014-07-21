@@ -8,15 +8,7 @@
         <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
         <span>Hiện tất cả </span><input type = 'checkbox' name = 'show_all' value = 'show'>
         <br/>
-        <label>Sắp xếp:</label>
-        <span>Tăng dần</span>
-        <input type = 'radio' name = 'sort' value = 'asc' <?php echo isset($sort_type) && $sort_type == 'asc' ? "checked" : "";?>>
-        <span>Giảm dần</span>
-        <input type = 'radio' name = 'sort' value = 'desc' <?php 
-        echo isset($sort_type) && $sort_type == 'desc' ? "checked" : "";?>>
-        <span>Không sắp xếp</span>
-        <input type = 'radio' name = 'sort' value = 'none' <?php echo isset($sort_type) && $sort_type == 'none' ? "checked" : "";?>>
-        <br/>
+        
         <input type = 'submit' name = 'btnok' value = 'Gửi'>
     </form>
         <?php echo form_fieldset_close();;?>
@@ -26,8 +18,28 @@
         <?php  echo "Trang: ";
                 echo isset($link) ? $link : "";  ?>
         <table border = '1'>
-            <th>ID</th>
-            <th>name</th>
+            <?php
+                // print_r($column);
+                // echo $_SESSION['per_page'];
+                // echo $_SESSION['show_all'];
+                if ($sortType == 'asc'){
+                    $newSort = 'desc';
+                    $imageName = "up-arrow-sort.png";
+                }else{
+                    $newSort = 'asc';
+                    $imageName = "down-arrow-sort.png";
+                }
+            ?>
+            <!-- <th>ID</th>
+            <th>name</th> -->
+
+            <th><a href = '<?php echo base_url("administrator/bran/listbran/bran_id/$newSort/1") ?>'>ID</a>
+                <?php if ($column == 'bran_id') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/bran/listbran/bran_name/$newSort/1") ?>'>Name</a>
+                <?php if ($column == 'bran_name') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+
             <th>Edit</th>
             <th>Delete</th>
                 <?php

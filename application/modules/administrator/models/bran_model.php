@@ -17,13 +17,13 @@ class bran_model extends CI_Model{
         // return $this->db->get($this->_table)->result_array();
     }
 
-    public function get_order($type = '', $limit = '', $start = ''){
+    public function get_order($column,$type = '', $limit = '', $start = ''){
         // $this->db->select("*");
         // $this->db->from($this->_table);
         // $this->db->order_by("bran_name");
         // return $this->db->get($this->_table);
         $sql = "SELECT * FROM {$this->_table}";
-        if($type) $sql .=" ORDER BY bran_name {$type}";
+        if($type) $sql .=" ORDER BY {$column} {$type}";
         $sql .= " LIMIT {$limit},{$start}";
         
         // echo $sql;

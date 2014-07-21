@@ -14,7 +14,7 @@
                     <br/>
                     <input type = 'submit' name = 'btnok' value = 'Gửi'>
                 </form>
-                    <?php echo form_fieldset_close();;?>
+                    <?php echo form_fieldset_close();?>
             </div>
 
 
@@ -23,14 +23,50 @@
         <?php  echo "Trang: ";
                 echo isset($link) ? $link : "";  ?>
         <table border = 1 id = 'listuser'>
-            <th>ID</th>
-            <th>name</th>
+            <?php
+                // print_r($column);
+                // echo $_SESSION['per_page'];
+                // echo $_SESSION['show_all'];
+                if ($sortType == 'asc'){
+                    $newSort = 'desc';
+                    $imageName = "up-arrow-sort.png";
+                }else{
+                    $newSort = 'asc';
+                    $imageName = "down-arrow-sort.png";
+                }
+            ?>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_id/$newSort/1") ?>'>ID</a>
+                <?php if ($column == 'usr_id') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_name/$newSort/1") ?>'>Name</a>
+                <?php if ($column == 'usr_name') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_password/$newSort/1") ?>'>Password</a>
+                <?php if ($column == 'usr_password') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_email/$newSort/1") ?>'>Email</a>
+                <?php if ($column == 'usr_email') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_address/$newSort/1") ?>'>Address</a>
+                <?php if ($column == 'usr_address') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_phone/$newSort/1") ?>'>Phone</a>
+                <?php if ($column == 'usr_phone') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_gender/$newSort/1") ?>'>Gender</a>
+                <?php if ($column == 'usr_gender') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            <th><a href = '<?php echo base_url("administrator/user/listuser/usr_level/$newSort/1") ?>'>Level</a>
+                <?php if ($column == 'usr_level') echo "<img src = '" . base_url("public/images") . "/" . $imageName . "'>";?>
+            </th>
+            
+            <!-- <th>name</th>
             <th>password</th>
             <th>email</th>
             <th>address</th>
             <th>phone</th>
             <th>gender</th>
-            <th>level</th>
+            <th>level</th> -->
             <th>Edit</th>
             <th>Delete</th>
             <?php

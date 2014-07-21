@@ -6,7 +6,7 @@ class user extends CI_Controller{
         $this->load->library("form_validation");
         $this->load->model("user_model");
         $this->load->library('pagination');
-        // session_start();
+        session_start();
 
     } // end __construct
 
@@ -25,60 +25,62 @@ class user extends CI_Controller{
 
 
     public function listuser(){
-        // $this->load->model("user_model");
-        
-
-        $sort_type = "";
+        $sortType = ($this->uri->segment(5)) ? $this->uri->segment(5) : 'asc';
+        $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'usr_id';
+        // echo "sort" . $sortType;
+        // echo "column" . $column;
         
         if ($this->input->post('btnok')){
             if ($this->input->post('show_all')){
                 $_SESSION['show_all'] = $this->input->post('show_all');
             } else{
-                unset($_SESSION['show_all']);
+                if(isset($_SESSION['show_all'])) unset($_SESSION['show_all']);
                 if ($this->input->post('per_page')){
-                    $_SESSION['per_page'] = $this->input->post('per_page');
+                    $_SESSION['PerPageListUser'] = $this->input->post('per_page');
                 }
             }
             
             // if($this->input->post('sort')){
-            //     $_SESSION['sort_type'] = $this->input->post('sort');
+            //     $_SESSION['sortType'] = $this->input->post('sort');
             // }
             
         }
-        $_SESSION['per_page']  = isset($_SESSION['per_page']) ? $_SESSION['per_page'] : 5;
-        // $_SESSION['sort_type'] = isset($_SESSION['sort_type']) ? $_SESSION['sort_type'] : "";
-        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "";
+        // echo $_SESSION['PerPageListUser'];
+        $_SESSION['PerPageListUser']  = isset($_SESSION['PerPageListUser']) ? $_SESSION['PerPageListUser'] : 5;
+        // $_SESSION['sortType'] = isset($_SESSION['sortType']) ? $_SESSION['sortType'] : "";
+        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "no";
 
-        $config['per_page'] = $_SESSION['per_page'];
-        // $sort_type          = ($_SESSION['sort_type'] != "none") ? $_SESSION['sort_type'] : "";
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
+        $config['per_page'] = $_SESSION['PerPageListUser'];
+        // $sortType          = ($_SESSION['sortType'] != "none") ? $_SESSION['sortType'] : "";
+        $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
 
-        $config['base_url']   = base_url("administrator/user/listuser");
+        $config['base_url']   = base_url("administrator/user/listuser/$column/$sortType/");
         $config['total_rows'] = $this->user_model->count_all();
         if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
-            echo "page = 1";
+            // echo "page = 1";
         }
 
         $config['use_page_numbers'] = TRUE;
-        $config['uri_segment'] = 4;
+        $config['uri_segment'] = 6;
         $config['next_link'] = "Sau";
         $config['prev_link'] = "Trước";
         $this->pagination->initialize($config); 
 
         $start = ($page - 1) * $config['per_page'];
 
-        // echo "sort_type " . $sort_type . "<br/>";
+        // echo "sortType " . $sortType . "<br/>";
         // echo "start: " . $start . "<br/>";
         // echo "per_page" . $config['per_page'] . "<br/>";
         // echo "page: " . $page;
-        $data['listuser'] = $this->user_model->get_order($sort_type,$start,$config['per_page']);
+        $data['listuser'] = $this->user_model->get_order($column,$sortType,$start,$config['per_page']);
 
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
-        // $data['sort_type'] = $_SESSION['sort_type'];
+        $data['sortType'] = $sortType;
         $data['show_all'] = $_SESSION['show_all'];
+        $data['column'] = $column;
 
         $this->load->view("user/listuser",$data);
         // $this->load->view("main/main");
