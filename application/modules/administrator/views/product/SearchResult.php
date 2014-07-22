@@ -50,7 +50,7 @@
             echo "<td>".$list['pro_name']."</td>";
             echo "<td>".$list['pro_price']."</td>";
             echo "<td>".$list['pro_price_sale']."</td>";
-            echo "<td>".$list['pro_images']."</td>";
+            echo "<td>". "<img width= 100 height = 150 src='" . base_url("/public/images/") . "/" . $list['pro_images']."'></td>";
             echo "<td>".$list['pro_desc']."</td>";
             echo "<td>".$list['pro_info']."</td>";
             echo "<td>".$list['pro_status']."</td>";

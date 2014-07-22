@@ -9,8 +9,11 @@ class product extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model("product_model");
+        $this->load->model("bran_model");
+        $this->load->model("country_model");
         $this->load->library("pagination");
         $this->load->helper("url");
+
         session_start();
     }
     public function index(){
@@ -86,8 +89,7 @@ class product extends CI_Controller{
 
     // Writen by HoangHH
     public function searchProduct(){
-        $this->load->model("bran_model");
-        $this->load->model("country_model");
+        
         $data['ListBrand'] = $this->bran_model->getAll();
         $data['ListCountry'] = $this->country_model->getAll();
 
@@ -122,6 +124,7 @@ class product extends CI_Controller{
                 // $data['SearchResult'] = $this->product_model->getSearch($_SESSION['DataWhereCleanForSearchProduct'],5,0);
                 // $data['template'] = "product/SearchResult";
                 redirect(base_url("administrator/product/searchResult"));
+
             } // end else
         }else{
             $data['template'] = "product/SearchProduct";
@@ -133,6 +136,7 @@ class product extends CI_Controller{
 
     // writen by HoangHH
     public function searchResult(){
+
 
         if ($this->input->post('btnok')){
             if ($this->input->post('show_all')){
@@ -171,6 +175,11 @@ class product extends CI_Controller{
         $data['per'] = $config['per_page'];
         $data['show_all'] = $_SESSION['show_all'];
         $data['SearchResult'] = $this->product_model->getSearch($_SESSION['DataWhereCleanForSearchProduct'],$start,$config['per_page']);
+        // $date['SearchResult']['bran_id'] = $this->bran_model->getOnce($data['SearchResult']['bran_id']);
+        // echo $data['SearchResult']['bran_id'];
+        // echo "<pre>";
+        // print_r($data['SearchResult']);
+        // $bran_name = $this->bran_model->getOnce($data['SearchResult']['bran_id']);
         $data['template'] = "product/SearchResult";
         $this->load->view("layout/layout",$data);
     } // end searchResult()

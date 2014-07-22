@@ -47,6 +47,9 @@ class product_model extends CI_Model{
         $this->db->delete($this->_table);
         $this->db->where("pro_id = $id");
         $this->db->delete("tbl_cateproduct");
+        $this->db->where("pro_id = $id");
+        $this->db->delete("tbl_images");
+        
     
     } // end deleteProduct
 
@@ -80,7 +83,7 @@ class product_model extends CI_Model{
     // writen by HoangHH
     public function getSearch($where, $start, $limit){
         // return $this->db->get_where($this->_table, $where, $limit, $start) -> result_array();
-        $this->db->where($where);
+        $this->db->like($where);
         $this->db->limit($limit,$start);
         return $this->db->get($this->_table)->result_array();
         // // echo $query;
