@@ -198,3 +198,8 @@ input[type='text'],input[type='password']{
 	top:220px;
 }
 
+#listproduct{
+	float:left;
+	position: absolute;
+	top:220px;
+}

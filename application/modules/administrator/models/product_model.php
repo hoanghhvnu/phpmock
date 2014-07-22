@@ -45,8 +45,51 @@ class product_model extends CI_Model{
     public function deleteProduct($id){
         $this->db->where("pro_id = $id");
         $this->db->delete($this->_table);
+        $this->db->where("pro_id = $id");
+        $this->db->delete("tbl_cateproduct");
     
-    }
+    } // end deleteProduct
+
+    // writen by HoangHH
+    // public function getAllBrand(){
+    //     $sql = "SELECT * FROM tbl_bran";
+    //     $result = mysql_query($sql);
+    //     $data = array();
+    //     while($row = mysql_fetch_assoc($result)){
+    //         $data[] = $row; 
+    //     }
+    //     return $data;
+    // } // end getAllBrand
+
+    // writen by HoangHH
+    public function getAllCountry(){
+        $sql = "SELECT * FROM tbl_country";
+        $result = mysql_query($sql);
+        $data = array();
+        while($row = mysql_fetch_assoc($result)){
+            $data[] = $row; 
+        }
+        return $data;
+    } // end getAllCountry
+
+    // writen by HoangHH
+    public function getSearch($where,$limit,$start){
+        // return $this->db->get_where($this->_table, $where, $limit, $start) -> result_array();
+        $this->db->where($where);
+        $this->db->limit($limit,$start);
+        return $this->db->get($this->_table)->result_array();
+        // // echo $query;
+        // $data = array();
+        // foreach ($query->result() as $row)
+        // {
+        //     $data[] = $row;
+        // }
+        // return $data;
+        // while($row = mysql_fetch_assoc($query)){
+        //     $data[] = $row; 
+        // }
+        // return $data;
+    } // end getSearch()
 } // end class product_model
 
 ?>

@@ -117,7 +117,7 @@ class cate extends CI_Controller{
                 // echo "<pre>";
                 // print_r($DataCate);
                 $this->cate_model->insert($DataCate);
-                redirect(base_url("administrator/cate/listcateg"));
+                redirect(base_url("administrator/cate/listcate"));
             } // end from_validation->run()
 
         } // end isset btnok
@@ -129,7 +129,7 @@ class cate extends CI_Controller{
     // recursive for list Category (account 2)
     // writen by HoangHH
     private function recursive($cate_id_parent,$rawList,$strLevel,&$orderList){
-        $strLevel .= "--";
+        $strLevel .= "----   ";
         // $a = 'b';
         foreach ($rawList as $key => $cateDetail) {
             $cate_id     = $cateDetail['cate_id'];

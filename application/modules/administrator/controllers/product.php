@@ -83,6 +83,50 @@ class product extends CI_Controller{
         
         redirect(base_url("administrator/product/listproduct"));
     } // end delete()
+
+    // Writen by HoangHH
+    public function searchProduct(){
+        $this->load->model("bran_model");
+        $this->load->model("country_model");
+        $data['ListBrand'] = $this->bran_model->getAll();
+        $data['ListCountry'] = $this->country_model->getAll();
+        $dataWhere = array(
+            'pro_id' => $this->input->post('pro_id'),
+            'pro_name' => $this->input->post('pro_name'),
+            'pro_price' => $this->input->post('pro_price'),
+            'pro_price_sale' => $this->input->post('pro_price_sale'),
+            'pro_images' => $this->input->post('pro_images'),
+            'pro_desc' => $this->input->post('pro_desc'),
+            'pro_info' => $this->input->post('pro_info'),
+            'pro_status' => $this->input->post('pro_status'),
+            'bran_id' => $this->input->post('bran_id'),
+            'country_id' => $this->input->post('coun_id')
+            
+            );
+
+        $dataWhereClean = array();
+        foreach ($dataWhere as $key => $value) {
+            # code...
+            if($value){
+                $dataWhereClean[$key] = $value;
+            }
+        } // end foreach
+        if(empty($dataWhereClean)){
+            $data['error'] = "Vui lòng nhập ít nhất một thông tin để tìm kiếm!";
+            $data['template'] = "product/SearchProduct";
+        } else{
+            $data['SearchResult'] = $this->product_model->getSearch($dataWhereClean,10,0);
+            $data['template'] = "product/SearchResult";
+        } // end else
+        // echo "<pre>";
+        // print_r($dataWhere);
+        // print_r($dataWhereClean);
+        
+        // echo "<pre>";
+        // print_r($data['SearchResult']);
+        
+        $this->load->view("layout/layout",$data);
+    } // end searchProduct()
 } // end class product
     
 

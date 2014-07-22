@@ -33,7 +33,7 @@
     // echo "<pre>";
     // print_r($CateParent);
 
-    echo form_dropdown('cate_parent',$CateParent, '0') . "<br/>";
+    echo form_dropdown('cate_parent',$CateParent, '0', "size = 15") . "<br/>";
     // echo $usr_level;
 
     echo form_label("Category order");
