@@ -13,7 +13,7 @@
         <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
         <span>Show all</span><input type = 'checkbox' name = 'show_all' value = 'show'>
         <br/>
-        <input type = 'submit' name = 'btnSubmit' value = 'Submit'>
+        <input type = 'submit' name = 'btnok' value = 'Submit'>
     </form>
 </div>
 <a  href='<?php echo base_url("administrator/product/searchproduct");?>'>

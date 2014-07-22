@@ -62,7 +62,7 @@ class product_model extends CI_Model{
     // } // end getAllBrand
 
     // writen by HoangHH
-    public function getAllCountry(){
+    /*public function getAllCountry(){
         $sql = "SELECT * FROM tbl_country";
         $result = mysql_query($sql);
         $data = array();
@@ -70,10 +70,15 @@ class product_model extends CI_Model{
             $data[] = $row; 
         }
         return $data;
-    } // end getAllCountry
+    } // end getAllCountry*/
+    public function count_all(){
+        $this->db->from($this->_table);
+        return $this->db->count_all_results();
+        // return $this->db->get($this->_table)->result_array();
+    }
 
     // writen by HoangHH
-    public function getSearch($where,$limit,$start){
+    public function getSearch($where, $start, $limit){
         // return $this->db->get_where($this->_table, $where, $limit, $start) -> result_array();
         $this->db->where($where);
         $this->db->limit($limit,$start);
