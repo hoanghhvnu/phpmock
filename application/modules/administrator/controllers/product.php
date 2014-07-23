@@ -83,6 +83,8 @@ class product extends CI_Controller{
         $data['sort_type'] = $_SESSION['sort_type'];
         $data['show_all'] = $_SESSION['show_all'];
 
+        $data['ListBrand'] = $this->bran_model->getAll();
+        $data['ListCountry'] = $this->country_model->getAll();
         $data['template'] = "product/listproduct";
         $this->load->view("layout/layout",$data);
 
@@ -391,7 +393,99 @@ class product extends CI_Controller{
 
 
 
+// HuanDT
+     public function insertProduct(){
+         //get bran   
+         $data['bran'] =$this->bran_model->getAll();
+         //get country
+         $data['country'] =$this->country_model->getAll();    
+         // lay ra category
+         $data['listCategory'] = $this->getDataInsertCategory(0);
+         // lay ra anh
 
+         // Thuc hien viec update
+          if($this->input->post("ok")){
+            $this->form_validation->set_rules("pro_name","Ten product ","trim|required");        
+             $this->form_validation->set_rules("pro_price","Gia goc ","trim|required|numeric");
+             $this->form_validation->set_rules("pro_price_sale","Gia ban ","trim|required|numeric");
+             $this->form_validation->set_rules("pro_desc","Mo ta san pham ","trim|required");
+             $this->form_validation->set_rules("pro_info","Thong tin ","trim|required");
+             $this->form_validation->set_rules("pro_status","Trang thai ","trim|required|numeric");
+             $this->form_validation->set_rules("bran_id","Ten nhan","trim|required|numeric");
+             $this->form_validation->set_rules("country_id","Gia ban ","trim|required|numeric");
+             $this->form_validation->set_rules("pro_quantity","So luong ","trim|required|numeric");
+             $this->form_validation->set_message("required","%s khong duoc bo trong");
+             $this->form_validation->set_message("numeric","%s phai la so");
+             $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
+             if($this->form_validation->run()){
+
+                 $updateName=$this->input->post("pro_name");
+                 $listall=$this->product_model->getAll();
+                 foreach ($listall as $row) {
+                 if (in_array(trim($updateName),$row)) $data['errorName']="Da ton tai";
+
+                 } // end if in_aaray
+               
+                 if (!isset($data['errorName'])) {
+         
+                 $filename=$_FILES['pro_images']['name'];
+
+                 if ($_FILES['pro_images']['error']==0) {                    
+                     $this->upImage('pro_images');
+                 } // end if file
+
+                 $dataProduct = array(
+                     "pro_name"=>$this->input->post("pro_name"),
+                     "pro_price"=>$this->input->post("pro_price"),
+                     "pro_price_sale"=>$this->input->post("pro_price_sale"),
+                     "pro_images"=>$filename,
+                     "pro_desc"=>$this->input->post("pro_desc"),
+                     "pro_info"=>$this->input->post("pro_info"),
+                     "pro_status"=>$this->input->post("pro_status"),
+                     "bran_id"=>$this->input->post("bran_id"),
+                     "country_id"=>$this->input->post("country_id"),
+                     "pro_quantity"=>$this->input->post("pro_quantity")     
+                     );     
+                 $this->product_model->insertProduct($dataProduct);               
+                     $cate=array();
+                      $cate=$this->input->post("category");
+                    //lay id product
+                      $detailpro=$this->product_model->detail($this->input->post("pro_name"));
+
+                foreach($cate as $key=>$val) {
+                    // echo $val;
+                    $datacate= array( 
+                        "cate_id"=>$val,
+                        "pro_id"=>$detailpro['pro_id'],
+                        "catepro_order"=>'1'   
+                    );
+                    $this->cateproduct_model->insertCate($datacate);     
+                }
+                                 $filename=$_FILES['file']['name'];
+                 if ($_FILES['file']['error']==0) {
+                 echo $filename;
+                 $imageInfo = array (
+                                "img_name"=>$filename,
+                                "pro_id"=>$detailpro['pro_id'],
+                                
+                 
+                 );
+                 $this->upImage('file');
+
+                 $this->images_model->insert($imageInfo);
+
+                 }
+                 redirect(base_url("administrator/product/listproduct"));
+                 }
+                  
+                 }
+          }
+         
+        $data['template'] = "product/insertProduct";
+        $this->load->view("layout/layout",$data);
+     }
+     // end function insertProduct
+// end HuanDT
 } // end class product
     
 

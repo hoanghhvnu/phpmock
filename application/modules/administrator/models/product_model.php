@@ -53,27 +53,7 @@ class product_model extends CI_Model{
     
     } // end deleteProduct
 
-    // writen by HoangHH
-    // public function getAllBrand(){
-    //     $sql = "SELECT * FROM tbl_bran";
-    //     $result = mysql_query($sql);
-    //     $data = array();
-    //     while($row = mysql_fetch_assoc($result)){
-    //         $data[] = $row; 
-    //     }
-    //     return $data;
-    // } // end getAllBrand
-
-    // writen by HoangHH
-    /*public function getAllCountry(){
-        $sql = "SELECT * FROM tbl_country";
-        $result = mysql_query($sql);
-        $data = array();
-        while($row = mysql_fetch_assoc($result)){
-            $data[] = $row; 
-        }
-        return $data;
-    } // end getAllCountry*/
+    
     public function count_all(){
         $this->db->from($this->_table);
         return $this->db->count_all_results();
@@ -114,6 +94,15 @@ class product_model extends CI_Model{
         return $this->db->get($this->_table)->row_array();
     }
     // end VietDQ
+
+     /*
+    * HuanDT lam function insertProduct
+    */
+    // start insertProduct
+    public function insertProduct($data){
+        $this->db->insert($this->_table,$data);
+    } // end insert()
+    // end insertProduct
 } // end class product_model
 
 ?>

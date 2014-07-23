@@ -65,7 +65,7 @@
             echo "<tr>";
             echo "<td>".$list['pro_id']."</td>";
             echo "<td>".$list['pro_name']."</td>";
-            echo "<td>". "<img width= 90 height = 140 src='" . base_url("/public/images/") . "/" . $list['pro_images']."'></td>";
+            echo "<td>". "<img width= 90 height = 140 src='" . base_url("uploads/product") . "/" . $list['pro_images']."'></td>";
             echo "<td>".$list['pro_price']."</td>";
             echo "<td>".$list['pro_price_sale']."</td>";
             
