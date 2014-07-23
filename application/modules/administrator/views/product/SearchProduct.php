@@ -78,6 +78,15 @@
             echo form_input($pro_info);
             echo "<br/>";
 
+            echo form_label("Product Quantity");
+            $pro_quantity = array(
+                            'class' => 'input_text',
+                            'type' => 'text',
+                            'name' => 'pro_quantity'
+                            );
+            echo form_input($pro_quantity);
+            echo "<br/>";
+
             echo form_label("Product status");
             $StatusActive = array(
                 'name'  => 'pro_status',

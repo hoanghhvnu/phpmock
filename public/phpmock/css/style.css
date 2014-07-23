@@ -135,10 +135,11 @@ a{
 	font-size:13px;
 }
 #center table,#center table td{
-	border:1px solid #999;
+	border:1px solid #000;
 	margin-top:15px;
 	height:30px;
 }
+
 #center .header{
 	background:#CCC;
 	height:32px;
@@ -202,4 +203,8 @@ input[type='text'],input[type='password']{
 	float:left;
 	position: absolute;
 	top:220px;
+}
+
+th{
+	color: black;
 }

@@ -86,17 +86,13 @@ class product_model extends CI_Model{
         $this->db->like($where);
         $this->db->limit($limit,$start);
         return $this->db->get($this->_table)->result_array();
-        // // echo $query;
-        // $data = array();
-        // foreach ($query->result() as $row)
-        // {
-        //     $data[] = $row;
-        // }
-        // return $data;
-        // while($row = mysql_fetch_assoc($query)){
-        //     $data[] = $row; 
-        // }
-        // return $data;
+    } // end getSearch()
+
+    public function getSearchAll($where){
+        // return $this->db->get_where($this->_table, $where, $limit, $start) -> result_array();
+        $this->db->like($where);
+        
+        return $this->db->get($this->_table)->result_array();
     } // end getSearch()
 } // end class product_model
 

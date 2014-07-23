@@ -105,9 +105,12 @@ class product extends CI_Controller{
                 'pro_images'     => $this->input->post('pro_images'),
                 'pro_desc'       => $this->input->post('pro_desc'),
                 'pro_info'       => $this->input->post('pro_info'),
+                'pro_quantity'=> $this->input->post('pro_quantity'),
                 'pro_status'     => $this->input->post('pro_status'),
                 'bran_id'        => $this->input->post('bran_id'),
                 'country_id'     => $this->input->post('coun_id')
+
+
                 );
 
             $dataWhereClean = array();
@@ -156,7 +159,11 @@ class product extends CI_Controller{
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
 
         $config['base_url']   = base_url("administrator/product/searchResult/");
-        $config['total_rows'] = $this->product_model->count_all();
+        // config laij total_rows
+        // $config['total_rows'] = $this->product_model->count_all();
+        $totalSearch = $this->product_model->getSearchAll($_SESSION['DataWhereCleanForSearchProduct']);
+        // echo count($totalSearch);
+        $config['total_rows'] = count($totalSearch);
         if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
@@ -174,12 +181,14 @@ class product extends CI_Controller{
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['show_all'] = $_SESSION['show_all'];
+
         $data['SearchResult'] = $this->product_model->getSearch($_SESSION['DataWhereCleanForSearchProduct'],$start,$config['per_page']);
-        // $date['SearchResult']['bran_id'] = $this->bran_model->getOnce($data['SearchResult']['bran_id']);
-        // echo $data['SearchResult']['bran_id'];
+        // echo count($data['SearchResult']);
         // echo "<pre>";
         // print_r($data['SearchResult']);
-        // $bran_name = $this->bran_model->getOnce($data['SearchResult']['bran_id']);
+        $data['ListBrand'] = $this->bran_model->getAll();
+        $data['ListCountry'] = $this->country_model->getAll();
+
         $data['template'] = "product/SearchResult";
         $this->load->view("layout/layout",$data);
     } // end searchResult()

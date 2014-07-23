@@ -135,10 +135,13 @@ class bran extends CI_Controller{
         if(isset($_POST["btnSearch"])){
             $search_term = $this->input->post("txtSearch");
             $data['result'] = $this->bran_model->get_results($search_term);
-            $this->load->view("administrator/bran/searchResult",$data);
+            $data['template'] = "bran/searchResult";
+            $this->load->view("layout/layout",$data);
             // print_r($data);
         }else{
-            $this->load->view("administrator/bran/searchView");
+            $data['template'] = "bran/searchView";
+            $this->load->view("layout/layout",$data);
+
         }
     } // end search()
 } // end class bran

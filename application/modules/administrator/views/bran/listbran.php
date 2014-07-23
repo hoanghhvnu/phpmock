@@ -11,6 +11,8 @@
         
         <input type = 'submit' name = 'btnok' value = 'Gửi'>
     </form>
+    <a  href='<?php echo base_url("administrator/bran/search");?>'>
+                <button style = "float:right;">Search Category</button></a>
         <?php echo form_fieldset_close();;?>
     </div>
 
