@@ -145,15 +145,20 @@ class cate extends CI_Controller{
             $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
 
             if($this->form_validation->run()){
-                $DataCate = array(
-                        'cate_name'           => $this->input->post('cate_name'),
-                        'cate_parent'          => $this->input->post('cate_parent'),
-                        'cate_order'           => $this->input->post('cate_order')
-                        ); // end array
-                // echo "<pre>";
-                // print_r($DataCate);
-                $this->cate_model->insert($DataCate);
-                redirect(base_url("administrator/cate/listcate"));
+                if($this->cate_model->checkCate($this->input->post('cate_name'))){
+                    $DataCate = array(
+                            'cate_name'           => $this->input->post('cate_name'),
+                            'cate_parent'          => $this->input->post('cate_parent'),
+                            'cate_order'           => $this->input->post('cate_order')
+                            ); // end array
+                    // echo "<pre>";
+                    // print_r($DataCate);
+                    $this->cate_model->insert($DataCate);
+                    redirect(base_url("administrator/cate/listcate"));
+                }
+                if( ! $this->cate_model->checkCate($this->input->post('cate_name'))){
+                    $data['errorCate'] = "Tên Category đã tồn tại, vui lòng chọn tên khác";
+                }
             } // end from_validation->run()
 
         } // end isset btnok

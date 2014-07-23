@@ -19,6 +19,9 @@
     $cate_name['value'] = set_value('cate_name');
 
     echo form_input($cate_name);
+    if(isset($errorCate)){
+        echo "<span class = 'error'>" . $errorCate . "</span>";
+    }
     echo form_error('cate_name') . "<br/>";
 
     echo form_label("Category Parent");

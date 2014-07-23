@@ -17,6 +17,16 @@ class cate_model extends CI_Model{
         // return $this->db->get($this->_table)->result_array();
     }
 
+    // HoangHH
+    public function checkCate($cate_name){
+        $this->db->where("cate_name ='" .  $cate_name . "'" );
+        $NumRow = $this->db->get($this->_table)->num_rows(); 
+        if($NumRow >= 1){
+            return FALSE;
+        }
+        return TRUE;
+    } // end checkEmail()
+
     public function get_order($type = '', $limit = '', $start = ''){
         // $this->db->select("*");
         // $this->db->from($this->_table);
