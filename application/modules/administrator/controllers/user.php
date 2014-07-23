@@ -11,7 +11,14 @@ class user extends CI_Controller{
     } // end __construct
 
     public function index(){
-        $this->login();
+        if(isset($_SESSION['user'])){
+            // echo 'sse';
+            // print_r($_SESSION['user']);
+            redirect(base_url("administrator/user/listuser"));
+            // $this->listuser();
+        } else{
+            redirect(base_url("administrator/user/login"));
+        }
 
     } // end index()
 
@@ -25,6 +32,9 @@ class user extends CI_Controller{
 
 
     public function listuser(){
+        if( ! isset($_SESSION['user'])){
+            redirect(base_url("administrator/user/login"));
+        }
         $sortType = ($this->uri->segment(5)) ? $this->uri->segment(5) : 'asc';
         $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'usr_id';
         // echo "sort" . $sortType;
@@ -82,12 +92,16 @@ class user extends CI_Controller{
         $data['show_all'] = $_SESSION['show_all'];
         $data['column'] = $column;
 
-        $this->load->view("user/listuser",$data);
+        $data['template'] = "user/listuser";
+        $this->load->view("layout/layout",$data);
         // $this->load->view("main/main");
 
     } // end class list user
 
     public function insertUser(){
+        if( ! isset($_SESSION['user'])){
+            redirect(base_url("administrator/user/login"));
+        }
         $dataUser = array();
         if ($this->input->post('btnok')){
             $this->form_validation->set_rules('usr_name','Username', 'required|alpha_numeric|min_length[6]');
@@ -127,12 +141,17 @@ class user extends CI_Controller{
             } // end from_validation->run()
 
         } // end isset btnok
-        $this->load->view('user/insertuser',$dataUser);
+        $data['dataUser'] = $dataUser;
+        $data['template'] = 'user/insertuser';
+        $this->load->view("layout/layout",$data);
     } // end insertUser()
 
     // writen by VietDQ
     public function delete()
     {
+        if( ! isset($_SESSION['user'])){
+            redirect(base_url("administrator/user/login"));
+        }
         $id = $this->uri->segment(4);
         $this->user_model->deleteUser($id);
         // redirect(base_url("/administrator/user/listuser"));
@@ -142,75 +161,85 @@ class user extends CI_Controller{
 
     // Huan
     public function update(){
-            $usr_id = $this->uri->segment(4);
-            $data['userInfo'] = $this->user_model->getOnce($usr_id);
-            if($this->input->post("ok")){
-                 $this->form_validation->set_rules("usr_name", "Ten thanh vien", "trim|required");
-                $this->form_validation->set_rules("usr_password", "Ten thanh vien", "trim|required");
-                $this->form_validation->set_rules("usr_email", "Email", "trim|required|valid_email");
-                $this->form_validation->set_rules("usr_address", "Dia chi khach hang", "trim|required");
-                $this->form_validation->set_rules("usr_phone", "So dien thoai", "trim|required");
-                $this->form_validation->set_rules("usr_gender", "Gioi tinh", "trim|required");
-                $this->form_validation->set_rules("usr_level", "Level", "trim|required");
+        if( ! isset($_SESSION['user'])){
+            redirect(base_url("administrator/user/login"));
+        }
+        $usr_id = $this->uri->segment(4);
+        $data['userInfo'] = $this->user_model->getOnce($usr_id);
+        if($this->input->post("ok")){
+             $this->form_validation->set_rules("usr_name", "Ten thanh vien", "trim|required");
+            $this->form_validation->set_rules("usr_password", "Ten thanh vien", "trim|required");
+            $this->form_validation->set_rules("usr_email", "Email", "trim|required|valid_email");
+            $this->form_validation->set_rules("usr_address", "Dia chi khach hang", "trim|required");
+            $this->form_validation->set_rules("usr_phone", "So dien thoai", "trim|required");
+            $this->form_validation->set_rules("usr_gender", "Gioi tinh", "trim|required");
+            $this->form_validation->set_rules("usr_level", "Level", "trim|required");
 
-                $this->form_validation->set_message("required", "%s khong duoc bo trong");
-                $this->form_validation->set_message("min_length", "%s khong duoc nho hon %d ky tu");
-                $this->form_validation->set_message("matches", "%s khong dung");
-                $this->form_validation->set_message("valid_email", "%s khong dung dinh dang");
-                $this->form_validation->set_message("numeric", "%s phai la so");
+            $this->form_validation->set_message("required", "%s khong duoc bo trong");
+            $this->form_validation->set_message("min_length", "%s khong duoc nho hon %d ky tu");
+            $this->form_validation->set_message("matches", "%s khong dung");
+            $this->form_validation->set_message("valid_email", "%s khong dung dinh dang");
+            $this->form_validation->set_message("numeric", "%s phai la so");
 
-                $this->form_validation->set_error_delimiters("<span class='error'>", "</span>");
-                if($this->form_validation->run()){
-                     $dataUser = array(
-                                    "usr_name"=>$this->input->post("usr_name"),
-                                    "usr_password"=>$this->input->post("usr_password"),
-                                    "usr_email"=>$this->input->post("usr_email"),
-                                    "usr_address"=>$this->input->post("usr_address"),
-                                    "usr_phone"=>$this->input->post("usr_phone"),
-                                    "usr_gender"=>$this->input->post("usr_gender"),
-                                    "usr_level"=>$this->input->post("usr_level")
-                                );
-                    $this->user_model->update($dataUser,$usr_id);
-                    //redirect(base_url("administrator/users/listusers"));
-                    redirect(base_url("administrator/user/listuser"));
-                }
+            $this->form_validation->set_error_delimiters("<span class='error'>", "</span>");
+            if($this->form_validation->run()){
+                 $dataUser = array(
+                                "usr_name"=>$this->input->post("usr_name"),
+                                "usr_password"=>$this->input->post("usr_password"),
+                                "usr_email"=>$this->input->post("usr_email"),
+                                "usr_address"=>$this->input->post("usr_address"),
+                                "usr_phone"=>$this->input->post("usr_phone"),
+                                "usr_gender"=>$this->input->post("usr_gender"),
+                                "usr_level"=>$this->input->post("usr_level")
+                            );
+                $this->user_model->update($dataUser,$usr_id);
+                //redirect(base_url("administrator/users/listusers"));
+                redirect(base_url("administrator/user/listuser"));
             }
-            $this->load->view("user/update", $data);
+        }
+        $data['template'] = "user/update";
+        $this->load->view("layout/layout", $data);
     } // update()
 
     // DucTM
     public function login(){
-        $this->load->view("user/loginView");
-        //echo "dcn";
+        
         if($this->input->post("btnLogin")){
         
             $this->form_validation->set_rules('txtUser','Username','trim|required');
             $this->form_validation->set_rules('txtPass','Password','trim|required|min_length[5]|max_length[12]');
     
             
-            $this->form_validation->set_message("required","%s khong duoc bo trong");
+            $this->form_validation->set_message("required","%s không được bỏ trống");
             $this->form_validation->set_error_delimiters('<div class="error">','</div>'); 
-            echo 'alid: ' . $this->form_validation->run();
             if($this->form_validation->run()){
                 $dataUser =array(
                     "username"=>$this->input->post("txtUser"),
                     "password"=>$this->input->post("txtPass")
                 );
                 $check = $this->user_model->is_Validate($dataUser);
+                // echo $check;
                 if($check){
-                   $this->session->set_userdata('user',$check);
+                   // $this->session->set_userdata('user',$check);
+                    $_SESSION['user'] = $check;
                     redirect(base_url('administrator/user/listuser'));
                 }else{
                     $this->_check = false;
                 }
             } // end if run
         } // end if btLogin
+
+        $this->load->view("user/loginView");
     } // end login()
     
     public function logout(){
-        $this->session->unset_userdata('user');
+        // $this->session->unset_userdata('user');
+        if(isset($_SESSION['user'])){
+            unset($_SESSION['user']);
+        }
          // $this->load->view("user/loginView");
-        $this->login();
+        // $this->login();
+        redirect(base_url('administrator/user/index'));
         //$obj = new user;
         //$obj->login();
     }

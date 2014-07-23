@@ -1,4 +1,4 @@
-<?php $this->load->view('main/mainhead')?>
+
         <div id="center">
                 <h1>Update thành viên</h1>
                 <form action="" method="post">
@@ -36,4 +36,3 @@
                 </form>
         </div>
     </div>
-<?php $this->load->view('main/mainfoot')?>

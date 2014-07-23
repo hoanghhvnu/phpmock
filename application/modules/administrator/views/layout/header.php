@@ -13,6 +13,37 @@
                                                
             } 
 </script>
+<script src="/phpmock/js/jquery.js"></script>
+    <script>
+$(document).ready(function(){
+
+     $(".delete").click(function(e){
+        
+       alert("Delete?");
+         e.preventDefault(); 
+         var href = $(this).attr("href");
+     
+         var parent = $(this).parent();
+
+        $.ajax({
+          type: "GET",
+          url: href,
+          async: true,
+          success: function(response) {
+          parent.fadeOut('slow', function() {$(this).remove();});
+        
+
+            
+          
+
+       }
+    });
+
+   })
+  });
+    
+    
+    </script>
 </head>
 <body>
     <div id="banner">&nbsp;</div>
@@ -35,8 +66,15 @@
                     // $usrname = $ob->session->userdata['user'];
                     // print_r($usrname);
                 ?>
-                 <p>Chào bạn: Admin<?php //echo $usrname['usr_name']; ?></p>
-                <p><a href="#">Đăng xuất tài khoản</a></p>
+                 <p>Chào bạn: 
+                     <?php if(session_id() == '') {
+                                session_start();
+                            };
+                            // print_r($_SESSION['user']);
+                             echo  isset($_SESSION['user']['username']) ?  $_SESSION['user']['username'] : "";
+                     ?></p>
+                <p><a href=' <?php echo base_url("/administrator/user/logout") ?> '>Đăng xuất<a/></p>
+                
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-<?php $this->load->view('main/mainhead')?>
+
 <div id = 'center'>
     <h3>List Product </h3>
 
@@ -62,4 +62,3 @@
     </div><!--  end div id=listproduct -->
 </div> <!-- end div center -->
 
-<?php $this->load->view('main/mainfoot')?>

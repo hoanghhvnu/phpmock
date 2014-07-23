@@ -52,6 +52,38 @@ class cate_model extends CI_Model{
         $this->db->limit($limit,$start);
         return $this->db->get($this->_table)->result_array();
     } // end get_page()
+
+
+    // vietdq
+    public function detail($id)
+    {
+        $this->db->where("cate_id = $id");
+        return $this->db->get($this->_table)->row_array();
+    }
+    public function detailparent($id)
+    {
+        $this->db->where("cate_parent = $id");
+        return $this->db->get($this->_table)->result_array();
+    }
+    public function update($data,$id)
+    {
+        $this->db->where("cate_id = $id");
+        $this->db->update($this->_table,$data);
+    }
+
+         public function infoparent($id)
+    {
+        $this->db->where("cate_id = $id");
+        return $this->db->get($this->_table)->row_array();
+    }
+
+    // HuanDT
+    public function delete($cate_id)
+    {           
+        //delete cate
+            $this->db->where("cate_id = $cate_id");
+            $this->db->delete($this->_table); 
+    } // end function delete category
 }
 // end class cate_model
 // end file model/cate_model.php

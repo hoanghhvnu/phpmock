@@ -71,8 +71,9 @@ class user_model extends CI_Model{
     public function is_Validate($dataUser){
             $data = $this->db->select()->where('usr_name',$dataUser['username'])->where('usr_password',$dataUser['password'])           
             ->get($this->_table)->row_array();
+            // echo $data;
             if(count($data)>0){
-                return $data;
+                return $dataUser;
             }else{
                 return false;
             }  

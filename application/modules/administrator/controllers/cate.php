@@ -7,6 +7,9 @@ class cate extends CI_Controller{
         $this->load->library("form_validation");
         $this->load->model("cate_model");
         session_start();
+        if( ! isset($_SESSION['user'])){
+            redirect(base_url("administrator/user/login"));
+        }
 
     } // end __construct
 
@@ -162,8 +165,111 @@ class cate extends CI_Controller{
     } // end insertCategory()
 
 
-    // recursive for list Category (account 2)
-    // writen by HoangHH
+    // VietDq
+    public function update()
+    
+    {
+      
+        $id = $this->uri->segment(4);
+        $data['categoryInfo'] = $this->cate_model->detail($id);
+        $rows = $this->cate_model->detail($id);
+      
+        
+        $data['showCategory'] = $this->getDataInsertCategory(0);
+      
+        if($this->input->post("ok")){
+            $this->form_validation->set_rules("cate_name","Tên category","trim|required");
+            
+            $this->form_validation->set_rules("cate_parent","Tên category cha","trim|required|numeric");
+            $this->form_validation->set_rules("cate_order","Thứ tự category ","trim|required|numeric");
+
+            $this->form_validation->set_message("required","%s không được bỏ trống");
+
+            $this->form_validation->set_message("numeric","%s phải là số so");
+            $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
+            if($this->form_validation->run()){
+                $parentname=$this->input->post("cate_parent");
+                $cate_name=$this->input->post("cate_name");
+                $listall=$this->cate_model->getAll();
+                
+                foreach ($listall as $row) {
+                if (in_array(trim($cate_name),$row)&& $row['cate_id']!=$id) $data['errorName']="Đã tồn tại";
+                if ($row['cate_parent']==$id &&$this->check($id,$parentname)==1) $data['errorTrung']="Không được chọn con của nó"; 
+                //check bi lap vo tan
+
+                }   
+                if ($parentname==$rows['cate_id']) $data['errorTrung']="Không được chọn";
+    
+                if (!isset($data['errorTrung'])&& !isset($data['errorName'])) {
+                
+                $datacategory = array(
+                                "cate_name"=>$this->input->post("cate_name"),
+                                "cate_parent"=>$this->input->post("cate_parent"),
+                                "cate_order"=>$this->input->post("cate_order")
+                            );
+                
+                $this->cate_model->update($datacategory,$id);
+                redirect(base_url("administrator/cate/listcate"));
+                 }
+                 }
+            
+        }
+        $data['template'] = "cate/update";
+        $this->load->view("layout/layout",$data);
+        
+    } // end update()
+
+    private function getDataInsertCategory($parent = 0,$gach = '-  ',$data = NULL)
+    {
+        if(!$data) $data = array();  
+        $sql = $this->cate_model->detailparent($parent);
+        foreach($sql as $key=>$value){
+            $data[] = array(
+                        'cate_id'    =>$value['cate_id'],
+                        'cate_name'  =>$gach.$value['cate_name'],
+                        'cate_parent'=>$value['cate_parent']
+                        );
+            $data = $this->getDataInsertCategory($value['cate_id'],$gach.'---   ',$data);
+        }    
+        return $data;
+    }
+
+    public function check($parent,$child) {
+      
+      
+      $info=$this->cate_model->infoparent($child);
+
+       $parentid=$info['cate_parent'];
+       if ($parent==0) return 1;
+       if ($parentid==$parent) {return 1; }
+       else if ($parentid!=0)
+           return $this->check($parent,$parentid);
+       else if ($parentid==0) return 0;
+    }
+
+    // Huan DT
+    public function delete(){
+        $cate_id = $this->uri->segment(4);
+        $data = $this->cate_model->getAll();
+        $detail = $this->cate_model->getOnce($cate_id);
+       // print_r($detail);
+        foreach($data as $value){
+           if($value['cate_parent'] == $cate_id){
+                $value['cate_parent'] = $detail['cate_parent'];
+                $dta = array(
+                'cate_parent' => $value['cate_parent']
+            );
+                echo $dta['cate_parent'];
+            $this->cate_model->update($dta, $value['cate_id']);
+           }
+
+
+        }
+
+        $this->cate_model->delete($cate_id);
+            
+        redirect(base_url("administrator/cate/listcate"));
+    } // end delete
     
 
 } // end class cate

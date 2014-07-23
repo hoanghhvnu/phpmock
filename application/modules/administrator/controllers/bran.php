@@ -7,6 +7,9 @@ class bran extends CI_Controller{
         $this->load->model("bran_model");
         $this->load->library('pagination');
         session_start();
+        if( ! isset($_SESSION['user'])){
+            redirect(base_url("administrator/user/login"));
+        }
 
     } // end __construct
 
@@ -73,7 +76,8 @@ class bran extends CI_Controller{
         $data['show_all'] = $_SESSION['show_all'];
         $data['column'] = $column;
 
-        $this->load->view("bran/listbran",$data);
+        $data['template'] = "bran/listbran";
+        $this->load->view("layout/layout",$data);
         // $this->load->view("main/main");
 
     } // end class list bran

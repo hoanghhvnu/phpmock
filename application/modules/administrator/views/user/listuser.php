@@ -1,4 +1,4 @@
-<?php $this->load->view('main/mainhead')?>
+
 
 
 
@@ -98,4 +98,3 @@
     </div>
     
     
-<?php $this->load->view('main/mainfoot')?>

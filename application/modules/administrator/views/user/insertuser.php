@@ -1,5 +1,5 @@
 
-<?php $this->load->view('main/mainhead')?>
+
 <h3>Insert User</h3>
 <?php
     $this->load->helper('form');
@@ -107,4 +107,4 @@
 
     echo form_fieldset_close();
     ?>
-    <?php $this->load->view('main/mainfoot')?>
+    

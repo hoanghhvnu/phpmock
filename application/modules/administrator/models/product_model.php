@@ -13,10 +13,10 @@ class product_model extends CI_Model{
         $this->load->database();
     }
     
-  //  public function getAll(){
-  //      $list = $this->db->get($this->_table);
-  //      return $list->result_array();
-  //  }
+   public function getAll(){
+       $list = $this->db->get($this->_table);
+       return $list->result_array();
+   }
     
     public function countAll(){
         return $this->db->count_all_results($this->_table);
@@ -94,6 +94,26 @@ class product_model extends CI_Model{
         
         return $this->db->get($this->_table)->result_array();
     } // end getSearch()
+
+    // VietDQ
+    public function update($data,$id)
+    {
+        $this->db->where("pro_id = $id");
+        $this->db->update($this->_table,$data);
+    }
+
+    public function detailid($id)
+    {
+        $this->db->where("pro_id = $id");
+        return $this->db->get($this->_table)->row_array();
+    }
+
+    public function detail($name)
+    {
+        $this->db->where('pro_name = "'.$name.'"');
+        return $this->db->get($this->_table)->row_array();
+    }
+    // end VietDQ
 } // end class product_model
 
 ?>
