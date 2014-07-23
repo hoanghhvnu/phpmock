@@ -23,7 +23,7 @@ a{
 	color: #FFF;
 }
 #menu h1{
-	color:#FFF;
+	color:white;
 	font-size:14px;
 	text-transform:uppercase;
 	line-height:49px;
@@ -32,7 +32,8 @@ a{
 #menu{
 	width:100%;
 	float:left;
-	background:url(../images/menubg.png) repeat-x left;
+	background: #09F;
+	/*color: white;*/
 	height:49px;
 }
 #menu ul{
@@ -195,13 +196,13 @@ input[type='text'],input[type='password']{
 }
 #listbran{
 	float:left;
-	position: absolute;
+	
 	top:220px;
 }
 
 #listproduct{
 	float:left;
-	position: absolute;
+	
 	top:220px;
 }
 

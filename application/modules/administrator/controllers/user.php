@@ -126,7 +126,10 @@ class user extends CI_Controller{
             // }
             // echo $dataUser['usr_level'];
             if($this->form_validation->run()){
-                $dataUser = array(
+                if($this->user_model->checkUserName($this->input->post('usr_name'))
+                && $this->user_model->checkEmail($this->input->post('usr_email'))
+                ){
+                    $dataUser = array(
                         'usr_name'            => $this->input->post('usr_name'),
                         'usr_password'        => $this->input->post('usr_password'),
                         'usr_email'           => $this->input->post('usr_email'),
@@ -138,9 +141,21 @@ class user extends CI_Controller{
                 
                 $this->user_model->insert($dataUser);
                 redirect(base_url("administrator/user/listuser"));
-            } // end from_validation->run()
+                } // end if check User
+                if( ! $this->user_model->checkUserName($this->input->post('usr_name'))){
+                    $data['errorUser'] = "Username đã tồn tại, vui lòng chọn tên khác!";
+                }
 
+                if( ! $this->user_model->checkEmail($this->input->post('usr_email'))){
+                    $data['errorEmail'] = "Email đã tồn tại, vui lòng chọn email khác";
+                }
+            } // end if val
+                
+               
+
+            
         } // end isset btnok
+
         $data['dataUser'] = $dataUser;
         $data['template'] = 'user/insertuser';
         $this->load->view("layout/layout",$data);

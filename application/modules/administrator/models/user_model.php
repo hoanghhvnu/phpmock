@@ -24,6 +24,24 @@ class user_model extends CI_Model{
         return $this->db->get($this->_table)->row_array(); 
     } // end getOnce
 
+    // HoangHH
+    public function checkUserName($usr_name){
+        $this->db->where("usr_name ='" .  $usr_name. "'" );
+        $NumRow = $this->db->get($this->_table)->num_rows(); 
+        if($NumRow >= 1){
+            return FALSE;
+        }
+        return TRUE;
+    } // end checkUserName()
+
+    public function checkEmail($usr_email){
+        $this->db->where("usr_email ='" .  $usr_email . "'" );
+        $NumRow = $this->db->get($this->_table)->num_rows(); 
+        if($NumRow >= 1){
+            return FALSE;
+        }
+        return TRUE;
+    } // end checkEmail()
 
     public function count_all(){
         $this->db->from($this->_table);

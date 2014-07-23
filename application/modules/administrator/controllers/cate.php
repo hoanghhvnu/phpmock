@@ -21,78 +21,75 @@ class cate extends CI_Controller{
     // List Category
     // Writen by HoangHH
     public function listcate(){
-            $rawList = $this->cate_model->getAll();
-            $orderList = array();
+        $rawList = $this->cate_model->getAll();
+        $orderList = array();
 
-            $_SESSION['listedByID'] = array();
+        $_SESSION['listedByID'] = array();
 
-            foreach ($rawList as $key => $cateDetail) {
-                // echo "<div id = 'center'>";
-                // echo $key;
-                $cate_id     = $cateDetail['cate_id'];
-                $cate_name   = $cateDetail['cate_name'];
-                $cate_parent = $cateDetail['cate_parent'];
-                $cate_order  = $cateDetail['cate_order'];
-                
-                $strLevel = "";
-                if(!in_array($cate_id, $_SESSION['listedByID'])){
-                    $_SESSION['listedByID'][] = $cate_id;
-
-                    $orderList[] = array(
-                        'cate_id' => $cate_id,
-                        'cate_name' => $strLevel . $cate_name,
-                        'cate_parent' => $cate_parent,
-                        'cate_order' => $cate_order
-                        );
-                    $this->recursive($cate_id,$rawList,$strLevel,$orderList);
-
-                } // end if (!inarray)
-                
-
-            } // end foreach
-            // echo "</table>";
-
-            $data['orderList'] = array_merge($orderList);
-
-            $data['template'] = "cate/listcategory";
-            $this->load->view('layout/layout',$data);
+        foreach ($rawList as $key => $cateDetail) {
+            $cate_id     = $cateDetail['cate_id'];
+            $cate_name   = $cateDetail['cate_name'];
+            $cate_parent = $cateDetail['cate_parent'];
+            $cate_order  = $cateDetail['cate_order'];
             
-        } // end listcate()
+            $strLevel = "";
+            if(!in_array($cate_id, $_SESSION['listedByID'])){
+                $_SESSION['listedByID'][] = $cate_id;
+
+                $orderList[] = array(
+                    'cate_id' => $cate_id,
+                    'cate_name' => $strLevel . $cate_name,
+                    'cate_parent' => $cate_parent,
+                    'cate_order' => $cate_order
+                    );
+                $this->recursive($cate_id,$rawList,$strLevel,$orderList);
+
+            } // end if (!inarray)
+            
+
+        } // end foreach
+        // echo "</table>";
+
+        $data['orderList'] = array_merge($orderList);
+
+        $data['template'] = "cate/listcategory";
+        $this->load->view('layout/layout',$data);
+            
+    } // end listcate()
 
     private function recursive($cate_id_parent,$rawList,$strLevel,&$orderList){
-            $strLevel .= "----   ";
-            // $a = 'b';
-            // $UnOrdered = array();
-            foreach ($rawList as $key => $cateDetail) {
-                $cate_id     = $cateDetail['cate_id'];
-                $cate_name   = $cateDetail['cate_name'];
-                $cate_parent = $cateDetail['cate_parent'];
-                $cate_order  = $cateDetail['cate_order'];
+        $strLevel .= "____   ";
+        // $a = 'b';
+        // $UnOrdered = array();
+        foreach ($rawList as $key => $cateDetail) {
+            $cate_id     = $cateDetail['cate_id'];
+            $cate_name   = $cateDetail['cate_name'];
+            $cate_parent = $cateDetail['cate_parent'];
+            $cate_order  = $cateDetail['cate_order'];
 
-                if($cate_parent == $cate_id_parent){
-      
-                    if(!in_array($cate_id, $_SESSION['listedByID'])){
+            if($cate_parent == $cate_id_parent){
+  
+                if(!in_array($cate_id, $_SESSION['listedByID'])){
 
-                        $temp = array(
-                        'cate_id' => $cate_id,
-                        'cate_name' => $strLevel . $cate_name,
-                        'cate_parent' => $cate_parent,
-                        'cate_order' => $cate_order
-                        );
+                    $temp = array(
+                    'cate_id' => $cate_id,
+                    'cate_name' => $strLevel . $cate_name,
+                    'cate_parent' => $cate_parent,
+                    'cate_order' => $cate_order
+                    );
 
-                        $orderList[] = $temp;
-                        // $UnOrdered[] = $temp;
-                        $_SESSION['listedByID'][] = $cate_id;
+                    $orderList[] = $temp;
+                    // $UnOrdered[] = $temp;
+                    $_SESSION['listedByID'][] = $cate_id;
 
-                        $this->recursive($cate_id,$rawList,$strLevel,$orderList);
+                    $this->recursive($cate_id,$rawList,$strLevel,$orderList);
 
-                    } // end if
-                    
-                    
-                } // end if $cate_parent
-            } // end foreach
-            
-        } // end class recursive
+                } // end if
+                
+                
+            } // end if $cate_parent
+        } // end foreach
+    } // end recursive()
 
     // Insert Category (account 5)
     // Writen by HoangHH
