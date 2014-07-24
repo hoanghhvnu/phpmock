@@ -57,6 +57,7 @@ $(document).ready(function(){
                     <li><a href="<?php echo base_url('administrator/cate/listcate');?>">Quản lý chuyên mục</a></li>
                     <li><a href="<?php echo base_url('administrator/product/listproduct');?>">Quản lý sản phẩm</a></li>
                     <li><a href="<?php echo base_url('administrator/bran/listbran');?>">Quản lý thương hiệu</a></li>
+                    <li><a href="<?php echo base_url('administrator/order/listorder');?>">Quản lý đơn hàng </a></li>
                 </ul>
             </div>
             <div class="category" style="margin-top:10px; border-top:1px solid #CCC; background:#FFF;">
@@ -77,5 +78,3 @@ $(document).ready(function(){
                 
             </div>
         </div>
-
-    

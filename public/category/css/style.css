@@ -163,13 +163,13 @@ form{
 	margin-top:25px;
 }
 label{
-	/*float:left;
+	float:left;
 	width:100px;
 	margin-bottom:5px;
 	text-transform:none;
 	color:#4d4d4d;
 	font-size:13px;
-	font-weight:normal;*/
+	font-weight:normal;
 }
 input[type='text'],input[type='password'],
 select, textarea
