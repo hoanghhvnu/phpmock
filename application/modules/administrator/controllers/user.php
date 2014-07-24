@@ -150,7 +150,12 @@ class user extends CI_Controller{
                     $data['errorEmail'] = "Email đã tồn tại, vui lòng chọn email khác";
                 }
             } // end if val
-                
+                /**
+                 * 
+                 */
+                /**
+                 * 
+                 */
                
 
             
@@ -162,8 +167,11 @@ class user extends CI_Controller{
     } // end insertUser()
 
     // writen by VietDQ
-    public function delete()
-    {
+    /**
+     * [delete description]
+     * @return [type]
+     */
+    public function delete(){
         if( ! isset($_SESSION['user'])){
             redirect(base_url("administrator/user/login"));
         }
@@ -172,7 +180,6 @@ class user extends CI_Controller{
         // redirect(base_url("/administrator/user/listuser"));
         redirect(base_url("administrator/user/listuser"));
     }
-
 
     // Huan
     public function update(){
@@ -199,13 +206,13 @@ class user extends CI_Controller{
             $this->form_validation->set_error_delimiters("<span class='error'>", "</span>");
             if($this->form_validation->run()){
                  $dataUser = array(
-                                "usr_name"=>$this->input->post("usr_name"),
-                                "usr_password"=>$this->input->post("usr_password"),
-                                "usr_email"=>$this->input->post("usr_email"),
-                                "usr_address"=>$this->input->post("usr_address"),
-                                "usr_phone"=>$this->input->post("usr_phone"),
-                                "usr_gender"=>$this->input->post("usr_gender"),
-                                "usr_level"=>$this->input->post("usr_level")
+                                "usr_name"     =>$this->input->post("usr_name"),
+                                "usr_password" =>$this->input->post("usr_password"),
+                                "usr_email"    =>$this->input->post("usr_email"),
+                                "usr_address"  =>$this->input->post("usr_address"),
+                                "usr_phone"    =>$this->input->post("usr_phone"),
+                                "usr_gender"   =>$this->input->post("usr_gender"),
+                                "usr_level"    =>$this->input->post("usr_level")
                             );
                 $this->user_model->update($dataUser,$usr_id);
                 //redirect(base_url("administrator/users/listusers"));

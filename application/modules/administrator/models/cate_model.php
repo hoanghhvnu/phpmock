@@ -94,6 +94,28 @@ class cate_model extends CI_Model{
             $this->db->where("cate_id = $cate_id");
             $this->db->delete($this->_table); 
     } // end function delete category
+
+    // DucTM
+    public function updateCategory($source, $parent = 0){
+        if(count($source) > 0){
+            foreach($source as $key=>$value){
+                $data = array("cate_parent"=>$parent);
+                $this->db->where("cate_id",$value['id']);
+                $this->db->update($this->_table,$data);
+                
+                unset($source[$key]);
+                $newparent = $value['id'];
+                if(isset($value['children'])){
+                    $this->updateCategory($value['children'], $newparent);
+                }
+            }
+        }
+    }
+
+    public function list_all($number, $offset){
+        $query =  $this->db->get($this->_table,$number,$offset);
+        return $query->result_array();
+    }
 }
 // end class cate_model
 // end file model/cate_model.php

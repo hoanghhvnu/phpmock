@@ -15,9 +15,7 @@ class user_model extends CI_Model{
     public function getAll(){
         return $this->db->get($this->_table)->result_array();
     } // end listUser();
-    public function insert($data){
-        $this->db->insert($this->_table,$data);
-    } // end insert()
+     // end insert()
 
     public function getOnce($id){
         $this->db->where("usr_id = $id");

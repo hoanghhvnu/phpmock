@@ -271,8 +271,42 @@ class cate extends CI_Controller{
         $this->cate_model->delete($cate_id);
             
         redirect(base_url("administrator/cate/listcate"));
-    } // end delete
+    } // end deleteU
     
+
+    // DucTM
+    public function move(){
+        $data = isset($_POST['data'])?$_POST['data']:"";
+        $data = json_decode($data,true);
+        print_r($data);
+        
+        $this->cate_model->updateCategory($data,0);
+        
+       
+    }
+
+    // DucTM
+    public function moveCategory()  
+    
+    {
+            $this->load->library('pagination');
+            $this->load->helper('url');
+            $this->load->library('table');
+            
+            // cấu hình phân trang
+            $config['base_url'] = base_url('phpmock/administrator/cate/moveCategory'); // xác định trang phân trang
+            $config['total_rows'] = $this->cate_model->count_all(); // xác định tổng số record
+            $config['per_page'] = 100; // xác định số record ở mỗi trang
+            $config['uri_segment'] = 4; // xác định segment chứa page number
+            $this->pagination->initialize($config);
+            
+            // tạo table
+            /*$this->table->set_heading('id','name');*/
+            $data['listcategory'] = $this->cate_model->list_all($config['per_page'],$this->uri->segment(4));
+
+        $data['template'] = "cate/moveCategory";
+        $this->load->view("layout/layout",$data);
+    }
 
 } // end class cate
 // end file cate.php
