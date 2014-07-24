@@ -32,7 +32,7 @@ class order_model extends CI_model{
 	 * get orderdetail
 	 */
 	public function getOrderDetail($order_id){
-		$this->db->select('p.pro_name,od.pro_price,od.pro_quantity,od.pro_id');
+		$this->db->select('od.pro_name,od.pro_price,od.pro_quantity,od.pro_id');
 		$this->db->from("tbl_orderdetail as od");
 		$this->db->join('tbl_product as p', "p.pro_id = od.pro_id", 'inner');
 		$this->db->where("od.order_id = $order_id");

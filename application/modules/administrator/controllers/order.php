@@ -55,6 +55,14 @@ class order extends CI_Controller{
         $config['per_page'] = $_SESSION['PerPageListOrder'];
         // $sortType          = ($_SESSION['sortType'] != "none") ? $_SESSION['sortType'] : "";
         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
+        /*if( ! is_int($page)){
+            echo "Trang web không tồn tại!";
+            return FALSE;
+        }*/
+
+        if($this->input->post('SearchById')){
+            $page = 1;
+        }
 
         $config['base_url']   = base_url("administrator/order/listorder/$column/$sortType/");
         $config['total_rows'] = $this->order_model->count_all();
@@ -121,6 +129,7 @@ class order extends CI_Controller{
             return FALSE;
         }else{
             $Order = $this->order_model->getOnceById($OrderId);
+            // $Order = $this->order_model->getSearch("","","order_id = {$OrderId}","","");
             // echo "<pre>";
             // print_r($Order);
             if(count($Order) < 1){

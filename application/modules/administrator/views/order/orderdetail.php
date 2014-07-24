@@ -66,11 +66,11 @@
             echo "<b>Tổng số tiền:</b> " . $TotalMoney . "<br/><br/>";
 
             if($OrderInfo['order_status'] == 2){
-                echo "<a style='font-weight: bold;color:green;' href = '" 
+                echo "<a style='font-weight: bold;font-size: 20px;color:white;background-color:green;' href = '" 
                 . base_url("/administrator/order/orderdetail/") . "/" 
                 . $OrderInfo['order_id'] . "/approve" . "'>Xác nhận thanh toán</a></br><br/>";
 
-                echo "<a style='font-weight: bold;color:red;' href = '" 
+                echo "<a style='font-weight: bold;color:white;background-color:red' href = '" 
                 . base_url("/administrator/order/orderdetail/") . "/" 
                 . $OrderInfo['order_id'] . "/cancel" . "'
                 onclick='if(CheckDelete() == false) return false'
