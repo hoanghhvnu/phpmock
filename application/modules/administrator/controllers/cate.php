@@ -18,78 +18,92 @@ class cate extends CI_Controller{
 
     } // end index()
 
-    // List Category
-    // Writen by HoangHH
+    
     public function listcate(){
-        $rawList = $this->cate_model->getAll();
-        $orderList = array();
-
-        $_SESSION['listedByID'] = array();
-
-        foreach ($rawList as $key => $cateDetail) {
-            $cate_id     = $cateDetail['cate_id'];
-            $cate_name   = $cateDetail['cate_name'];
-            $cate_parent = $cateDetail['cate_parent'];
-            $cate_order  = $cateDetail['cate_order'];
-            
+        $SequenceList = $this->cate_model->getAll();
+        if( empty($SequenceList)){
+            echo "Have no category!";
+        } else{
+            // get Category level 0, ParentId = 0;
             $strLevel = "";
-            if(!in_array($cate_id, $_SESSION['listedByID'])){
-                $_SESSION['listedByID'][] = $cate_id;
+            $SortedList = $this->recursive(0, $SequenceList, $strLevel);
 
-                $orderList[] = array(
-                    'cate_id' => $cate_id,
-                    'cate_name' => $strLevel . $cate_name,
-                    'cate_parent' => $cate_parent,
-                    'cate_order' => $cate_order
-                    );
-                $this->recursive($cate_id,$rawList,$strLevel,$orderList);
+            if( ! empty($SortedList)){
+                $data['orderList'] = $SortedList;
+                $data['template'] = "cate/listcategory";
+                $this->load->view('layout/layout',$data);
+            } // end if empty SortedList
+        } // end if empty $SenquenceList
+        
+    } // end listcategory
 
-            } // end if (!inarray)
+
+    private function recursive($ParentId, &$List, $strLevel){
+        if( ! empty($List)){
+            if( $ParentId != 0 ){
+                $strLevel .= "____";
+            }
+
+            $LevelList = array();
             
-
-        } // end foreach
-        // echo "</table>";
-
-        $data['orderList'] = array_merge($orderList);
-
-        $data['template'] = "cate/listcategory";
-        $this->load->view('layout/layout',$data);
-            
-    } // end listcate()
-
-    private function recursive($cate_id_parent,$rawList,$strLevel,&$orderList){
-        $strLevel .= "____   ";
-        // $a = 'b';
-        // $UnOrdered = array();
-        foreach ($rawList as $key => $cateDetail) {
-            $cate_id     = $cateDetail['cate_id'];
-            $cate_name   = $cateDetail['cate_name'];
-            $cate_parent = $cateDetail['cate_parent'];
-            $cate_order  = $cateDetail['cate_order'];
-
-            if($cate_parent == $cate_id_parent){
-  
-                if(!in_array($cate_id, $_SESSION['listedByID'])){
-
+            foreach ($List as $key => $CateDetail) {
+                // echo "<pre>";
+                // print_r($CateDetail);
+                
+                if($ParentId == $CateDetail['cate_parent']){
                     $temp = array(
-                    'cate_id' => $cate_id,
-                    'cate_name' => $strLevel . $cate_name,
-                    'cate_parent' => $cate_parent,
-                    'cate_order' => $cate_order
-                    );
+                        'cate_id' => $CateDetail ['cate_id'],
+                        'cate_name' => $strLevel . $CateDetail ['cate_name'],
+                        'cate_parent' => $CateDetail ['cate_parent'],
+                        'cate_order' => $strLevel . $CateDetail ['cate_order']
+                        );
+                    $LevelList[$key] = $temp;
+                    // $LevelList[$key] = $CateDetail;
+                    unset($List[$key]);
+                } // end if ParentId
+            } // end foreach $List
 
-                    $orderList[] = $temp;
-                    // $UnOrdered[] = $temp;
-                    $_SESSION['listedByID'][] = $cate_id;
+            
 
-                    $this->recursive($cate_id,$rawList,$strLevel,$orderList);
+            if( ! empty($LevelList)){
+                $LevelSortByOrder = array();
+                foreach ($LevelList as $key => $LevelCateDetail) {
+                    $LevelKeyOrder[$key] = $LevelCateDetail['cate_order'];
+                }
 
-                } // end if
-                
-                
-            } // end if $cate_parent
-        } // end foreach
+                asort($LevelKeyOrder);
+
+                $LevelSorted = array();
+                foreach ($LevelKeyOrder as $key => $CateOrder) {
+                    $LevelSorted[$key] = $LevelList[$key];
+                }
+
+                // echo "<pre>";
+                // print_r($LevelSorted);
+                $LevelAndSub = array();
+                foreach ($LevelSorted as $key => $LevelCateDetail) {
+                    $LevelAndSub[] = $LevelCateDetail;
+                    $SubLevel = $this->recursive($LevelCateDetail['cate_id'], $List, $strLevel);
+                    if ( ! empty($SubLevel)){
+                        foreach ($SubLevel as $key => $SubLevelCateDetail) {
+                            $LevelAndSub[] = $SubLevelCateDetail;
+                        }
+                    } // end if SubLevel
+                } // end foreach LevelSorted
+                return $LevelAndSub;
+            } // end if empty $Level
+            
+
+
+            
+            // echo "<pre>";
+            // print_r($LevelList);
+            // print_r($LevelSorted);
+            // print_r($List);
+        } // end if ! empty()
     } // end recursive()
+
+    
 
     // Insert Category (account 5)
     // Writen by HoangHH

@@ -20,6 +20,7 @@ class order extends CI_Controller{
      * @return [type]
      */
     public function listOrder(){
+        // echo "hoang";
         // $RawList = $this->order_model->getAll();
         if( ! isset($_SESSION['user'])){
             redirect(base_url("administrator/user/login"));
