@@ -2,18 +2,22 @@
     <h3>List Order </h3>
     <div id = 'listorder'>
     	<div id = 'modlistbran'>
-    	    <?php echo form_fieldset("Tuỳ chọn"); ?>
+    	    
     	    <form action = '' method = 'post'>
+                <?php echo form_fieldset("Option display"); ?>
     	        <label>Số order/trang: </label>
     	        <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
     	        <span>Hiện tất cả </span><input type = 'checkbox' name = 'show_all' value = 'show'>
     	        <br/><br/>
+                <?php echo form_fieldset_close();?>
+                <?php echo form_fieldset("Search"); ?>
                 <label>Tìm kiếm theo Mã đơn hàng </label>
                 <input class = 'txt' type = 'text' name = 'SearchById' value = "" ?>
                 <br/>
+                <?php echo form_fieldset_close();?>
     	        <input type = 'submit' name = 'btnok' value = 'Gửi'>
     	    </form>
-    	        <?php echo form_fieldset_close();?>
+    	        
     	</div>
     	<?php  echo "Trang: ";
     	        echo isset($link) ? $link : "";  ?>

@@ -1,4 +1,7 @@
 <?php
+/**
+ * All action for Category
+ */
 class cate extends CI_Controller{
     protected $_OrderedCategory;
     function __construct(){
@@ -18,142 +21,34 @@ class cate extends CI_Controller{
 
     } // end index()
 
-    
+    /**
+     * written by HoangHH
+     * Show all category in order by cate_order
+     * use rucursive to do
+     * @return [type]
+     */
     public function listcate(){
-        $SequenceList = $this->cate_model->getAll();
-        if( empty($SequenceList)){
-            echo "Have no category!";
-        } else{
-            // get Category level 0, ParentId = 0;
-            $strLevel = "";
-            $SortedList = $this->recursive(0, $SequenceList, $strLevel);
-
+        $SortedList = $this->getCategory();
             if( ! empty($SortedList)){
                 $data['orderList'] = $SortedList;
                 $data['template'] = "cate/listcategory";
                 $this->load->view('layout/layout',$data);
             } // end if empty SortedList
-        } // end if empty $SenquenceList
-        
     } // end listcategory
 
-
-    private function recursive($ParentId, &$List, $strLevel){
-        if( ! empty($List)){
-            if( $ParentId != 0 ){
-                $strLevel .= "____";
-            }
-
-            $LevelList = array();
-            
-            foreach ($List as $key => $CateDetail) {
-                // echo "<pre>";
-                // print_r($CateDetail);
-                
-                if($ParentId == $CateDetail['cate_parent']){
-                    $temp = array(
-                        'cate_id' => $CateDetail ['cate_id'],
-                        'cate_name' => $strLevel . $CateDetail ['cate_name'],
-                        'cate_parent' => $CateDetail ['cate_parent'],
-                        'cate_order' => $strLevel . $CateDetail ['cate_order']
-                        );
-                    $LevelList[$key] = $temp;
-                    // $LevelList[$key] = $CateDetail;
-                    unset($List[$key]);
-                } // end if ParentId
-            } // end foreach $List
-
-            
-
-            if( ! empty($LevelList)){
-                $LevelSortByOrder = array();
-                foreach ($LevelList as $key => $LevelCateDetail) {
-                    $LevelKeyOrder[$key] = $LevelCateDetail['cate_order'];
-                }
-
-                asort($LevelKeyOrder);
-
-                $LevelSorted = array();
-                foreach ($LevelKeyOrder as $key => $CateOrder) {
-                    $LevelSorted[$key] = $LevelList[$key];
-                }
-
-                // echo "<pre>";
-                // print_r($LevelSorted);
-                $LevelAndSub = array();
-                foreach ($LevelSorted as $key => $LevelCateDetail) {
-                    $LevelAndSub[] = $LevelCateDetail;
-                    $SubLevel = $this->recursive($LevelCateDetail['cate_id'], $List, $strLevel);
-                    if ( ! empty($SubLevel)){
-                        foreach ($SubLevel as $key => $SubLevelCateDetail) {
-                            $LevelAndSub[] = $SubLevelCateDetail;
-                        }
-                    } // end if SubLevel
-                } // end foreach LevelSorted
-                return $LevelAndSub;
-            } // end if empty $Level
-            
-
-
-            
-            // echo "<pre>";
-            // print_r($LevelList);
-            // print_r($LevelSorted);
-            // print_r($List);
-        } // end if ! empty()
-    } // end recursive()
+    
 
     
 
     // Insert Category (account 5)
     // Writen by HoangHH
     public function insertCategory(){
-
-        // get information exist category
-        $rawList = $this->cate_model->getAll();
-        $orderList = array();
-        $_SESSION['listedByID'] = array();
-
-        foreach ($rawList as $key => $cateDetail) {
-            $cate_id     = $cateDetail['cate_id'];
-            $cate_name   = $cateDetail['cate_name'];
-            $cate_parent = $cateDetail['cate_parent'];
-            $cate_order  = $cateDetail['cate_order'];
-            
-            $strLevel = "";
-            if(!in_array($cate_id, $_SESSION['listedByID'])){
-                $_SESSION['listedByID'][] = $cate_id;
-
-                $orderList[] = array(
-                    'cate_id' => $cate_id,
-                    'cate_name' => $strLevel . $cate_name,
-                    'cate_parent' => $cate_parent,
-                    'cate_order' => $cate_order
-                    );
-                $this->recursive($cate_id,$rawList,$strLevel,$orderList);
-
-            } // end if (!inarray)
-        } // end foreach
-
-        // list Category name for insert
-        $ListInsert = array();
-        foreach ($orderList as $key => $value) {
-            // $CateID = $value['cate_id'];
-            $ListInsert[] = array(
-                'cate_id' => $value['cate_id'],
-                'cate_name' => $value['cate_name']
-                );
-        } // 
-
-        // echo "<pre>";
-        // print_r($ListInsert);
-        $data['ListInsert'] = array_merge($ListInsert);
+        $data['ListInsert'] = $this->getCategory();
         $data['template'] = "cate/insertcategory";
         
         $DataCate = array();
         if ($this->input->post('btnok')){
             $this->form_validation->set_rules('cate_name','Tên Category', 'required');
-            // $this->form_validation->set_rules('cate_order','Thứ tự');
             
             $this->form_validation->set_message("required","%s không được bỏ trống");
             $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
@@ -190,8 +85,15 @@ class cate extends CI_Controller{
         $data['categoryInfo'] = $this->cate_model->detail($id);
         $rows = $this->cate_model->detail($id);
       
-        
-        $data['showCategory'] = $this->getDataInsertCategory(0);
+        /**
+         * line bellow written by VietDQ
+         */
+        // $data['showCategory'] = $this->getDataInsertCategory(0);
+
+        /**
+         * Rewritten by HoangHH
+         */
+        $data['showCategory'] = $this->getCategory();
       
         if($this->input->post("ok")){
             $this->form_validation->set_rules("cate_name","Tên category","trim|required");
@@ -235,20 +137,34 @@ class cate extends CI_Controller{
         
     } // end update()
 
-    private function getDataInsertCategory($parent = 0,$gach = '-  ',$data = NULL)
-    {
-        if(!$data) $data = array();  
-        $sql = $this->cate_model->detailparent($parent);
-        foreach($sql as $key=>$value){
-            $data[] = array(
-                        'cate_id'    =>$value['cate_id'],
-                        'cate_name'  =>$gach.$value['cate_name'],
-                        'cate_parent'=>$value['cate_parent']
-                        );
-            $data = $this->getDataInsertCategory($value['cate_id'],$gach.'---   ',$data);
-        }    
-        return $data;
-    }
+
+    /**
+     * Written by VietDQ
+     * @param  integer $parent
+     * @param  string  $gach
+     * @param  [type]  $data
+     * @return [type]
+     */
+    
+    /**
+     * Comment out because rewrite by HoangHH with getCatogory method better
+     */
+    
+    // private function getDataInsertCategory($parent = 0,$gach = '-  ',$data = NULL)
+    // {
+    //     if(!$data) $data = array();  
+    //     // Truy cap den CSDL qua nhieu
+    //     $sql = $this->cate_model->detailparent($parent);
+    //     foreach($sql as $key=>$value){
+    //         $data[] = array(
+    //                     'cate_id'    =>$value['cate_id'],
+    //                     'cate_name'  =>$gach.$value['cate_name'],
+    //                     'cate_parent'=>$value['cate_parent']
+    //                     );
+    //         $data = $this->getDataInsertCategory($value['cate_id'],$gach.'---   ',$data);
+    //     }    
+    //     return $data;
+    // }
 
     public function check($parent,$child) {
       
@@ -300,6 +216,10 @@ class cate extends CI_Controller{
     }
 
     // DucTM
+    /**
+     * Written by DucTM
+     * @return [type]
+     */
     public function moveCategory()  
     
     {
@@ -321,6 +241,86 @@ class cate extends CI_Controller{
         $data['template'] = "cate/moveCategory";
         $this->load->view("layout/layout",$data);
     }
+
+    /**
+     * Written by HoangHH
+     * getCategory in order acording cate_order
+     * @return [type]
+     */
+    private function getCategory($LevelSign = ""){
+        $SequenceList = $this->cate_model->getAll();
+        if( empty($SequenceList)){
+            echo "Have no category!";
+        } else{
+            // get Category level 0, ParentId = 0;
+            $strLevel = "";
+            $SortedList = $this->recursive(0, $SequenceList, $strLevel);
+            return $SortedList;
+        } // end if empty
+    } // end getCategory
+
+
+    /**
+     * written by HoangHH
+     * Use to get sub-level category, support for listcate() method
+     * @param  [type] $ParentId
+     * @param  [type] $List
+     * @param  [type] $strLevel
+     * @return [type]
+     */
+    private function recursive($ParentId, &$List, $strLevel){
+        if( ! empty($List)){
+            if( $ParentId != 0 ){
+                $strLevel .= "____";
+            } else{
+                // $strLevel = "";
+            }
+
+            $LevelList = array();
+            
+            foreach ($List as $key => $CateDetail) {
+                if($ParentId == $CateDetail['cate_parent']){
+                    $temp = array(
+                        'cate_id' => $CateDetail ['cate_id'],
+                        'cate_name' => $strLevel . $CateDetail ['cate_name'],
+                        'cate_parent' => $CateDetail ['cate_parent'],
+                        'cate_order' => $strLevel . $CateDetail ['cate_order']
+                        );
+                    $LevelList[$key] = $temp;
+                    // $LevelList[$key] = $CateDetail;
+                    unset($List[$key]);
+                } // end if ParentId
+            } // end foreach $List
+
+            
+
+            if( ! empty($LevelList)){
+                $LevelSortByOrder = array();
+                foreach ($LevelList as $key => $LevelCateDetail) {
+                    $LevelKeyOrder[$key] = $LevelCateDetail['cate_order'];
+                }
+
+                asort($LevelKeyOrder);
+
+                $LevelSorted = array();
+                foreach ($LevelKeyOrder as $key => $CateOrder) {
+                    $LevelSorted[$key] = $LevelList[$key];
+                }
+
+                $LevelAndSub = array();
+                foreach ($LevelSorted as $key => $LevelCateDetail) {
+                    $LevelAndSub[] = $LevelCateDetail;
+                    $SubLevel = $this->recursive($LevelCateDetail['cate_id'], $List, $strLevel);
+                    if ( ! empty($SubLevel)){
+                        foreach ($SubLevel as $key => $SubLevelCateDetail) {
+                            $LevelAndSub[] = $SubLevelCateDetail;
+                        }
+                    } // end if SubLevel
+                } // end foreach LevelSorted
+                return $LevelAndSub;
+            } // end if empty $Level
+        } // end if ! empty()
+    } // end recursive()
 
 } // end class cate
 // end file cate.php

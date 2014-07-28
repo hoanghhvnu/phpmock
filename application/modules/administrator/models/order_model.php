@@ -57,9 +57,9 @@ class order_model extends CI_model{
 	} // end delete
 
 	public function count_all(){
-	    $this->db->from($this->_table);
-	    return $this->db->count_all_results();
-	    // return $this->db->get($this->_table)->result_array();
+	    // $this->db->from($this->_table);
+	    // return $this->db->count_all_results();
+	    return $this->db->get($this->_table)->num_rows();
 	}
 
 	public function get_order($column, $sortType = '', $limit = '', $start = ''){

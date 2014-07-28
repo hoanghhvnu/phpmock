@@ -20,15 +20,13 @@ class order extends CI_Controller{
      * @return [type]
      */
     public function listOrder(){
-        // echo "hoang";
-        // $RawList = $this->order_model->getAll();
         if( ! isset($_SESSION['user'])){
             redirect(base_url("administrator/user/login"));
         }
+
         $sortType = ($this->uri->segment(5)) ? $this->uri->segment(5) : 'desc';
         $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'order_status';
-        // echo "sort" . $sortType;
-        // echo "column" . $column;
+
         
         if ($this->input->post('btnok')){
             if ($this->input->post('show_all')){
@@ -39,27 +37,18 @@ class order extends CI_Controller{
                     $_SESSION['PerPageListOrder'] = $this->input->post('per_page');
                 }
             }
-            // if($this->input->post('SearchById')){
-            //     // $data['ListOrder'] = getsearch
-            // }
-            
-            // if($this->input->post('sort')){
-            //     $_SESSION['sortType'] = $this->input->post('sort');
-            // }
+
             
         }
-        // echo $_SESSION['PerPageListOrder'];
-        $_SESSION['PerPageListOrder']  = isset($_SESSION['PerPageListOrder']) ? $_SESSION['PerPageListOrder'] : 5;
-        // $_SESSION['sortType'] = isset($_SESSION['sortType']) ? $_SESSION['sortType'] : "";
-        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "no";
 
+        $_SESSION['PerPageListOrder']  = isset($_SESSION['PerPageListOrder']) ? $_SESSION['PerPageListOrder'] : 5;
+        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "no";
         $config['per_page'] = $_SESSION['PerPageListOrder'];
-        // $sortType          = ($_SESSION['sortType'] != "none") ? $_SESSION['sortType'] : "";
         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
-        /*if( ! is_int($page)){
-            echo "Trang web không tồn tại!";
-            return FALSE;
-        }*/
+        // if( ! is_int($page)){
+        //     echo "Trang web không tồn tại!";
+        //     return FALSE;
+        // }
 
         if($this->input->post('SearchById')){
             $page = 1;
@@ -70,7 +59,6 @@ class order extends CI_Controller{
         if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
-            // echo "page = 1";
         }
 
         $config['use_page_numbers'] = TRUE;
