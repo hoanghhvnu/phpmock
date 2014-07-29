@@ -15,13 +15,16 @@
                 <input class = 'txt' type = 'text' name = 'SearchById' value = "" ?>
                 <br/>
                 <?php echo form_fieldset_close();?>
+                
+
     	        <input type = 'submit' name = 'btnok' value = 'Gửi'>
     	    </form>
     	        
     	</div>
+        <div style="clear:both"></div>
     	<?php  echo "Trang: ";
     	        echo isset($link) ? $link : "";  ?>
-    	<table border="1" >
+    	<table border="1"  style="clear:both">
     		<?php
     		    // print_r($column);
     		    // echo $_SESSION['per_page'];

@@ -11,7 +11,7 @@ class home extends CI_Controller
     {
        $data['listProduct'] = $this->product_model->listProduct();
        $data['template'] = "product/default";
-       $this->load->view("home/layout",$data);
+       $this->load->view("layout/layout",$data);
     }
     public function detail()
     {

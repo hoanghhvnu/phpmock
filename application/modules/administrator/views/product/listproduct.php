@@ -12,10 +12,14 @@
             <input type = 'submit' name = 'btnSubmit' value = 'Submit'>
         </form>
     </div>
+    <div style="clear:both;margin:5px;padding: 5px">
     <a  href='<?php echo base_url("administrator/product/searchproduct");?>'>
-                <button style = "style=background-color:green;float:right;">Search Product</button></a><br/>
+                <button >Search Product</button></a><br/>
     <a  href='<?php echo base_url("administrator/product/insertProduct");?>'>
-                <button style = "float:left;">Insert Product</button></a>
+                <button >Insert Product</button></a>        
+
+    </div>
+    
 
     <div id = 'listproduct'>
       <?php  echo "Trang: ";
