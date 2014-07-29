@@ -7,6 +7,10 @@
 </head>
 <body>
 
+
+</head>
+<body>
+
 <br>
 
 
@@ -30,6 +34,8 @@
 
             <input type="submit" name = 'btnok'>
         </form>
+
+    
         <!-- end form for Sorting ===================================================================== -->
 
         <span style="font-size:130%;font-weight:bold">

@@ -15,8 +15,11 @@ class product extends CI_Controller {
 		// echo $this->input->post("SortType");
 		$SortField = 'pro_name';
 		$SortType = 'asc';
-		$_SESSION['SortType'] = $this->input->post("SortType");
-		$_SESSION['SortField'] = $this->input->post("SortField");
+		if($this->input->post("btnok")){
+			$_SESSION['SortType'] = $this->input->post("SortType");
+			$_SESSION['SortField'] = $this->input->post("SortField");
+		}
+		
 
 		if(isset($_SESSION['SortField']) && $_SESSION['SortField'] != ""){
 			$SortField = $_SESSION['SortField'];
