@@ -1,11 +1,11 @@
 <?php
-class pro extends base_Controller{
+class pro extends basecontroller{
 	public function __construct(){
 		parent::__construct();
-		echo __CLASS__;
+		// echo __CLASS__;
 	}
 	public function index(){
-		// $this->load->view("layout/test");
+		$this->load->view("layout/header");
 	}
 
 }

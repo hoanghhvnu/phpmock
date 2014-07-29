@@ -17,9 +17,32 @@
   <div id="header">
     <div id="logo"> <a href="#"><img src="http://localhost/phpmock/public/images/smartosc.jpg" alt="" border="0" width="237" height="140" /></a> </div>
     <div class="oferte_content">
-      <!-- show slide der -->
-      <?php include("sli.php") ?>
-      <!-- end slider -->
+
+      <!-- show slide der ============================================================================ -->
+      <?php //include("sli.php") ?>
+      <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/slide.css">
+      <script type="text/javascript" src="http://localhost/phpmock/js/jquery-1.11.1.min.js"></script>
+      <?php
+      if(isset($slider) && ! empty($slider)){
+        // print_r($slider);
+        echo "<div id='slider'>";
+        echo "<a href='#' class='control_next'>></a>";
+        echo "<a href='#' class='control_prev'><</a>";
+        echo "<ul>";
+        foreach ($slider as $key => $value) {
+          echo "<li><a href='". base_url("default/product/detailProduct") . "/" . $value['pro_id'] ."'>";
+          echo "<img src='" . base_url('uploads/product') ."/" . $value['pro_images'] . "'alt=''>";
+          
+        }
+        
+        echo '</ul>';
+        echo "</div>";
+      }
+      
+      ?>
+      <script src="<?php echo base_url();?>js/slide.js"></script>
+      <!-- end slider ================================================================================ -->
+
     </div>
     <!-- end of oferte_content-->
   </div>

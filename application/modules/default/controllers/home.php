@@ -9,9 +9,18 @@ class home extends CI_Controller
     }
     public function index()
     {
-       $data['listProduct'] = $this->product_model->listProduct();
-       $data['template'] = "product/default";
-       $this->load->view("layout/layout",$data);
+       // $data['listProduct'] = $this->product_model->listProduct();
+       // $data['template'] = "product/default";
+       // $this->load->view("layout/layout",$data);
+       $data['slider'] = $this->product_model->getSlider();
+       // echo "<pre>";
+       // echo "hoang";
+       // print_r($data['slider']);
+
+       $this->load->view("layout/header",$data);
+       $this->load->view("layout/left_content");
+       $this->load->view("layout/right_content");
+       $this->load->view("layout/footer");
     }
     public function detail()
     {

@@ -34,4 +34,13 @@ class product_model extends CI_Model
         $this->db->delete($this->_table);
     }
     
+    /**
+     * writen by HoangHH
+     * 
+     */
+    public function getSlider(){
+        $this->db->select("pro_id,pro_images");
+        $this->db->where("isSlider = 1");
+        return $this->db->get($this->_table)->result_array();
+    }
 }
