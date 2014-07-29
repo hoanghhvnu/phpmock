@@ -15,7 +15,7 @@
     </div>
   </div>
   <div id="header">
-    <div id="logo"> <a href="#"><img src="http://localhost/phpmock/public/images/smartosc.jpg" alt="" border="0" width="237" height="140" /></a> </div>
+    <div id="logo"> <a href="http://localhost/phpmock/default/home/index"><img src="http://localhost/phpmock/public/images/smartosc.jpg" alt="" border="0" width="237" height="140" /></a> </div>
     <div class="oferte_content">
 
       <!-- show slide der ============================================================================ -->

@@ -1,3 +1,4 @@
+@charset "utf-8";
 body
 {
 background:url(images/bg.jpg) no-repeat #fff center top;
@@ -20,7 +21,7 @@ padding:0px;
 .top_bar{
 width:1000px;
 height:38px;
-background-color:#bbb9b9;
+background-color:#4a4a4a;
 }
 .top_search{
 width:370px;
@@ -70,8 +71,8 @@ padding:0 5px 0 5px;
 }
 #header{
 width:1000px;
-height:300px;
-background:url(images/bg.png) no-repeat center;
+height:173px;
+background:url(images/header_bg.jpg) no-repeat center;
 background-position:0px 0px;
 margin:auto;
 }
@@ -617,3 +618,87 @@ text-align:center;
 color:#666666;
 padding:10px 0 0 60px;
 }
+
+.tooltip {
+border-bottom: 1px dotted #000000; color: #000000; outline: none;
+text-decoration: none;
+position: relative;
+}
+.tooltip span  {
+margin-left: -999em;
+position: absolute;
+}
+.tooltip:hover span {
+border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+font-family: Calibri, Tahoma, Geneva, sans-serif;
+position: absolute; left: 1em; top: 2em; z-index: 99;
+margin-left: 0; width: 250px;
+}
+.tooltip:hover img {
+border: 0; margin: -10px 0 0 -55px;
+float: left; position: absolute;
+}
+
+.info { background: #9FDAEE; border: 1px solid #2BB0D7;	}
+.error{
+color: red;
+ }
+.custom { padding: 0.5em 0.8em 0.8em 2em; }
+.callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
+
+#center{
+	float:left;
+	width:588px;
+	padding:5px;
+}
+
+#center ul{
+	margin:0px;
+	padding:0px;
+	list-style:none;
+}
+#center ul li{
+	float:left;
+	border:1px solid #CCC;
+	padding:3px;
+	margin-left:11px;
+	margin-bottom:15px;
+}
+#center ul li h3{
+	font-size:12px;
+	text-align:center;
+	display:block;
+	font-weight:normal;
+}
+#center ul li h3 a{
+	text-decoration:none;
+	color:#09F;
+}
+#center ul li p{
+	text-align:center;
+	margin-bottom:5px;
+}
+#center ul li img.product{
+	border:1px solid #fbfbfb;
+	padding:2px;
+	width:120px;
+	margin-bottom:5px;
+}
+#center ul li a.cart{
+	float:left;
+	display:block;
+	text-decoration:none;
+	color:#4d4d4d;
+	line-height:30px;
+}
+#center ul li a.cart:hover{
+	color:red;
+}
+#center ul li a.cart img{
+	vertical-align:middle;
+	margin-top:-5px;
+}
+
+
+
