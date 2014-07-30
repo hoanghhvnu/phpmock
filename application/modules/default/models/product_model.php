@@ -26,12 +26,12 @@ class product_model extends CI_Model {
 		$this->db->where ( "pro_id = $id" );
 		$this->db->delete ( $this->_table );
 	}
-	function list_all($number, $offset, $SortType = "", $Field = "") {
+	function list_all($limit, $start, $SortType = "", $Field = "") {
 		if($SortType !="" && $Field){
 			$this->db->order_by("{$Field}", "{$SortType}");
 		}
-		if($number && $offset){
-			$this->db->limit($number,$offset);
+		if($limit){
+			$this->db->limit($limit,$start);
 		}
 		return $this->db->get ( $this->_table)->result_array ();
 	}
@@ -44,9 +44,9 @@ class product_model extends CI_Model {
      * 
      */
     public function getSlider(){
-        $this->db->select("pro_id,pro_images");
-        $this->db->where("isSlider = 1");
-        return $this->db->get($this->_table)->result_array();
+        // $this->db->select("pro_id,pro_images");
+        // $this->db->where("isSlider = 1");
+        return $this->db->get("slider")->result_array();
     }
 	
 }

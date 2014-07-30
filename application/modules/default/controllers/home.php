@@ -12,7 +12,23 @@ class home extends CI_Controller
        // $data['listProduct'] = $this->product_model->listProduct();
        // $data['template'] = "product/default";
        // $this->load->view("layout/layout",$data);
-       $data['slider'] = $this->product_model->getSlider();
+       // $data['slider'] = 
+       $rawOrder = $this->product_model->getSlider();
+       $KeyOrder = array();
+       foreach ($rawOrder as $key => $value) {
+         $KeyOrder[$key] = $value['slide_order'];
+       }
+       if(isset($KeyOrder) && ! empty($KeyOrder)){
+          asort($KeyOrder);
+          // $Ordered[] = array();
+          foreach ($KeyOrder as $key => $value) {
+            $Ordered[] = $rawOrder[$key];
+          }
+       }
+       $data['slider'] = $Ordered;
+       // echo "<pre>";
+       // print_r($rawOrder);
+       // print_r($Ordered);
        // echo "<pre>";
        // echo "hoang";
        // print_r($data['slider']);

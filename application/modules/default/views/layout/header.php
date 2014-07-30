@@ -50,15 +50,15 @@
     <div id="menu_tab">
       <div class="left_menu_corner"></div>
       <ul class="menu">
-        <li><a href="http://www.free-css.com/" class="nav1"> Trang ch&#7911;</a></li>
+        <li><a href="<?php echo base_url();?>default/home/index" class="nav1"> Trang ch&#7911;</a></li>
         <li class="divider"></li>
-        <li><a href="http://www.free-css.com/" class="nav2">S&#7843;n ph&#7849;m</a></li>
+        <li><a href="<?php echo base_url();?>default/product/listproduct" class="nav2">S&#7843;n ph&#7849;m</a></li>
         <li class="divider"></li>
-        <li><a href="http://www.free-css.com/" class="nav3">Điện thoại</a></li>
+        <li><a href="<?php echo base_url();?>default/home/index" class="nav3">Điện thoại</a></li>
         <li class="divider"></li>
         <li></li>
         <li class="divider"></li>
-        <li><a href="http://www.free-css.com/" class="nav4">Máy tính</a></li>
+        <li><a href="<?php echo base_url();?>default/home/index" class="nav4">Máy tính</a></li>
         <li class="divider"></li>
         <li></li>
         <li class="divider"></li>

@@ -16,6 +16,16 @@
         font-size: 120%;
         font-weight: bold;
     }
+    .error{
+        color: red;
+        background-color: gray;
+    }
+    #listitem a{
+        text-decoration: none;
+        color: black;
+        
+    }
+    
 </style>
 <script type="text/javascript">
     /////////////////////////////
@@ -41,7 +51,8 @@ function reload(page){
             // alert(result);
             var objResult = $.parseJSON(result);
 
-            
+            // var CurrentPage =  $(this).attr('repage');
+
             $('#listitem').empty();
             var list = "";
             list += "<ul style='clear:both;float:left'>";
@@ -49,8 +60,8 @@ function reload(page){
             $.each(objResult,function(index,value){
                 // $('#listitem').append("<li style='margin-left:10px;'>");
                 list += "<li style='margin-left:10px;'>"
-                list += "<a href='/phpmock/default/product/detailproduct/" + value.pro_id + "'>";
-                list += "<h3>" + value.pro_name + "</h3>";
+                list += "<a  href='/phpmock/default/product/detailproduct/" + value.pro_id + "'>";
+                list += "<h3 >" + value.pro_name + "</h3>";
                 list += "<img src='/phpmock/uploads/product/" + value.pro_images +  "' class='product' height='100' />";
                 list += "</a>";
                 list += "<p class = 'price' >";
@@ -90,9 +101,13 @@ function reload(page){
         });
 
         $('#linkpage a').click(function(){
-            var clicked =  $(this).attr('repage');
-            // alert(clicked);
-            reload(clicked);
+            var page =  $(this).attr('repage');
+            // alert(page);
+            
+            reload(page);
+            // $(this).addClass("error");
+            // $('#linkpage a').css("background-color", 'white');
+            // $(this).css("background-color","#bbbbbb");
         });
 
     });
