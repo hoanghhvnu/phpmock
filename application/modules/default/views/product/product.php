@@ -3,6 +3,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <title>Web ban hang</title>
+<style type="text/css">
+    #linkpage{
+        clear: both;
+        text-align: center;
+    }
+    #linkpage a{
+        
+        cursor: pointer;
+        /*text-decoration: underline;*/
+        color: blue;
+        font-size: 120%;
+        font-weight: bold;
+    }
+</style>
 <script type="text/javascript">
     /////////////////////////////
     // jQuery import in header //
@@ -12,17 +26,21 @@
  * get new list product from sever
  * @return {[type]} [description]
  */
-function reload(){
+function reload(page){
     var SortField = $('#SelField').val();
     var SortType = $("#SelType").val();
+    // var page = $('#linkpage a').attr('repage');
+    // alert('page = ' + page);
 
     $.ajax({
         url: "receiveAjax",
         // url: "http://localhost/phpmock/default/product/listproduct//receiveAjax",
         type: "post", //can be post or get
-        data: {'SortField':SortField,'SortType':SortType}, 
+        data: {'SortField':SortField,'SortType':SortType,'Page':page}, 
         success: function(result){
+            // alert(result);
             var objResult = $.parseJSON(result);
+
             
             $('#listitem').empty();
             var list = "";
@@ -64,12 +82,19 @@ function reload(){
     $(document).ready(function(){
         // alert("jquery ok");
         $("#SelField").change(function(){
-            reload();
+            reload(1);
         });
 
         $("#SelType").change(function(){
-           reload();
+           reload(1);
         });
+
+        $('#linkpage a').click(function(){
+            var clicked =  $(this).attr('repage');
+            // alert(clicked);
+            reload(clicked);
+        });
+
     });
 </script>
 </head>
@@ -83,8 +108,10 @@ function reload(){
     <div id="center" class="center_content">
         <!-- form for Sorting ========================================================================= -->
         <form action = '' method="post" style="float:right;margin:10px">
+            
             <label>Sắp xếp theo</label>
 
+            
             <select name = "SortField" id = 'SelField' >
                 <option value = 'pro_name'>Name</option>
                 <option value = 'pro_price'>Price</option>
@@ -103,8 +130,9 @@ function reload(){
     
         <!-- end form for Sorting ===================================================================== -->
 
-        <span style="font-size:130%;font-weight:bold">
-            <?php echo "Page: " . $this->pagination->create_links (); ?> 
+        <span  style="font-size:130%;font-weight:bold">
+
+            
         </span>
         <div id = 'listitem'>
                 <ul style="clear:both;float:left">
@@ -146,6 +174,18 @@ function reload(){
                                     
                     <?php }} ?>
                 </ul>
+
+        </div>
+        <div id = 'linkpage'>
+            <?php 
+
+                // echo $total_page;
+                echo "Page: ";
+                for($i = 1; $i <= $total_page; $i++){
+                    echo "<a repage = '" . $i . "'>" . $i . "</a>    ";
+                }
+                // echo "Page: " . $this->pagination->create_links ();
+            ?> 
         </div>
     	
     </div>

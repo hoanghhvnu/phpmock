@@ -63,7 +63,7 @@ class product extends CI_Controller {
 			$config ['per_page'] = $config ['total_rows'];
 			$page = 1;
 		}
-		$start = ($page - 1) * $config ['per_page'];
+		$start = 1;
 		
 		$this->pagination->initialize ( $config );
 		$data ['products'] = $this->product_model->list_all ( $config ['per_page'], $start , $SortType, $SortField);
@@ -75,6 +75,7 @@ class product extends CI_Controller {
 		
 		$data ['total'] = $this->cart->total_items ();
 		$data ['money'] = $grand_total;
+		$data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
 		// tong so san pham da mua
 		
 		$data ['template'] = "product/product";
@@ -94,11 +95,18 @@ class product extends CI_Controller {
 			$SortType = 'asc';
 		}
 
+		if(isset($_POST['Page'])){
+			$page = $_POST['Page'];
+		}else{
+			$page = '1';
+		}
+
 		
 		$config['per_page'] = 5;
-		$start = 0;
+		$start = ($page - 1) * $config['per_page'];
 		// echo $SortType . $SortField;
 		$NewProduct = $this->product_model->list_all ( $config ['per_page'], $start , $SortType, $SortField);
+		// echo $page;
 		echo json_encode($NewProduct);
 	}
 }

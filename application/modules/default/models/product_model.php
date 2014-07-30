@@ -27,11 +27,13 @@ class product_model extends CI_Model {
 		$this->db->delete ( $this->_table );
 	}
 	function list_all($number, $offset, $SortType = "", $Field = "") {
-		if($SortType !=""){
+		if($SortType !="" && $Field){
 			$this->db->order_by("{$Field}", "{$SortType}");
 		}
-		$query = $this->db->get ( $this->_table, $number, $offset );
-		return $query->result_array ();
+		if($number && $offset){
+			$this->db->limit($number,$offset);
+		}
+		return $this->db->get ( $this->_table)->result_array ();
 	}
 	function count_all() {
 		return $this->db->count_all ( $this->_table );
