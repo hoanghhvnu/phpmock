@@ -79,5 +79,26 @@ class product extends CI_Controller {
 		
 		$data ['template'] = "product/product";
 		$this->load->view ( 'layout/layout', $data );
+	} // end listproduct()
+
+	public function receiveAjax(){
+		if(isset($_POST['SortField'])){
+			$SortField = $_POST['SortField'];
+		}else{
+			$SortField = 'pro_name';
+		}
+
+		if(isset($_POST['SortType'])){
+			$SortType = $_POST['SortType'];
+		}else{
+			$SortType = 'asc';
+		}
+
+		
+		$config['per_page'] = 5;
+		$start = 0;
+		// echo $SortType . $SortField;
+		$NewProduct = $this->product_model->list_all ( $config ['per_page'], $start , $SortType, $SortField);
+		echo json_encode($NewProduct);
 	}
 }
