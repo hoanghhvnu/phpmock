@@ -624,11 +624,11 @@ border-bottom: 1px dotted #000000; color: #000000; outline: none;
 text-decoration: none;
 position: relative;
 }
-.tooltip span  {
+.tooltip div  {
 margin-left: -999em;
 position: absolute;
 }
-.tooltip:hover span {
+.tooltip:hover div {
 border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
 box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
 font-family: Calibri, Tahoma, Geneva, sans-serif;
@@ -647,10 +647,12 @@ color: red;
 .custom { padding: 0.5em 0.8em 0.8em 2em; }
 .callout {z-index:20;position:absolute;top:30px;border:0;left:-12px;}
 
-#center{
-	float:left;
-	width:588px;
-	padding:5px;
+#center ul li:hover  {
+  	float:left;
+	border:1px solid darkblue;
+	padding:3px;
+	margin-left:11px;
+	margin-bottom:15px;
 }
 
 #center ul{
@@ -685,6 +687,8 @@ color: red;
 	width:120px;
 	margin-bottom:5px;
 }
+
+}
 #center ul li a.cart{
 	float:left;
 	display:block;
@@ -700,5 +704,142 @@ color: red;
 	margin-top:-5px;
 }
 
+ul.tsc_pagination { 
+margin:4px 0; 
+padding:0px; 
+height:100%; 
+overflow:hidden; 
+font:12px 'Tahoma'; 
+list-style-type:none; 
+}
+ul.tsc_pagination li 
+{ 
+float:left; 
+margin:0px; 
+padding:0px; 
+margin-left:5px; }
+ 
+ul.tsc_pagination li a { 
+color:black; 
+display:block; 
+text-decoration:none; 
+padding:7px 10px 7px 10px; 
+}
+ 
+ 
+ul.tsc_paginationA li a { 
+color:#FFFFFF; 
+border-radius:3px; 
+-moz-border-radius:3px; 
+-webkit-border-radius:3px; 
+}
+ 
+ul.tsc_paginationA01 li a { 
+color:#474747; 
+border:solid 1px #B6B6B6; 
+padding:6px 9px 6px 9px; 
+background:#E6E6E6; 
+background:-moz-linear-gradient(top, #FFFFFF 1px, #F3F3F3 1px, #E6E6E6); 
+background:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0.02, #FFFFFF), color-stop(0.02, #F3F3F3), color-stop(1, #E6E6E6)); 
+}
+ul.tsc_paginationA01 li:hover a,
+ul.tsc_paginationA01 li.current a { 
+background:	#7FFFD4; 
+}
 
+#center ul li{
+position:relative;
+}
+#center ul li .bginfo {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #fff;
+    display: block;
+    position: absolute;
+    font-size: 10px;
+    height: 150px;
+    left: 0;
+    line-height: 16px;
+	
+    opacity: 0;
+    overflow: hidden;
+    
+    top: 0;
+	right:0px;
+    transition: all 0.5s ease 0s;
+    width: 100%;
+    z-index: 99;
+}
+#center ul li :hover .bginfo {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.85);
+    opacity: 0.85;
+}
+#center ul li .bginfo span {
+    color: #fff;
+    display: block;
+    padding: 2px 6px;
 
+}
+
+/*
+* Phan comment HuanDT
+*
+ */
+
+/*---------------Phần comment------------------*/
+#comment{
+
+}
+
+#comment label {
+	display: none;
+}
+
+.placeholder{
+	padding-left: 5px;
+	margin-top: 10px;
+	margin-left: 15px;
+	color: #444;
+	width: 543px;
+}
+
+#nutbam{
+	margin-top: 7px;
+	margin-left: 15px;
+	margin-bottom: 12px;
+}
+.button{
+	width:70px;
+	height: 31px;
+	
+}
+#submit{
+	background: url("http://localhost/phpmock/public/images/submit_mini.jpg") no-repeat;
+	z-index: 10;
+}
+#reset{
+	background: url("http://localhost/phpmock/public/images/reset_mini.png") no-repeat;
+	z-index: 10;
+}
+
+#post-comment{
+	
+}
+
+#author{
+	padding-left: 15px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#post-content{
+	padding-left: 35px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-style: italic;
+	font-weight: normal;
+}
+
+/*
+*Het phan comment HuanDT
+ */

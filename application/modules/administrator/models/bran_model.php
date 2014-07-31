@@ -17,28 +17,19 @@ class bran_model extends CI_Model{
         // return $this->db->get($this->_table)->result_array();
     }
 
-    public function get_order($column,$type = '', $limit = '', $start = ''){
-        // $this->db->select("*");
-        // $this->db->from($this->_table);
-        // $this->db->order_by("bran_name");
-        // return $this->db->get($this->_table);
-        $sql = "SELECT * FROM {$this->_table}";
-        if($type) $sql .=" ORDER BY {$column} {$type}";
-        $sql .= " LIMIT {$limit},{$start}";
-        
-        // echo $sql;
-        $result = mysql_query($sql);
-        $data = array();
-        while($row = mysql_fetch_assoc($result)){
-            $data[] = $row; 
+    public function get_order($column = '',$type = '', $limit = '', $start = ''){
+        if($type !== "" && $column !== ""){
+            $this->db->order_by($column,$type);
         }
-        // echo "<pre>";
-        // print_r($data);
-        return $data;
-    }
-    public function getAll(){
+        
+        if($limit !== "" && $start !== ""){
+            $this->db->limit($start,$limit);
+        }
+
         return $this->db->get($this->_table)->result_array();
-    } // end listUser();
+
+    }
+
     public function insert($data){
         $this->db->insert($this->_table,$data);
     } // end insert()

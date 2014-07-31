@@ -1,13 +1,53 @@
 <div class="right_content">
-      <div class="shopping_cart">
-        <div class="cart_title">Gi&#7887; h&agrave;ng</div>
-        <div class="cart_details"> 0 items<br />
-          <span class="border_cart"></span> T&#7893;ng ti&#7873;n: <span class="price">350$</span> </div>
-        <div class="cart_icon"><a href="http://www.free-css.com/" title="header=[Checkout] body=[&nbsp;] fade=[on]"><img src="http://localhost/phpmock/public/images/shoppingcart.png" alt="" width="48" height="48" border="0" /></a></div>
-      </div>
-      <ul class="left_menu">
-        <li class="odd"></li>
-      </ul>
-    </div>
-    <!-- end of right content -->
-  </div>
+	<div class="shopping_cart">
+		<div class="cart_title">Giỏ hàng</div>
+		<div class="cart_details">
+
+
+			<a class="tooltip" href="http://localhost/phpmock/default/cart"> 
+        	
+        	<?php if (isset($total)) echo $total." sản phẩm";?>
+			
+			<div class="custom info">
+					<table border='1' cellpadding="2px" style="font-size: 14px;"
+						width="100%">
+
+						<th>Tên hàng</th>
+						<th>Giá</th>
+						<th>Số lượng</th>
+						<th>Tiền</th>
+
+    			<?php
+				$cart = $this->cart->contents ();
+				foreach ( $cart as $item ) {					
+					echo "<tr>";		
+					echo "<td>" . $item ['name'] . "</td>";
+					echo "<td>" . $item ['price'] . " VNĐ</td>";
+					echo "<td>" . $item ['qty'] . "</td>";
+					echo "<td>" . $item ['qty'] * $item ['price'] . " VNĐ</td>";
+					echo "</tr>";
+				} // end foreach
+				
+				?>
+   		   </table>
+   	
+					<?php
+					echo "<p style='color:red;'>-Tổng tiền: ". $money . " VNĐ</p>";
+					?>		
+			</div>
+			</a> <span class="border_cart"></span> T&#7893;ng ti&#7873;n: <span
+				class="price">
+          <?php if (isset($money)) echo $money; ?> VNĐ</span>
+		</div>
+		<div class="cart_icon">
+
+			<img src="http://localhost/phpmock/public/images/shoppingcart.png"
+				alt="" width="48" height="48" border="0" />
+		</div>
+	</div>
+	<ul class="left_menu">
+		<li class="odd"></li>
+	</ul>
+</div>
+<!-- end of right content -->
+</div>

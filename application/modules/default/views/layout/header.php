@@ -4,6 +4,11 @@
 <title>Project Nhom 2</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="http://localhost/phpmock/public/style.css" />
+
+
+
+
+
 </head>
 <body>
 <div id="main_container">

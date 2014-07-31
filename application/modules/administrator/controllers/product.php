@@ -83,7 +83,7 @@ class product extends CI_Controller{
         $data['sort_type'] = $_SESSION['sort_type'];
         $data['show_all'] = $_SESSION['show_all'];
 
-        $data['ListBrand'] = $this->bran_model->getAll();
+        $data['ListBrand'] = $this->bran_model->get_order();
         $data['ListCountry'] = $this->country_model->getAll();
         $data['template'] = "product/listproduct";
         $this->load->view("layout/layout",$data);
@@ -101,7 +101,7 @@ class product extends CI_Controller{
     // Writen by HoangHH
     public function searchProduct(){
         
-        $data['ListBrand'] = $this->bran_model->getAll();
+        $data['ListBrand'] = $this->bran_model->get_order();
         $data['ListCountry'] = $this->country_model->getAll();
 
         
@@ -197,7 +197,7 @@ class product extends CI_Controller{
         // echo count($data['SearchResult']);
         // echo "<pre>";
         // print_r($data['SearchResult']);
-        $data['ListBrand'] = $this->bran_model->getAll();
+        $data['ListBrand'] = $this->bran_model->get_order();
         $data['ListCountry'] = $this->country_model->getAll();
 
         $data['template'] = "product/SearchResult";
@@ -221,7 +221,7 @@ class product extends CI_Controller{
          }
          $data['listCateid'] = $cateArr;      
          //get bran   
-         $data['bran'] =$this->bran_model->getAll();
+         $data['bran'] =$this->bran_model->get_order();
          //get country
          $data['country'] =$this->country_model->getAll();    
          // lay ra category
@@ -396,7 +396,7 @@ class product extends CI_Controller{
 // HuanDT
      public function insertProduct(){
          //get bran   
-         $data['bran'] =$this->bran_model->getAll();
+         $data['bran'] =$this->bran_model->get_order();
          //get country
          $data['country'] =$this->country_model->getAll();    
          // lay ra category

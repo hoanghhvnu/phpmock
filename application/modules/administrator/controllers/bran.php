@@ -97,7 +97,7 @@ class bran extends CI_Controller{
             
        
             if($this->form_validation->run()){
-                $listall=$this->bran_model->getAll();
+                $listall=$this->bran_model->get_order();
                 
              foreach ($listall as $row) {
                 if (in_array(trim($updateName),$row)&& ($row['bran_id']!=$id)) $data['errorName']="Đã tồn tại";

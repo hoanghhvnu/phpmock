@@ -6,38 +6,56 @@ class home extends CI_Controller
         parent::__construct();
         $this->load->helper("url");
         $this->load->model("product_model");
+        $this->load->library("cart");
     }
     public function index()
     {
-       // $data['listProduct'] = $this->product_model->listProduct();
-       // $data['template'] = "product/default";
-       // $this->load->view("layout/layout",$data);
-       // $data['slider'] = 
-       $rawOrder = $this->product_model->getSlider();
-       $KeyOrder = array();
-       foreach ($rawOrder as $key => $value) {
-         $KeyOrder[$key] = $value['slide_order'];
-       }
-       if(isset($KeyOrder) && ! empty($KeyOrder)){
-          asort($KeyOrder);
-          // $Ordered[] = array();
-          foreach ($KeyOrder as $key => $value) {
-            $Ordered[] = $rawOrder[$key];
-          }
-       }
-       $data['slider'] = $Ordered;
-       // echo "<pre>";
-       // print_r($rawOrder);
-       // print_r($Ordered);
-       // echo "<pre>";
-       // echo "hoang";
-       // print_r($data['slider']);
 
-       $this->load->view("layout/header",$data);
+       $rawOrder = $this->product_model->getSlider();
+       if(! isset($rawOrder) || empty($rawOrder)){
+          /**
+           * load view has no slider
+           */
+          $this->load->view("layout/header");
+          
+       } else{
+          /**
+           * load view has slider
+           * @var array
+           */
+          $KeyOrder = array();
+
+          foreach ($rawOrder as $key => $value) {
+            $KeyOrder[$key] = $value['slide_order'];
+          }
+
+          if(isset($KeyOrder) && ! empty($KeyOrder)){
+             asort($KeyOrder);
+
+             foreach ($KeyOrder as $key => $value) {
+               $Ordered[] = $rawOrder[$key];
+             } // end foreach
+
+             $data['slider'] = $Ordered;
+             $this->load->view("layout/header",$data);
+          } // end if isset $KeyOrder
+       }
+       /////////////////////////////////////
+       $grand_total = 0;
+       foreach ( $this->cart->contents () as $value ) {
+        $grand_total = $grand_total + $value ['subtotal'];
+       }
+       
+       $data ['total'] = $this->cart->total_items ();
+       $data ['money'] = $grand_total;
+       
+       // tong so san pham da mua
+
        $this->load->view("layout/left_content");
-       $this->load->view("layout/right_content");
+       $this->load->view("layout/right_content",$data);
        $this->load->view("layout/footer");
-    }
+    } // end index()
+
     public function detail()
     {
         $idProduct = $this->uri->segment(4);
