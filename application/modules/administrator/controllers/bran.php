@@ -11,7 +11,7 @@ class bran extends CI_Controller{
             redirect(base_url("administrator/user/login"));
         }
 
-    } // end __constructrdfgf
+    } // end __construct
 
     public function index(){
         $this->listbran();
