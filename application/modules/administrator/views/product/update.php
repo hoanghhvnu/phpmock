@@ -130,14 +130,18 @@
                            }
                     
                     
+					
+					for ($i=1;$i<=$numimg;$i++) {															
                     ?>
+                    <br /> <br /> 
+                    <label>Thêm ảnh</label> 
+                    <input type="file" name="file<?php echo $i; ?>" id="file" /> 
                     <br />
-                    <br />
-                    <label>Thêm ảnh</label>
+                    <?php 
+                    }
+                    ?>
                     
-                    <input type="file" name="file" id="file" />
-                    <br />
-                    <?php echo isset($errorImages) ? $errorImages : ""; ?>
+                    
 
                     <label>&nbsp;</label> 
                     <input type="submit" name="ok" value="Update" />
