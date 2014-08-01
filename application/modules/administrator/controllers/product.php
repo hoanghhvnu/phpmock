@@ -1,9 +1,7 @@
 
+
 <?php
-/**
- * @author easyvn.net
- * @copyright 2014
- */
+
 
 class product extends CI_Controller{
     public function __construct(){
@@ -487,4 +485,3 @@ class product extends CI_Controller{
 } // end class product
     
 
-?>

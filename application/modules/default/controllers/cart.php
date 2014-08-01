@@ -19,7 +19,7 @@ class cart extends CI_Controller {
 		if (! $this->cart->contents ()) {
 			$data ['message'] = '<p>Chưa có sản phẩm nào trong giỏ hàng !</p>';
 		} else {
-			$data ['message'] = $this->session->flashdata ( 'message' );
+			$data ['message'] = "";
 		}
 		
 		// ///////////////////////////////////
