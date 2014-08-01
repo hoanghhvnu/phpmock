@@ -19,7 +19,7 @@
 
             
             <a  href='<?php echo base_url("administrator/user/insertuser");?>'>
-                <button style = "style=background-color:green;float:right;">Thêm User</button></a>
+                <button >Thêm User</button></a>
             
 
         <?php  echo "Trang: ";

@@ -3,7 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>WEB BÁN HÀNG</title>
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/public/phpmock/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/phpmock/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/admin/AdminStyle.css" />
 <script type="text/javascript">
             function CheckDelete(){
 
@@ -75,7 +76,7 @@ $(document).ready(function(){
                             // print_r($_SESSION['user']);
                              echo  isset($_SESSION['user']['username']) ?  $_SESSION['user']['username'] : "";
                      ?></p>
-                <p><a href=' <?php echo base_url("/administrator/user/logout") ?> '>Đăng xuất<a/></p>
+                <p><a href=' <?php echo base_url("/administrator/user/logout") ?> '>Đăng xuất</a></p>
                 
             </div>
         </div>

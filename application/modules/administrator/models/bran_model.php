@@ -12,12 +12,10 @@ class bran_model extends CI_Model{
     } // end __construct()
 
     public function count_all(){
-        $this->db->from($this->_table);
-        return $this->db->count_all_results();
-        // return $this->db->get($this->_table)->result_array();
+        return $this->db->count_all($this->_table);
     }
 
-    public function get_order($column = '',$type = '', $limit = '', $start = ''){
+    public function get_order($column = '',$type = '', $limit = '', $start = '', $Where = ''){
         if($type !== "" && $column !== ""){
             $this->db->order_by($column,$type);
         }
@@ -26,6 +24,9 @@ class bran_model extends CI_Model{
             $this->db->limit($start,$limit);
         }
 
+        if($Where !== ''){
+            $this->db->like($Where);
+        }
         return $this->db->get($this->_table)->result_array();
 
     }
@@ -38,11 +39,6 @@ class bran_model extends CI_Model{
         $this->db->where("bran_id = $id");
         return $this->db->get($this->_table)->row_array(); 
     } // end getOnce
-
-    public function get_page($limit, $start){
-        $this->db->limit($limit,$start);
-        return $this->db->get($this->_table)->result_array();
-    } // end get_page()
 
     // writen by VIetdq
     public function update($data,$id)
@@ -64,17 +60,6 @@ class bran_model extends CI_Model{
             $this->db->delete($this->_table);
     } // end delete()
 
-    // DucTM
-    public function get_results($search_term){
-     
-        $this->db->select('*');
-        $this->db->from($this->_table);
-        $this->db->like('bran_name',$search_term);
-
-        // Execute the query.
-        $query = $this->db->get();
-        return $query->result_array();
-    }
 }
 // end class bran_model
 // end file model/bran_model.php

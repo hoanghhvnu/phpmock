@@ -418,16 +418,16 @@ class product extends CI_Controller{
                  $updateName=$this->input->post("pro_name");
                  $listall=$this->product_model->getAll();
                  foreach ($listall as $row) {
-                 if (in_array(trim($updateName),$row)) $data['errorName']="Da ton tai";
+                    if (in_array(trim($updateName),$row)) $data['errorName']="Da ton tai";
 
                  } // end if in_aaray
                
                  if (!isset($data['errorName'])) {
          
-                 $filename=$_FILES['pro_images']['name'];
+                    $filename=$_FILES['pro_images']['name'];
 
-                 if ($_FILES['pro_images']['error']==0) {                    
-                     $this->upImage('pro_images');
+                    if ($_FILES['pro_images']['error']==0) {                    
+                        $this->upImage('pro_images');
                  } // end if file
 
                  $dataProduct = array(

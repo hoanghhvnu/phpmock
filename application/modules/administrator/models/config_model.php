@@ -7,9 +7,15 @@ class config_model extends CI_Model {
 		$this->load->database ();
 	} 
 	public function getPerpage() {
-		return $this->db->get ( $this->_table )->row_array ();
+		$result = $this->db->get ( $this->_table )->row_array ();
+		if( ! isset($result['perpage'])){
+			return 10;
+		} else{
+			return $result['perpage'];
+		}
 	}
 	public function update($data) {
+		
 		$this->db->update ( $this->_table, $data );
 	}
 

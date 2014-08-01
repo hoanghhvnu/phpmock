@@ -14,10 +14,8 @@ class config extends CI_Controller {
 	public function index() {
 		$configInfo = $this->config_model->getPerpage ();
 		if (isset ( $configInfo )) {
-			$data ['perpage'] = $configInfo ['perpage'];
-		
+			$data ['perpage'] = $configInfo;
 		}
-		
 		
 		if ($this->input->post ( "ok" )) {
 			$this->form_validation->set_rules ( "perpage", "Số sản phẩm mỗi trang", "trim|required|is_natural" );
@@ -25,19 +23,14 @@ class config extends CI_Controller {
 			$this->form_validation->set_message ( "required", "%s không được bỏ trống" );
 			$this->form_validation->set_message ( "is_natural", "%s phải là số tự nhiên" );
 			$this->form_validation->set_error_delimiters ( "<span class='error'>", "</span>" );
+
 			if ($this->form_validation->run ()) {
-				$dataUser = array (
-						"perpage" => $this->input->post ( "perpage" ),
-						
-				)
-				;
-				$this->config_model->update ( $dataUser );
-				
-				redirect ( base_url ( "administrator/config" ) );
+				$data['perpage'] = $this->input->post ( "perpage" );
+				$this->config_model->update ( array ("perpage" => $data['perpage']) );
 			}
-		}
+		} // end if isset submit
+
 		$data ['template'] = "config/update";
-		
 		$this->load->view ( "layout/layout", $data );
 	}
-} 
+}
