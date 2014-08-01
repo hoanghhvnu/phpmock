@@ -3,12 +3,12 @@ class product extends CI_Controller {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->helper("form");
-		// $this->load->model("cate_model");
-		// $this->load->model("images_model");
-		// $this->load->model("bran_model");
-		// $this->load->model("country_model");
-		// $this->load->model("cateproduct_model");
-		// $this->load->model("comment_model");
+		$this->load->model("cate_model");
+		$this->load->model("images_model");
+		$this->load->model("bran_model");
+		$this->load->model("country_model");
+		$this->load->model("cateproduct_model");
+		$this->load->model("comment_model");
 		$this->load->model ( 'product_model' );
 		$this->load->model ( 'config_model' );
 		$this->load->helper ( 'form' );
@@ -17,6 +17,7 @@ class product extends CI_Controller {
 		$this->load->helper ( "url" );
 	}
 	public function listproduct() {
+        $SortedList = $this->getCategory();
 		$data = array ();
 		$configInfo = $this->config_model->getPerpage ();
 		if (isset ( $configInfo )) {
@@ -79,6 +80,12 @@ class product extends CI_Controller {
 		
 		$data ['total'] = $this->cart->total_items ();
 		$data ['money'] = $grand_total;
+
+
+        $data['html'] = $this->createMenu($SortedList);
+
+
+
 		$data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
 		// tong so san pham da mua
 		

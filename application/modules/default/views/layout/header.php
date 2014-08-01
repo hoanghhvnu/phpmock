@@ -6,8 +6,15 @@
 <link rel="stylesheet" type="text/css" href="http://localhost/phpmock/public/style.css" />
 
 
-
-
+<!-- HuanDT -->
+<link rel="stylesheet" type="text/css" href="http://localhost/phpmock/public/css/detailproduct.css" />
+<link rel="stylesheet" type="text/css" href="http://localhost/phpmock/public/css/example.css" />
+<link rel="stylesheet" type="text/css" href="http://localhost/phpmock/public/css/jquery.megamenu.css" />
+<script src="http://localhost/phpmock/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://localhost/phpmock/js/jquery.megamenu.js"></script>
+<script type="text/javascript" src="http://localhost/phpmock/js/windowopen.js"></script>
+<script type="text/javascript" src="http://localhost/phpmock/js/boxOver.js"></script>
+<!-- end HuanDT -->
 
 </head>
 <body>
@@ -51,25 +58,3 @@
     </div>
     <!-- end of oferte_content-->
   </div>
-  <div id="main_content">
-    <div id="menu_tab">
-      <div class="left_menu_corner"></div>
-      <ul class="menu">
-        <li><a href="<?php echo base_url();?>default/home/index" class="nav1"> Trang ch&#7911;</a></li>
-        <li class="divider"></li>
-        <li><a href="<?php echo base_url();?>default/product/listproduct" class="nav2">S&#7843;n ph&#7849;m</a></li>
-        <li class="divider"></li>
-        <li><a href="<?php echo base_url();?>default/home/index" class="nav3">Điện thoại</a></li>
-        <li class="divider"></li>
-        <li></li>
-        <li class="divider"></li>
-        <li><a href="<?php echo base_url();?>default/home/index" class="nav4">Máy tính</a></li>
-        <li class="divider"></li>
-        <li></li>
-        <li class="divider"></li>
-        <li><a href="contact.html" class="nav6">Li&ecirc;n h&#7879;</a></li>
-        <li class="currencies"></li>
-      </ul>
-      <div class="right_menu_corner"></div>
-    </div>
-    <!-- end of menu tab -->
