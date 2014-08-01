@@ -31,8 +31,8 @@ class product extends CI_Controller {
 		}
 		
 		$data ['products'] = $this->product_model->listProduct ();
-		$config ['base_url'] = base_url ( 'default/product/listproduct' ); // xác định trang phân trang
-		$config ['total_rows'] = $this->product_model->count_all (); // xác định tổng số record
+		$config ['base_url'] = base_url ( 'default/product/listproduct' ); // xÃ¡c Ä‘á»‹nh trang phÃ¢n trang
+		$config ['total_rows'] = $this->product_model->count_all (); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
 		$config ['per_page'] = $perpage;
 		$config ['use_page_numbers'] = TRUE;
 		$config ['uri_segment'] = 4;
@@ -41,7 +41,7 @@ class product extends CI_Controller {
 		/////////////////phan trang co css///
 		$config['full_tag_open'] = '<ul class="tsc_pagination tsc_paginationA tsc_paginationA01">';
 		$config['full_tag_close'] = '</ul>';
-		$config['prev_link'] = 'Trước';
+		$config['prev_link'] = 'TrÆ°á»›c';
 		$config['prev_tag_open'] = '<li>';
 		$config['prev_tag_close'] = '</li>';
 		$config['next_link'] = 'Sau';
@@ -57,8 +57,8 @@ class product extends CI_Controller {
 		$config['last_tag_open'] = '<li>';
 		$config['last_tag_close'] = '</li>';
 		
-		$config['first_link'] = 'Đầu';
-		$config['last_link'] = 'Cuối';
+		$config['first_link'] = 'Ä�áº§u';
+		$config['last_link'] = 'Cuá»‘i';
 		///////////////////////
 		$page = ($this->uri->segment ( 4 )) ? $this->uri->segment ( 4 ) : 1;
 		if ($config ['per_page'] > $config ['total_rows']) {
@@ -124,7 +124,7 @@ class product extends CI_Controller {
 		// echo json_encode($NewProduct);
 		// $data['products'] = $NewProduct;
 		// 
-		$config ['total_rows'] = $this->product_model->count_all (); // xác định tổng số record
+		$config ['total_rows'] = $this->product_model->count_all (); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
 		$data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
 		$data['products'] = $NewProduct;
 		$newView = $this->load->view ( 'product/product',$data, true);
@@ -166,9 +166,17 @@ class product extends CI_Controller {
     		$data['image'] = $getImageById['pro_images'];
 
     		$data['thumbs'] = $getImageThumbs;
-//     		echo "<pre>";
-//     		print_r($data['thumbs']);
-//     		die();
+    		
+    		
+    		$grand_total = 0;
+    		foreach ( $this->cart->contents () as $value ) {
+    			$grand_total = $grand_total + $value ['subtotal'];
+    		}
+    		
+    		$data ['total'] = $this->cart->total_items ();
+    		$data ['money'] = $grand_total;
+
+    		
     		$data['product'] = $getProductById;
     		$data['comment'] = $comment;
     		$data['bran'] = $this->getBranById($branId);
