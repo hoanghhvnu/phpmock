@@ -3,12 +3,12 @@ class product extends CI_Controller {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->helper("form");
-		$this->load->model("cate_model");
-		$this->load->model("images_model");
-		$this->load->model("bran_model");
-		$this->load->model("country_model");
-		$this->load->model("cateproduct_model");
-		$this->load->model("comment_model");
+		// $this->load->model("cate_model");
+		// $this->load->model("images_model");
+		// $this->load->model("bran_model");
+		// $this->load->model("country_model");
+		// $this->load->model("cateproduct_model");
+		// $this->load->model("comment_model");
 		$this->load->model ( 'product_model' );
 		$this->load->model ( 'config_model' );
 		$this->load->helper ( 'form' );
