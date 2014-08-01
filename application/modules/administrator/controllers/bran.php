@@ -59,7 +59,7 @@ class bran extends CI_Controller{
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
         $config['next_link'] = "Sau";
-        $config['prev_link'] = "Trước";
+        $config['prev_link'] = "TrÆ°á»›c";
         $this->pagination->initialize($config); 
 
         $start = ($page - 1) * $config['per_page'];
@@ -89,8 +89,8 @@ class bran extends CI_Controller{
         $data['branInfo'] = $this->bran_model->detail($id);
         
         if($this->input->post("ok")){
-            $this->form_validation->set_rules("name","Tên brand ","trim|required");          
-            $this->form_validation->set_message("required","%s không được bỏ trống");
+            $this->form_validation->set_rules("name","TĂªn brand ","trim|required");          
+            $this->form_validation->set_message("required","%s khĂ´ng Ä‘Æ°á»£c bá»� trá»‘ng");
 
             $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
             $updateName=$this->input->post("name");
@@ -100,7 +100,7 @@ class bran extends CI_Controller{
                 $listall=$this->bran_model->get_order();
                 
              foreach ($listall as $row) {
-                if (in_array(trim($updateName),$row)&& ($row['bran_id']!=$id)) $data['errorName']="Đã tồn tại";
+                if (in_array(trim($updateName),$row)&& ($row['bran_id']!=$id)) $data['errorName']="Ä�Ă£ tá»“n táº¡i";
 
              }   
              

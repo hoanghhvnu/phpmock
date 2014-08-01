@@ -231,6 +231,8 @@ class product extends CI_Controller{
          $listImages= $this->images_model->listImages($id);
          // lay so luong anh
          $numberImages = $this->images_model->countImages($id);
+         $imgRemain = 10 - $numberImages; // so slot anh con trong
+         $data ['numimg'] = $imgRemain;
          // Thuc hien viec update
           if($this->input->post("ok")){
             $this->form_validation->set_rules("pro_name","Ten product ","trim|required");        
@@ -253,8 +255,7 @@ class product extends CI_Controller{
                  if (in_array(trim($updateName),$row)&& ($row['pro_id']!=$id)) $data['errorName']="Da ton tai";
 
                  }   
-                 if ($_FILES['file']['error']==0&&$numberImages>=10) $data['errorImages'] = "Da du 10 anh";
-                 else
+
                  if (!isset($data['errorName'])) {
                       $cate=array();
                       $cate=$this->input->post("category");
@@ -311,23 +312,20 @@ class product extends CI_Controller{
                          $this->images_model->update($imageInfo,$val['img_id']);
                      }
                     } // end foreach
-                 if ($numberImages<10) {
-
-                     $filename=$_FILES['file']['name'];
-                     if ($_FILES['file']['error']==0) {
-                     echo $filename;
-                     $imageInfo = array (
-                                    "img_name"=>$filename,
-                                    "pro_id"=>$id,
-                                    
-                     
-                     );
-                     $this->upImage('file');
-
-                     $this->images_model->insert($imageInfo);
-                     } // end if
-                 } // if number
-            
+					for($i = 1; $i <= $imgRemain; $i ++) {
+						
+						$filename = $_FILES ['file' . $i] ['name'];
+						if ($_FILES ['file' . $i] ['error'] == 0 && isset ( $_FILES ['file' . $i] ['error'] )) {
+							echo $filename;
+							$imageInfo = array (
+									"img_name" => $filename,
+									"pro_id" => $id 
+							);
+							$this->upImage ( 'file' . $i ); // ten filename
+							
+							$this->images_model->insert ( $imageInfo );
+						} // end if
+					}
               
                  redirect(base_url("administrator/product/listproduct"));
                  }

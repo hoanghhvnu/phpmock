@@ -49,11 +49,11 @@ class images_model extends CI_Model
         $this->db->where("pro_id = $id");
         return $this->db->get($this->_table)->result_array();
     }
-    public function countImages($id) {
-        $this->db->where("pro_id=$id");
-        return $this->db->count_all($this->_table);
-      
-   }
+	public function countImages($id) {
+		$this->db->where ( "pro_id",$id );
+		$this->db->from($this->_table );
+		return $this->db->count_all_results();
+	}
 
 
 }
