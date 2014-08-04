@@ -301,7 +301,6 @@ class product extends AdminBaseController{
                                 "img_name"=>$filename,
                                 "pro_id"=>$id,
                                 
-                 
                  );
                          $this->upImage($img);
                          $this->images_model->update($imageInfo,$val['img_id']);
@@ -326,14 +325,14 @@ class product extends AdminBaseController{
                  }
                   
                  }
-          }
-         
+          
+         }
          $data['template'] = "product/update";
          $this->load->view("layout/layout",$data);
      }
      //writen by vietdq
       public function upImage($file) {
-         $config['overwrite'] = TRUE;
+        $config['overwrite'] = TRUE;
          $config['allowed_types'] = 'jpg|jpeg|gif|png';
          $config['max_size'] = 2000;
          $config['upload_path'] = 'uploads/product/';

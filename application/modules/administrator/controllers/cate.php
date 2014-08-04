@@ -57,10 +57,10 @@ class cate extends AdminBaseController{
             if($this->form_validation->run()){
                 if($this->cate_model->checkCate($this->input->post('cate_name'))){
                     $DataCate = array(
-                            'cate_name'           => $this->input->post('cate_name'),
-                            'cate_parent'          => $this->input->post('cate_parent'),
-                            'cate_order'           => $this->input->post('cate_order')
-                            ); // end array
+                        'cate_name'   => $this->input->post('cate_name'),
+                        'cate_parent' => $this->input->post('cate_parent'),
+                        'cate_order'  => $this->input->post('cate_order')
+                        ); // end array
                     // echo "<pre>";
                     // print_r($DataCate);
                     $this->cate_model->insert($DataCate);
@@ -107,9 +107,9 @@ class cate extends AdminBaseController{
             $this->form_validation->set_message("numeric","%s phải là số so");
             $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
             if($this->form_validation->run()){
-                $parentname=$this->input->post("cate_parent");
-                $cate_name=$this->input->post("cate_name");
-                $listall=$this->cate_model->getAll();
+                $parentname = $this->input->post("cate_parent");
+                $cate_name  = $this->input->post("cate_name");
+                $listall    = $this->cate_model->getAll();
                 
                 foreach ($listall as $row) {
                 if (in_array(trim($cate_name),$row)&& $row['cate_id']!=$id) $data['errorName']="Đã tồn tại";
@@ -121,16 +121,16 @@ class cate extends AdminBaseController{
     
                 if (!isset($data['errorTrung'])&& !isset($data['errorName'])) {
                 
-                $datacategory = array(
-                                "cate_name"=>$this->input->post("cate_name"),
-                                "cate_parent"=>$this->input->post("cate_parent"),
-                                "cate_order"=>$this->input->post("cate_order")
-                            );
-                
-                $this->cate_model->update($datacategory,$id);
-                redirect(base_url("administrator/cate/listcate"));
+                    $datacategory = array(
+                                    "cate_name"   =>$this->input->post("cate_name"),
+                                    "cate_parent" =>$this->input->post("cate_parent"),
+                                    "cate_order"  =>$this->input->post("cate_order")
+                                );
+                    
+                    $this->cate_model->update($datacategory,$id);
+                    redirect(base_url("administrator/cate/listcate"));
                  }
-                 }
+            }
             
         }
         $data['template'] = "cate/update";
