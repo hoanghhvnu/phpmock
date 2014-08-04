@@ -88,7 +88,7 @@ class product extends CI_Controller {
 
 		$data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
 		// tong so san pham da mua
-		
+		$data['CurrentPage'] = $page;
 		$data ['template'] = "product/listproduct";
 		$this->load->view ( 'layout/layout', $data );
 	}
@@ -133,6 +133,7 @@ class product extends CI_Controller {
 		// 
 		$config ['total_rows'] = $this->product_model->count_all (); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
 		$data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
+        $data['CurrentPage'] = $page;
 		$data['products'] = $NewProduct;
 		$newView = $this->load->view ( 'product/product',$data, true);
 		echo $newView;

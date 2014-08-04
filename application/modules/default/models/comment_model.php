@@ -13,7 +13,7 @@ class comment_model extends CI_Model{
 		$this->db->insert($this->_table,$data);
 	}
 	public function getAll($id){
-		echo __METHOD__ . 'DEFALU';
+		// echo __METHOD__ . 'DEFALU';
 		$this->db->where("pro_id = $id");
 		return $this->db->get($this->_table)->result_array();
 	}
