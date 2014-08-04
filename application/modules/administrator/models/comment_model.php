@@ -8,6 +8,7 @@ class comment_model extends CI_Model{
 	}
 	
 	public function getAll(){
+		echo __METHOD__ . 'ADMIN' ;
 		return $this->db->get($this->_table)->result_array();
 	}
 	

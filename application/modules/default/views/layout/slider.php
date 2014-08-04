@@ -42,8 +42,10 @@
           foreach ($SliderData as $key => $value) :
     ?>
               <div class="item <?php if ($i == 0) echo ' active' ?>">
-                <a href=' <?php echo base_url("default/product/detailProduct") . "/" . $value['pro_id'] ?>'></a>
-                <img src="<?php echo base_url('uploads/product') . '/' .  $value['pro_images'];?>">
+                <a href=' <?php echo base_url("default/product/detailProduct") . "/" . $value['pro_id'] ?>'>
+                    <img src="<?php echo base_url('uploads/product') . '/' .  $value['pro_images'];?>">
+                </a>
+                
                 <div class="carousel-caption">
                   <?php echo $value['pro_images']; ?>
                 </div>

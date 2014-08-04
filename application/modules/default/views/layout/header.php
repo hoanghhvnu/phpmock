@@ -27,33 +27,20 @@
     <img src="http://localhost/phpmock/public/images/smartosc.jpg" alt="" border="0"
      width="237" height="140" /></a> </div>
   </div>
-
-    <!-- <div class="oferte_content"> -->
-
       <!-- show slide der ============================================================================ -->
-      
-      
+
       <script type="text/javascript" src="http://localhost/phpmock/js/jquery-1.11.1.min.js"></script>
       <?php
-        // echo $slider;
         if(isset($slider)) :
       ?>
         <div id = 'wapperSlider'>
       <?php
             $data['SliderData'] = $slider;
-            // print_r($data);
             $this->load->view('layout/slider',$data);
       ?>
         </div>
         <?php
-
         endif;
-        
-        // $SliderData = $slider;
-        
-        
-        // include('layout/slider.php');
-        
       ?>
       <!-- end slider ================================================================================ -->
 

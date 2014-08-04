@@ -12,24 +12,11 @@ class user extends AdminBaseController{
     } // end __construct
 
     public function index(){
-        if(isset($_SESSION['user'])){
-            // echo 'sse';
-            // print_r($_SESSION['user']);
             redirect(base_url("administrator/user/listuser"));
-            // $this->listuser();
-        } else{
-            redirect(base_url("administrator/user/login"));
-        }
 
     } // end index()
 
-    // public function listUser(){
-    //     $this->load->model("user_model");
 
-    //     $data['listuser'] = $this->user_model->getAll();
-        
-    //     $this->load->view("user/listuser",$data);
-    // } // end class l
 
 
     public function listuser(){
@@ -64,9 +51,7 @@ class user extends AdminBaseController{
     } // end class list user
 
     public function insertUser(){
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        }
+
         $dataUser = array();
         if ($this->input->post('btnok')){
             $this->form_validation->set_rules('usr_name','Username', 'required|alpha_numeric|min_length[6]');
@@ -137,9 +122,7 @@ class user extends AdminBaseController{
      * @return [type]
      */
     public function delete(){
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        }
+
         $id = $this->uri->segment(4);
         $this->user_model->deleteUser($id);
         // redirect(base_url("/administrator/user/listuser"));
@@ -148,9 +131,7 @@ class user extends AdminBaseController{
 
     // Huan
     public function update(){
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        }
+
         $usr_id = $this->uri->segment(4);
         $data['userInfo'] = $this->user_model->getOnce($usr_id);
         if($this->input->post("ok")){
