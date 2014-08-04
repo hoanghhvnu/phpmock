@@ -1,29 +1,14 @@
-
-
-
-
-    <div id = 'center'>
-
-        <h2>Danh sách user</h2>
-            <div id = 'modlistbran'>
-                <?php echo form_fieldset("Tuỳ chọn"); ?>
-                <form action = '' method = 'post'>
-                    <label>Số brand/trang: </label>
-                    <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
-                    <span>Hiện tất cả </span><input type = 'checkbox' name = 'show_all' value = 'show'>
-                    <br/>
-                    <input type = 'submit' name = 'btnok' value = 'Gửi'>
-                </form>
-                    <?php echo form_fieldset_close();?>
-            </div>
-
+<div id = 'center'>
+    <h2>Danh sách user</h2>
+    <a  href='<?php echo base_url("administrator/user/insertuser");?>'>
+        <button >Thêm User</button>
+    </a>
             
-            <a  href='<?php echo base_url("administrator/user/insertuser");?>'>
-                <button >Thêm User</button></a>
-            
-
-        <?php  echo "Trang: ";
-                echo isset($link) ? $link : "";  ?>
+    <?php
+        if(isset($link) && $link != ''){
+            echo "Trang: " . $link;
+        }
+    ?>
         <table border = 1 id = 'listuser'>
             <?php
                 // print_r($column);

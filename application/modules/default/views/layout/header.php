@@ -20,41 +20,43 @@
 <body>
 <div id="main_container">
   <div class="top_bar">
-    <div class="top_search">
-      <div class="search_text"><a href="">T&igrave;m ki&#7871;m</a></div>
-      <input type="text" class="search_input" name="search" />
-      <input type="image" src="http://localhost/phpmock/public/images/search.gif" class="search_bt"/>
-    </div>
+    
   </div>
   <div id="header">
-    <div id="logo"> <a href="http://localhost/phpmock/default/home/index"><img src="http://localhost/phpmock/public/images/smartosc.jpg" alt="" border="0" width="237" height="140" /></a> </div>
-    <div class="oferte_content">
+    <div id="logo"> <a href="http://localhost/phpmock/default/home/index">
+    <img src="http://localhost/phpmock/public/images/smartosc.jpg" alt="" border="0"
+     width="237" height="140" /></a> </div>
+  </div>
+
+    <!-- <div class="oferte_content"> -->
 
       <!-- show slide der ============================================================================ -->
-      <?php //include("sli.php") ?>
-      <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/slide.css">
+      
+      
       <script type="text/javascript" src="http://localhost/phpmock/js/jquery-1.11.1.min.js"></script>
       <?php
-      if(isset($slider) && ! empty($slider)){
-        // print_r($slider);
-        echo "<div id='slider'>";
-        echo "<a href='#' class='control_next'>></a>";
-        echo "<a href='#' class='control_prev'><</a>";
-        echo "<ul>";
-        foreach ($slider as $key => $value) {
-          echo "<li><a href='". base_url("default/product/detailProduct") . "/" . $value['pro_id'] ."'>";
-          echo "<img src='" . base_url('uploads/product') ."/" . $value['pro_images'] . "'alt=''>";
-          
-        }
-        
-        echo '</ul>';
-        echo "</div>";
-      }
-      
+        // echo $slider;
+        if(isset($slider)) :
       ?>
-      <script src="<?php echo base_url();?>js/slide.js"></script>
+        <div id = 'wapperSlider'>
+      <?php
+            $data['SliderData'] = $slider;
+            // print_r($data);
+            $this->load->view('layout/slider',$data);
+      ?>
+        </div>
+        <?php
+
+        endif;
+        
+        // $SliderData = $slider;
+        
+        
+        // include('layout/slider.php');
+        
+      ?>
       <!-- end slider ================================================================================ -->
 
-    </div>
+    <!-- </div> -->
     <!-- end of oferte_content-->
-  </div>
+  

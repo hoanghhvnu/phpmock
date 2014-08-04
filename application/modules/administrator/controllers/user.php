@@ -1,12 +1,13 @@
 <?php
-class user extends CI_Controller{
+class user extends AdminBaseController{
     function __construct(){
         parent::__construct();
         $this->load->helper("url");
         $this->load->library("form_validation");
         $this->load->model("user_model");
         $this->load->library('pagination');
-        session_start();
+        $this->load->model("config_model");
+        // session_start();
 
     } // end __construct
 
@@ -32,45 +33,13 @@ class user extends CI_Controller{
 
 
     public function listuser(){
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        }
+        
         $sortType = ($this->uri->segment(5)) ? $this->uri->segment(5) : 'asc';
         $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'usr_id';
-        // echo "sort" . $sortType;
-        // echo "column" . $column;
-        
-        if ($this->input->post('btnok')){
-            if ($this->input->post('show_all')){
-                $_SESSION['show_all'] = $this->input->post('show_all');
-            } else{
-                if(isset($_SESSION['show_all'])) unset($_SESSION['show_all']);
-                if ($this->input->post('per_page')){
-                    $_SESSION['PerPageListUser'] = $this->input->post('per_page');
-                }
-            }
-            
-            // if($this->input->post('sort')){
-            //     $_SESSION['sortType'] = $this->input->post('sort');
-            // }
-            
-        }
-        // echo $_SESSION['PerPageListUser'];
-        $_SESSION['PerPageListUser']  = isset($_SESSION['PerPageListUser']) ? $_SESSION['PerPageListUser'] : 5;
-        // $_SESSION['sortType'] = isset($_SESSION['sortType']) ? $_SESSION['sortType'] : "";
-        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "no";
 
-        $config['per_page'] = $_SESSION['PerPageListUser'];
-        // $sortType          = ($_SESSION['sortType'] != "none") ? $_SESSION['sortType'] : "";
+        $config['per_page'] = $this->config_model->getPerpage();
         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
-
         $config['base_url']   = base_url("administrator/user/listuser/$column/$sortType/");
-        $config['total_rows'] = $this->user_model->count_all();
-        if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
-            $config['per_page'] = $config['total_rows'];
-            $page = 1;
-            // echo "page = 1";
-        }
 
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
@@ -80,10 +49,6 @@ class user extends CI_Controller{
 
         $start = ($page - 1) * $config['per_page'];
 
-        // echo "sortType " . $sortType . "<br/>";
-        // echo "start: " . $start . "<br/>";
-        // echo "per_page" . $config['per_page'] . "<br/>";
-        // echo "page: " . $page;
         $data['listuser'] = $this->user_model->get_order($column,$sortType,$start,$config['per_page']);
 
         $data['link'] = $this->pagination->create_links();

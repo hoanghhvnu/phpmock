@@ -3,9 +3,9 @@
     
 
      <a  href='<?php echo base_url("administrator/cate/insertCategory");?>'>
-                <button style = "style=background-color:green;float:right;">Thêm Category</button></a>
+                <button >Thêm Category</button></a></br>
     <a  href='<?php echo base_url("administrator/cate/moveCategory");?>'>
-               <button style = "float:right;">Move Category</button></a>
+               <button >Move Category</button></a>
     <table border = '1'>
     <th>CategoryID</th>
     <th>Category Name</th>
