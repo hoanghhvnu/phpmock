@@ -30,9 +30,9 @@
 		<table border="0" cellpadding="2px" style="font-size: 14px;">
 			<tr>
 				<td>Tổng tiền:</td>
-				<td><strong><?php echo $grand_total; ?> VNĐ</strong></td>
+				<td><strong><?php echo $money; ?> VNĐ</strong></td>
 			</tr>
-        	<?php if($grand_total==0) echo "Bạn chưa mua sản phẩm nào ! Không thể gửi đơn hàng !" ?>
+        	<?php if($money==0) echo "Bạn chưa mua sản phẩm nào ! Không thể gửi đơn hàng !" ?>
            
             <tr>
 				<td>Tên khách hàng:</td>

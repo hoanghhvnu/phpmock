@@ -1,5 +1,5 @@
 <?php
-class home extends CI_Controller
+class home extends DefaultBaseController
 {
     public function  __construct()
     {
@@ -40,19 +40,10 @@ class home extends CI_Controller
              $this->load->view("layout/header",$data);
           } // end if isset $KeyOrder
        }
-       /////////////////////////////////////
-       $grand_total = 0;
-       foreach ( $this->cart->contents () as $value ) {
-        $grand_total = $grand_total + $value ['subtotal'];
-       }
-       
-       $data ['total'] = $this->cart->total_items ();
-       $data ['money'] = $grand_total;
-       
-       // tong so san pham da mua
+
 
        $this->load->view("layout/left_content");
-       $this->load->view("layout/right_content",$data);
+       $this->loadView("layout/right_content",$data);
        $this->load->view("layout/footer");
     } // end index()
 

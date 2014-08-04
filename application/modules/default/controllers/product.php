@@ -1,5 +1,5 @@
 <?php
-class product extends CI_Controller {
+class product extends DefaultBaseController {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->helper("form");
@@ -73,13 +73,7 @@ class product extends CI_Controller {
 		$SortType = 'asc';
 		$data ['products'] = $this->product_model->list_all ( $config ['per_page'], $start,  $SortType, $SortField);
 		/////////////////////////////////////
-		$grand_total = 0;
-		foreach ( $this->cart->contents () as $value ) {
-			$grand_total = $grand_total + $value ['subtotal'];
-		}
-		
-		$data ['total'] = $this->cart->total_items ();
-		$data ['money'] = $grand_total;
+
 
 
         $data['html'] = $this->createMenu($SortedList);
@@ -90,7 +84,7 @@ class product extends CI_Controller {
 		// tong so san pham da mua
 		
 		$data ['template'] = "product/listproduct";
-		$this->load->view ( 'layout/layout', $data );
+		$this->loadView("layout/layout",$data);
 	}
 
 	/**
@@ -175,13 +169,6 @@ class product extends CI_Controller {
     		$data['thumbs'] = $getImageThumbs;
     		
     		
-    		$grand_total = 0;
-    		foreach ( $this->cart->contents () as $value ) {
-    			$grand_total = $grand_total + $value ['subtotal'];
-    		}
-    		
-    		$data ['total'] = $this->cart->total_items ();
-    		$data ['money'] = $grand_total;
 
     		
     		$data['product'] = $getProductById;
@@ -190,7 +177,7 @@ class product extends CI_Controller {
     		$data['country'] = $this->getCountryById($counId);
     		$data['template'] = "product/detailproduct";
     		$data['html'] = $this->createMenu($meta);
-    		$this->load->view('layout/layout', $data);
+    		$this->loadView("layout/layout",$data);
     	}
     }
 
