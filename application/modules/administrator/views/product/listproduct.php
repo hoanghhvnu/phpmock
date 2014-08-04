@@ -7,20 +7,21 @@
     <h3>List Product </h3>
     
 
-    <div id = 'modlistbran'>
-        <form action = '' method = 'post'>
-            <label>Product per page: </label>
-            <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
-            <span>Show all</span><input type = 'checkbox' name = 'show_all' value = 'show'>
-            <br/>
+    
+        <form action = '' method = 'post' style="margin:0px">
+            <label style="float:none">Search Product: </label>
+            <input class = 'txt' type = 'text' name = 'InputProductName' value = '' placeholder='Nhập tên sản phẩm'>
+            
+            
             <input type = 'submit' name = 'btnSubmit' value = 'Submit'>
+            <a  href='<?php echo base_url("administrator/product/searchproduct");?>'>
+                        Advance Search</a><br/>
         </form>
-    </div>
+    
     <div style="clear:both;margin:5px;padding: 5px">
-    <a  href='<?php echo base_url("administrator/product/searchproduct");?>'>
-                <button >Search Product</button></a><br/>
+    
     <a  href='<?php echo base_url("administrator/product/insertProduct");?>'>
-                <button ><img width = '15' height='15' src='<?php echo base_url("public/images/green-plus.png");?>'><span>Insert Product</span></button></a>        
+                Insert Product</a>        
 
     </div>
     

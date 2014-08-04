@@ -1,5 +1,5 @@
 <?php
-class order extends CI_Controller{
+class order extends AdminBaseController{
     public function __construct(){
         parent::__construct();
         $this->load->model("order_model");
@@ -7,11 +7,10 @@ class order extends CI_Controller{
         $this->load->library("pagination");
         $this->load->helper("url");
         $this->load->library("form_validation");
+        $this->load->model("config_model");
 
-        session_start();
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        } // end if Session
+        // session_start();
+        
     } // end construct
 
     /**
@@ -20,35 +19,20 @@ class order extends CI_Controller{
      * @return [type]
      */
     public function listOrder(){
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        }
+        
 
         $sortType = ($this->uri->segment(5)) ? $this->uri->segment(5) : 'desc';
         $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'order_status';
 
-        
-        if ($this->input->post('btnok')){
-            if ($this->input->post('show_all')){
-                $_SESSION['show_all'] = $this->input->post('show_all');
-            } else{
-                if(isset($_SESSION['show_all'])) unset($_SESSION['show_all']);
-                if ($this->input->post('per_page')){
-                    $_SESSION['PerPageListOrder'] = $this->input->post('per_page');
-                }
-            }
 
-            
+        $ConfigPerpage = $this->config_model->getPerpage();
+        if(isset($ConfigPerpage)){
+            $config['per_page'] = $ConfigPerpage;
+        } else{
+            $config['per_page'] = 10;
         }
-
-        $_SESSION['PerPageListOrder']  = isset($_SESSION['PerPageListOrder']) ? $_SESSION['PerPageListOrder'] : 5;
-        $_SESSION['show_all']  = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "no";
-        $config['per_page'] = $_SESSION['PerPageListOrder'];
+        
         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
-        // if( ! is_int($page)){
-        //     echo "Trang web không tồn tại!";
-        //     return FALSE;
-        // }
 
         if($this->input->post('SearchById')){
             $page = 1;
@@ -69,26 +53,21 @@ class order extends CI_Controller{
 
         $start = ($page - 1) * $config['per_page'];
 
-        // echo "sortType " . $sortType . "<br/>";
-        // echo "start: " . $start . "<br/>";
-        // echo "per_page" . $config['per_page'] . "<br/>";
-        // echo "page: " . $page;
-        // $data['listuser'] = $this->order_model->get_order($column,$sortType,$start,$config['per_page']);
 
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['sortType'] = $sortType;
         $data['show_all'] = $_SESSION['show_all'];
         $data['column'] = $column;
-        // echo "<pre>";
-        // print_r($RawList);
+
         $data['template'] = "order/listorder";
-        if( ! $this->input->post('SearchById')){
+        if( ! $this->input->post('SearchByName')){
             $data['ListOrder'] = $this->order_model->get_order($column,$sortType,$start,$config['per_page']);
         } else{
-            $order_id = $this->input->post('SearchById');
+            $InputName = $this->input->post('SearchByName');
             // echo $order_id;
-            $data['ListOrder'] = $this->order_model->getSearch($column,$sortType,"order_id = {$order_id}" ,$start,$config['per_page']);
+            $Where = array('cus_name' => $InputName);
+            $data['ListOrder'] = $this->order_model->getSearch($column,$sortType, $Where ,$start,$config['per_page']);
         }
         
         $this->load->view("layout/layout",$data);

@@ -4,7 +4,10 @@
         text-align: center;
     }
     #linkpage a{
-        
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background-color: #C7BFC7;
         cursor: pointer;
         /*text-decoration: underline;*/
         color: blue;

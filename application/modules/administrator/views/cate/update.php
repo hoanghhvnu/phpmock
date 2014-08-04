@@ -37,7 +37,7 @@
             </p>
                 <br />
                     <label>&nbsp;</label> 
-                    <input type="submit" name="ok" disabled="true" value="Update" />
+                    <input type="submit" name="ok"  value="Update" />
                     <input type="reset" value="Reset" />                                  
                 </form>
         </div>

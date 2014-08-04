@@ -21,7 +21,7 @@ class product extends CI_Controller {
 		$data = array ();
 		$configInfo = $this->config_model->getPerpage ();
 		if (isset ( $configInfo )) {
-			$perpage = $configInfo ['perpage'];
+			$perpage = $configInfo;
 		}
 		
 		if (! $this->cart->contents ()) {
@@ -116,7 +116,14 @@ class product extends CI_Controller {
 		}
 
 		
-		$config['per_page'] = 5;
+		
+        $ConfigPerpage = $this->config_model->getPerpage();
+        // echo $ConfigPerpage;
+        if ( ! isset($ConfigPerpage)){
+            $config['per_page'] = 5;
+        } else{
+            $config['per_page'] = $ConfigPerpage;
+        }
 		$start = ($page - 1) * $config['per_page'];
 		// echo $SortType . $SortField;
 		$NewProduct = $this->product_model->list_all ($config ['per_page'],$start , $SortType, $SortField);

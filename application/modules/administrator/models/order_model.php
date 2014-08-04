@@ -87,7 +87,7 @@ class order_model extends CI_model{
 	public function getSearch($column = "", $sortType = "", $where = "", $start = "", $limit = ""){
 	    // return $this->db->get_where($this->_table, $where, $limit, $start) -> result_array();
 	    if($where){
-	    	$this->db->where($where);
+	    	$this->db->like($where);
 	    }
 	    if($column && $sortType){
 	    	$this->db->order_by($column, $sortType); 

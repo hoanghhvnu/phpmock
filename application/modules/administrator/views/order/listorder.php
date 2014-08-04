@@ -1,26 +1,12 @@
 <div id = 'center'>
     <h3>List Order </h3>
     <div id = 'listorder'>
-    	<div id = 'modlistbran'>
-    	    
-    	    <form action = '' method = 'post'>
-                <?php echo form_fieldset("Option display"); ?>
-    	        <label>Số order/trang: </label>
-    	        <input class = 'txt' type = 'text' name = 'per_page' value = <?php echo isset($per) ? $per : "" ?>>
-    	        <span>Hiện tất cả </span><input type = 'checkbox' name = 'show_all' value = 'show'>
-    	        <br/><br/>
-                <?php echo form_fieldset_close();?>
-                <?php echo form_fieldset("Search"); ?>
-                <label>Tìm kiếm theo Mã đơn hàng </label>
-                <input class = 'txt' type = 'text' name = 'SearchById' value = "" ?>
-                <br/>
-                <?php echo form_fieldset_close();?>
-                
-
+    	    <form action = '' method = 'post' style="margin:0px">
+                <label style="float:none">Tìm kiếm khách hàng </label>
+                <input  class = 'txt' type = 'text' name = 'SearchByName' value = "" placeholder='Nhập tên khách hàng'>
     	        <input type = 'submit' name = 'btnok' value = 'Gửi'>
     	    </form>
     	        
-    	</div>
         <div style="clear:both"></div>
     	<?php  echo "Trang: ";
     	        echo isset($link) ? $link : "";  ?>

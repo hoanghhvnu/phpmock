@@ -3,7 +3,7 @@
 <?php
 
 
-class product extends CI_Controller{
+class product extends AdminBaseController{
     public function __construct(){
         parent::__construct();
         $this->load->model("product_model");
@@ -17,10 +17,11 @@ class product extends CI_Controller{
         $this->load->model("cate_model");
         $this->load->library("form_validation");
 
-        session_start();
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        }
+        //////////////////////
+        // session_start(); //
+        //////////////////////
+        // session already start in AdminBaseController
+    
     }
     public function index(){
         // $this->load->view("product/productList");
@@ -35,22 +36,13 @@ class product extends CI_Controller{
     // Writen by DucTM
     public function listproduct(){
             $sort_type = "";
-        
+        /**
+         * writen by HoangHH
+         */
+        // Search product
         if ($this->input->post('btnSubmit')){
-          //  echo $this->input->post('btnSubmit');
-            if ($this->input->post('show_all')){
-                $_SESSION['show_all'] = $this->input->post('show_all');
-            } else{
-                unset($_SESSION['show_all']);
-                if ($this->input->post('per_page')){
-                    $_SESSION['per_page'] = $this->input->post('per_page');
-                }
-            }
-            
-            if($this->input->post('sort')){
-                $_SESSION['sort_type'] = $this->input->post('sort');
-            }
-            
+            $InputProductName = $this->input->post('InputProductName');
+            $PatternSearch = array('pro_name' => $InputProductName);
         }
         $_SESSION['per_page']  = isset($_SESSION['per_page']) ? $_SESSION['per_page'] : 5;
         $_SESSION['sort_type'] = isset($_SESSION['sort_type']) ? $_SESSION['sort_type'] : "";
@@ -74,7 +66,12 @@ class product extends CI_Controller{
         $this->pagination->initialize($config); 
 
         $start = ($page - 1) * $config['per_page'];
-        $data['listproduct'] = $this->product_model->get_order($sort_type,$start,$config['per_page']);
+        if (isset($PatternSearch) && ! empty($PatternSearch)){
+            $data['listproduct'] = $this->product_model->getSpecial($PatternSearch,$start,$config['per_page']);
+        } else{
+            $data['listproduct'] = $this->product_model->getSpecial('',$start,$config['per_page']);
+        }
+        
 
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];

@@ -23,7 +23,7 @@
         if(isset($SliderData) && ! empty($SliderData)){
           $length = count($SliderData);
           for ($i = 0; $i < $length; $i ++){
-            echo "<li data-target='#carousel-example-generic' data-slide-to='";
+            echo "<li data-target='#slider' data-slide-to='";
             echo $i;
             
             echo "' ";
@@ -42,7 +42,7 @@
           foreach ($SliderData as $key => $value) :
     ?>
               <div class="item <?php if ($i == 0) echo ' active' ?>">
-                <a href=' <?php echo base_url("default/product/detailProduct") . "/" . $value['pro_id'] ?>'>
+                <a href=' <?php echo base_url("default/product/detailProduct") . "/" . $value["pro_id"] ?>'>
                     <img src="<?php echo base_url('uploads/product') . '/' .  $value['pro_images'];?>">
                 </a>
                 
@@ -59,10 +59,10 @@
   </div>
 
   <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+  <a class="left carousel-control" href="#slider" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left"></span>
   </a>
-  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+  <a class="right carousel-control" href="#slider" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
 </div>

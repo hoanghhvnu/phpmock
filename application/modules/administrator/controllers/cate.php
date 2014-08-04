@@ -2,17 +2,18 @@
 /**
  * All action for Category
  */
-class cate extends CI_Controller{
+// if(session_id() == '') {
+//     session_start();
+// }
+class cate extends AdminBaseController{
     protected $_OrderedCategory;
     function __construct(){
         parent::__construct();
         $this->load->helper("url");
         $this->load->library("form_validation");
         $this->load->model("cate_model");
-        session_start();
-        if( ! isset($_SESSION['user'])){
-            redirect(base_url("administrator/user/login"));
-        }
+        
+        
 
     } // end __construct
 

@@ -1,5 +1,5 @@
 <?php
-class comment extends CI_Controller {
+class comment extends AdminBaseController {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->model ( "product_model" );

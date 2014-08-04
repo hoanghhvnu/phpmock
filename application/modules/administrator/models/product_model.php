@@ -26,6 +26,15 @@ class product_model extends CI_Model{
         return $this->db->get($this->_table)->result_array();
     } // end get_page()
     
+    public function getSpecial($like = '', $limit = '', $start = ''){
+        if(isset($like) && $like !== ''){
+            $this->db->like($like);
+        }
+        if($limit !== '' && $start !== ''){
+            $this->db->limit($start, $limit);
+        }
+        return $this->db->get($this->_table)->result_array();
+    }
     public function get_order($type = '', $limit = '', $start = ''){
         $sql = "SELECT * FROM {$this->_table}";
         //if($type) $sql .=" ORDER BY bran_name {$type}";

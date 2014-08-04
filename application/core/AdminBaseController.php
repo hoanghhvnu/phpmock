@@ -13,9 +13,6 @@ class AdminBaseController extends MX_controller{
 		if( ! isset($_SESSION['user']) && $action != "login"){
 		    redirect(base_url("administrator/user/login"));
 		} // end if
-		$this->load->model("default/comment_model");
-		$cut = $this->comment_model->getAll(2);
-		echo "<pre>";
-		print_r($cut);
+		
 	} // end __construct
 } // end class AdminBaseControllerSltZZz

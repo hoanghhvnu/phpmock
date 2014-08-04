@@ -70,18 +70,15 @@ class user extends AdminBaseController{
             $this->form_validation->set_message("valid_email","%s không đúng định dạng");
             $this->form_validation->set_message("numeric","%s phải là số");
             $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
-            // echo $this->input->post("usr_level");
-            // if($this->input->post("usr_level")){
-            //     $dataUser['usr_level'] = $this->input->post("usr_level");
-            // }
-            // echo $dataUser['usr_level'];
+
             if($this->form_validation->run()){
                 if($this->user_model->checkUserName($this->input->post('usr_name'))
                 && $this->user_model->checkEmail($this->input->post('usr_email'))
                 ){
+                    // echo md5($this->input->post('usr_password'));
                     $dataUser = array(
                         'usr_name'            => $this->input->post('usr_name'),
-                        'usr_password'        => $this->input->post('usr_password'),
+                        'usr_password'        => md5($this->input->post('usr_password')),
                         'usr_email'           => $this->input->post('usr_email'),
                         'usr_address'         => $this->input->post('usr_address'),
                         'usr_phone'           => $this->input->post('usr_phone'),
@@ -89,7 +86,7 @@ class user extends AdminBaseController{
                         'usr_level'           => $this->input->post('usr_level')
                         ); // end array
                 
-                $this->user_model->insert($dataUser);
+                $this->user_model->update($dataUser);
                 redirect(base_url("administrator/user/listuser"));
                 } // end if check User
                 if( ! $this->user_model->checkUserName($this->input->post('usr_name'))){
@@ -100,15 +97,7 @@ class user extends AdminBaseController{
                     $data['errorEmail'] = "Email đã tồn tại, vui lòng chọn email khác";
                 }
             } // end if val
-                /**
-                 * 
-                 */
-                /**
-                 * 
-                 */
-               
 
-            
         } // end isset btnok
 
         $data['dataUser'] = $dataUser;
@@ -183,7 +172,7 @@ class user extends AdminBaseController{
             if($this->form_validation->run()){
                 $dataUser =array(
                     "username"=>$this->input->post("txtUser"),
-                    "password"=>$this->input->post("txtPass")
+                    "password"=>md5($this->input->post("txtPass"))
                 );
                 $check = $this->user_model->is_Validate($dataUser);
                 // echo $check;

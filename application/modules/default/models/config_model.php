@@ -7,6 +7,7 @@ class config_model extends CI_Model {
 		$this->load->database ();
 	}
 	public function getPerpage() {
-		return $this->db->get ( $this->_table )->row_array ();
+		$raw = $this->db->get ( $this->_table )->row_array ();
+		return $raw['perpage'];
 	}
 }

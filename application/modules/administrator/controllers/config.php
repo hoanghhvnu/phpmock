@@ -1,15 +1,13 @@
 <?php
-class config extends CI_Controller {
+class config extends AdminBaseController {
 	function __construct() {
 		parent::__construct ();
 		$this->load->helper ( "url" );
 		$this->load->library ( "form_validation" );
 		$this->load->model ( "config_model" );
 		
-		session_start ();
-		if (! isset ( $_SESSION ['user'] )) {
-			redirect ( base_url ( "administrator/user/login" ) );
-		}
+		// session_start ();
+		
 	} // end __construct
 	public function index() {
 		$configInfo = $this->config_model->getPerpage ();

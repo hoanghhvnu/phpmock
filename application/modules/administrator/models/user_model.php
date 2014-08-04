@@ -76,9 +76,15 @@ class user_model extends CI_Model{
 
     // Huan
     // update user model
-    public function update($data, $usr_id){
-            $this->db->where("usr_id = $usr_id");
-            $this->db->update($this->_table, $data);
+    public function update($data, $usr_id = ''){
+            if ($usr_id !== ''){
+                $this->db->where("usr_id = $usr_id");
+                $this->db->update($this->_table, $data);
+            } else{
+                $this->db->insert($this->_table,$data);
+            }
+            
+            
     }
 
 

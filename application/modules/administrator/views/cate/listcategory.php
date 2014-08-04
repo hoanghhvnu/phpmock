@@ -7,26 +7,30 @@
     <a  href='<?php echo base_url("administrator/cate/moveCategory");?>'>
                <button >Move Category</button></a>
     <table border = '1'>
-    <th>CategoryID</th>
-    <th>Category Name</th>
-    <th>Category Parent</th>
-    <th>Category Order</th>
-    <th>Edit</th>
-    <th>Delete</th>
+        <th>CategoryID</th>
+        <th>Category Name</th>
+        <th>Category Parent</th>
+        <th>Category Order</th>
+        <th>Edit</th>
+        <th>Delete</th>
 
-    <?php
-        // echo "<pre>";
-        // print_r($orderList);
-        foreach ($orderList as $key => $value){
-            echo "<tr>";
-            echo "<td>" . $value['cate_id'] . "</td>";
-            echo "<td>" . $value['cate_name'] . "</td>";
-            echo "<td>" . $value['cate_parent'] . "</td>";
-            echo "<td>" . $value['cate_order'] . "</td>";
-            echo "<td><a href = '" . base_url("/administrator/cate/update/") . "/" . $value['cate_id'] . "'>Edit</a></td>";
-            echo "<td><a href = '" . base_url("/administrator/cate/delete/") . "/" . $value['cate_id'] . "'>Delete</a></td>";
-            echo "</tr>";
-        } // end foreach
-    ?>
+        <?php
+            foreach ($orderList as $key => $value) :
+        ?>
+                <tr>
+                <td> <?php echo $value['cate_id'] ?></td>
+                <td> <?php echo $value['cate_name'] ?></td>
+                <td> <?php echo $value['cate_parent'] ?></td>
+                <td> <?php echo $value['cate_order'] ?></td>
+                <td> <a href = ' <?php echo base_url("/administrator/cate/update/") . "/" . $value["cate_id"] ?>'>
+                    <img src="<?php echo base_url('public/images/edit-button.png') ?>" alt=""></a>
+                </td>
+                <td> <a href = ' <?php echo base_url("/administrator/cate/delete/") . "/" . $value["cate_id"] ?>'>
+                    <img src="<?php echo base_url('public/images/delete-button.png') ?>" alt=""></a>
+                </td>
+                </tr>
+        <?php
+            endforeach;
+        ?>
     </table>
 </div>
