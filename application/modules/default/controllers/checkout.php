@@ -52,10 +52,9 @@ class checkout extends CI_Controller {
 					}
 				}
 				
-				echo "Cảm ơn bạn ! Đơn hàng đã được chấp nhận !<br />";
+				
 				$this->cart->destroy ();
-				echo "<a href=" . base_url () . "default/product/listproduct>Trờ lại</a>";
-				redirect ( base_url ( "default/product/listproduct" ) );
+				$this->load->view("cart/successful",$data=array());
 			}
 		}
 		$data = array ();
