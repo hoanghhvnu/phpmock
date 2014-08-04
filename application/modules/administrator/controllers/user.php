@@ -41,7 +41,7 @@ class user extends AdminBaseController{
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['sortType'] = $sortType;
-        $data['show_all'] = $_SESSION['show_all'];
+        // $data['show_all'] = $_SESSION['show_all'];
         $data['column'] = $column;
 
         $data['template'] = "user/listuser";

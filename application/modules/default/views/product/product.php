@@ -4,19 +4,29 @@
         text-align: center;
     }
     #linkpage a{
-        width: 20px;
-        height: 20px;
-        display: inline-block;
-        background-color: #C7BFC7;
-        cursor: pointer;
-        /*text-decoration: underline;*/
+        
         color: blue;
+        width: 15px;
+        height: 20px;
+        /* margin-left: 5px; */
+        display: inline-block;
+        /* background-color: #FF0202; */
+        cursor: pointer;
+        /* text-decoration: underline; */
+        /* color: blue; */
         font-size: 120%;
-        font-weight: bold;
+        /* font-weight: bold; */
+        padding: 5px;
+        border: thin #ddd solid;
     }
 
+    #linkpage a[size=large]{
+        width: 40px;
+    }
     #linkpage a[bold=true]{
-        background-color: #2cca65;
+        /*background-color: #2cca65;*/
+        color: grey;
+        font-weight: bold;
     }
     .error{
         color: red;
@@ -24,7 +34,7 @@
     }
     #listitem a{
         text-decoration: none;
-        color: black;
+        /*color: black;*/
         
     }
     
@@ -141,11 +151,39 @@ function reload(page){
 
                     // echo $CurrentPage;
                     echo "Page: ";
-                    for($i = 1; $i <= $total_page; $i++){
-                        echo "<a repage = '" . $i . "'";
-                        if($CurrentPage == $i) echo "bold = 'true'";
-                        echo ">" . $i . "</a>    ";
+                    if($total_page < 5){
+                        for($i = 1; $i <= $total_page; $i++){
+                            echo "<a repage = '" . $i . "'";
+                            if($CurrentPage == $i) echo "bold = 'true'";
+                            echo ">" . $i . "</a>    ";
+                        }
+                    } else{
+                        
+                        $min = $CurrentPage - 2;
+                        if($min > 1){
+                            echo "<a repage = '1' size='large'>First</a>";
+                            echo "...";
+                        } else{
+                            $min = 1;
+                        }
+                        $max = $CurrentPage + 2;
+                        if($max < $total_page){
+                            // echo "<a repage ='" . $total_page . "'>Last</a>";
+                        } else{
+                            $max = $total_page;
+                        }
+                        for($i = $min; $i <= $max; $i++){
+                            echo "<a repage = '" . $i . "'";
+                            if($CurrentPage == $i) echo "bold = 'true'";
+                            echo ">" . $i . "</a>    ";
+                        }
+
+                        if($max < $total_page){
+                            echo "...";
+                            echo "<a repage ='" . $total_page . "' size='large'>Last</a>";
+                        }
                     }
+                    
                     // echo "Page: " . $this->pagination->create_links ();
                 ?> 
             </div>
