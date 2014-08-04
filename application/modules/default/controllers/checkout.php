@@ -1,5 +1,5 @@
 <?php
-class checkout extends CI_Controller {
+class checkout extends DefaultBaseController {
 	public function __construct() {
 		parent::__construct ();
 		
@@ -60,30 +60,17 @@ class checkout extends CI_Controller {
 			}
 		}
 		$data = array ();
-		$grand_total = 0;
-		
-		if ($cart = $this->cart->contents ()) {
-			foreach ( $cart as $item ) {
-				$grand_total = $grand_total + $item ['subtotal'];
-			}
-		}
-		$data ['grand_total'] = $grand_total;
+
 		$data ['title'] = 'checkout';
 		
-		// ///////////////////////////////////
-		$grand_total = 0;
-		foreach ( $this->cart->contents () as $value ) {
-			$grand_total = $grand_total + $value ['subtotal'];
-		}
+
 		//Huandt 1h56 8/01
 		$SortedList = $this->getCategory();
 		$data['html'] = $this->createMenu($SortedList);
 		//Huandt 1h56 8/01
-		$data ['total'] = $this->cart->total_items ();
-		$data ['money'] = $grand_total;
-		// tong so san pham da mua
+
 		$data ['template'] = "cart/checkout";
-		$this->load->view ( 'layout/layout', $data );
+		$this->loadView("layout/layout",$data);
 	}
 	
 	// 8/01/2014 1h50pm HuanDT
