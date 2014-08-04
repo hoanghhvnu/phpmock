@@ -40,6 +40,15 @@
             <?php echo form_error ( 'name' ) . "<br/>"; ?>
             </td>
 			</tr>
+			
+			<tr>
+				<td>Giới tính:</td>
+   			<td>
+    		Nam&nbsp;<input type="radio" name="gender" value="1" checked="checked" />
+    		Nữ&nbsp;<input type="radio" name="gender" value="2" />
+            <?php echo form_error ( 'gender' ) . "<br/>"; ?>
+            </td>
+			</tr>
 
 			<tr>
 				<td>Địa chỉ:</td>

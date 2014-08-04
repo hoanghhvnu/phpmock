@@ -17,6 +17,7 @@ class checkout extends CI_Controller {
 			$this->form_validation->set_rules ( "email", "Email", "trim|required|valid_email" );
 			$this->form_validation->set_rules ( "address", "Địa chỉ ", "trim|required" );
 			$this->form_validation->set_rules ( "phone", "Số điện thoại", "trim|required|numeric" );
+			$this->form_validation->set_rules ( "gender", "Giới tính", "trim|required" );
 			$this->form_validation->set_message ( "required", "%s không được bỏ trống" );
 			
 			$this->form_validation->set_message ( "required", "%s không được bỏ trống" );
@@ -27,6 +28,7 @@ class checkout extends CI_Controller {
 				
 				$order = array (
 						'cus_name' => $this->input->post ( 'name' ),
+						'cus_gender'=> $this->input->post ( 'gender' ),
 						'cus_email' => $this->input->post ( 'email' ),
 						'cus_address' => $this->input->post ( 'address' ),
 						'cus_phone' => $this->input->post ( 'phone' ),
