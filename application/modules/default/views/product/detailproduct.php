@@ -27,18 +27,11 @@
             		</div>
         			</div>
 					<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 100px; height: 30px; overflow: hidden;">
-		    		
-			    	<div><img u="image" alt="amazon" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop1tn.jpg" /></div>
-		            <div><img u="image" alt="android" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop2tn.jpg" /></div>
-		            <div><img u="image" alt="bitly" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop3tn.jpg" /></div>
-		            <div><img u="image" alt="blogger" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop4tn.jpg" /></div>
-		            <div><img u="image" alt="dnn" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop5tn.jpg" /></div>
-		            <div><img u="image" alt="drupal" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop1tn.jpg" /></div>
-		            <div><img u="image" alt="ebay" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop2tn.jpg" /></div>
-		            <div><img u="image" alt="facebook" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop3tn.jpg" /></div>
-		            <div><img u="image" alt="google" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop4tn.jpg" /></div>
-		            <div><img u="image" alt="ibm" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop5tn.jpg" /></div>
-		            <div><img u="image" alt="ios" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop1tn.jpg" /></div>
+		    		<?php 
+		    		foreach ($images as $value){
+						echo '<div><img u="image" alt="amazon" src="http://localhost/phpmock/public/images/detailpro/thumbs/'.$value['img_name'].'" /></div>';
+					}
+		    		?>
 				
 				</div><!--end thumbs -->
 				</div>
