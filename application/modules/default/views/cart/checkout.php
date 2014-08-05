@@ -17,9 +17,9 @@
 					echo "<tr>";
 					echo "<td>" . $item ['id'] . "</td>";			
 					echo "<td>" . $item ['name'] . "</td>";
-					echo "<td>" . $item ['price'] . " VNĐ</td>";
+					echo "<td>$" . $item ['price'] . "</td>";
 					echo "<td>" . $item ['qty'] . "</td>";
-					echo "<td>" . $item ['qty'] * $item ['price'] . " VNĐ</td>";
+					echo "<td>$" . $item ['qty'] * $item ['price'] . "</td>";
 					echo "</tr>";
 				} // end foreach
 				?>
@@ -30,7 +30,7 @@
 		<table border="0" cellpadding="2px" style="font-size: 14px;">
 			<tr>
 				<td>Tổng tiền:</td>
-				<td><strong><?php echo $money; ?> VNĐ</strong></td>
+				<td><strong>$<?php echo $money; ?></strong></td>
 			</tr>
         	<?php if($money==0) echo "Bạn chưa mua sản phẩm nào ! Không thể gửi đơn hàng !" ?>
            

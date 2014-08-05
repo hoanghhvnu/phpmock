@@ -22,6 +22,12 @@ class user_model extends CI_Model{
         return $this->db->get($this->_table)->row_array(); 
     } // end getOnce
 
+    //HuanDT
+    public function getUserUpdate($id){
+    	$this->db->select('usr_name, usr_email, usr_address, usr_phone, usr_level, usr_gender');
+    	$this->db->where("usr_id = $id");
+    	return $this->db->get($this->_table)->row_array();
+    }
     // HoangHH
     public function checkUserName($usr_name){
         $this->db->where("usr_name ='" .  $usr_name. "'" );
@@ -82,9 +88,7 @@ class user_model extends CI_Model{
                 $this->db->update($this->_table, $data);
             } else{
                 $this->db->insert($this->_table,$data);
-            }
-            
-            
+            }           
     }
 
 

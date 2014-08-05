@@ -45,14 +45,14 @@ function clear_cart() {
 		<tr bgcolor="#FFFFFF">
 			<td><?php echo $i++; ?></td>
 			<td><?php echo $item['name']; ?></td>
-			<td><?php echo $item['price']; ?> VNĐ</td>
+			<td>$<?php echo $item['price']; ?></td>
 			<td><?php echo form_input('cart['. $item['id'] .'][qty]', $item['qty'], 'maxlength="3" size="1" style="text-align: right"'); ?></td>
-			<td><?php echo $item['subtotal'];?> VNĐ</td>
+			<td>$<?php echo $item['subtotal'];?></td>
 			<td><?php echo anchor('default/cart/remove/'.$item['rowid'],'<img src='.base_url('public/images/delete-button.png').' >'); ?></td>
 			<?php } ?>
 		</tr>
 		<tr>
-			<td><b>Tổng tiền: <?php echo $money; ?> VNĐ</b></td>
+			<td><b>Tổng tiền: $<?php echo $money; ?></b></td>
 			<td colspan="5" align="right"><input type="button" value="Xóa toàn bộ giỏ hàng" onclick="clear_cart()"> 
 			<input type="submit" value="Cập nhật giỏ hàng"> <?php echo form_close(); ?>
 			<input type="button" value="Checkout" onclick="window.location='<?php echo base_url(); ?>default/checkout'"></td>

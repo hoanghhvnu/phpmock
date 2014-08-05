@@ -150,6 +150,7 @@ class product extends DefaultBaseController {
     	$branId = $getProductById['bran_id'];
     	$counId = $getProductById['country_id'];
     	$getImageById = $this->getImgName($id);
+    	$getImageAllById = $this->getImageByProId($id);
     	$getImageThumbs = $this->getImgThumbs($id);
     	$comment = $this->getCommentByProId($id);
 //     	echo "<pre>";
@@ -173,7 +174,8 @@ class product extends DefaultBaseController {
 //     		print_r($meta);die();
     		$data['info'] = $SortedList;
     		$data['image'] = $getImageById['pro_images'];
-
+			$data['images'] = $getImageAllById;
+// 			echo "<pre>";print_r($data['images']);die();
     		$data['thumbs'] = $getImageThumbs;
     		
     		
@@ -182,6 +184,7 @@ class product extends DefaultBaseController {
     		
     		$data['product'] = $getProductById;
     		$data['comment'] = $comment;
+    		//echo "<pre>"; print_r($data['comment']);die();
     		$data['bran'] = $this->getBranById($branId);
     		$data['country'] = $this->getCountryById($counId);
     		$data['template'] = "product/detailproduct";
@@ -198,7 +201,9 @@ class product extends DefaultBaseController {
     public function getProductById($id){
     	return $this->product_model->detailid($id);
     }
-    
+    public function getImageByProId($id){
+    	return $this->images_model->getAllById($id);
+    }
     public function getImgName($id){
     	return $this->product_model->detailid($id);
     	

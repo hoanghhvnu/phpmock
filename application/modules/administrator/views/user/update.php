@@ -7,8 +7,8 @@
                     <?php echo form_error("usr_name") ?>
                     <br />
                     <label>Password</label>
-                    <input type="text" name="usr_password" value="<?php echo $userInfo['usr_password']; ?>" size="30" />
-                    <?php echo form_error("user_password") ?>
+                    <input type="text" name="usr_password" value="" size="30" />
+                    <?php echo form_error("usr_password") ?>
                     <br />
                     <label>Email</label>
                     <input type="text" name="usr_email" value="<?php echo $userInfo['usr_email']; ?>" size="30" />
