@@ -41,8 +41,10 @@ class bran extends AdminBaseController{
         }
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
+
         $config['next_link'] = "Next";
         $config['prev_link'] = "Prev";
+
         $this->pagination->initialize($config); 
 
         $start = ($page - 1) * $config['per_page'];

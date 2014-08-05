@@ -73,7 +73,6 @@ class home extends DefaultBaseController
        $this->loadView("layout/right_content",$data);
        $this->load->view("layout/footer");
     } // end index()
-
     public function detail()
     {
         $idProduct = $this->uri->segment(4);
