@@ -10,12 +10,8 @@ class DefaultBaseController extends MX_controller {
 	} // end __construct
 	public function loadView($url, $data = array()) {
 		$this->load->library ( 'cart' );
-		$grand_total = 0;
-		foreach ( $this->cart->contents () as $value ) {
-			$grand_total = $grand_total + $value ['subtotal'];
-		}
 		$data ['total'] = $this->cart->total_items ();
-		$data ['money'] = $grand_total;
+		$data ['money'] = $this->cart->total();
 		$cate = array();
 		$cate = $this->getCategory();
 		$cate_count = $this->menu_model->count_product();
