@@ -68,6 +68,7 @@
             if(isset($listproduct) && $listproduct !=null){
         ?>
                 <!-- print data here -->
+                <form>
                 <?php foreach ($listproduct as $key => $list): ?>
                 <tr>
                         <td><?php echo $list['pro_id'] ; ?></td>
@@ -87,9 +88,11 @@
                           return false" 
                         href = '<?php echo base_url("/administrator/product/delete/") . "/" . $list['pro_id'] ; ?>
                         '>Delete</a></td>
-                        
+                        <input type="hidden" name = 'DeleteId' value="<?php echo $list['pro_id']; ?>">
+                        <input type="submit">
                     </tr>    
                 <?php endforeach; ?>
+                </form>
             <?php
         } // end if
         ?>
