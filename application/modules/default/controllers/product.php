@@ -31,7 +31,7 @@ class product extends DefaultBaseController {
 			$data ['message'] = $this->session->flashdata ( 'message' );
 		}
 		
-		// $data ['products'] = $this->product_model->listProduct ();
+// 		$data ['products'] = $this->product_model->listProduct ();
 		$config ['base_url'] = base_url ( 'default/product/listproduct' ); // xÃ¡c Ä‘á»‹nh trang phÃ¢n trang
 		
 		$config ['per_page'] = $perpage;
@@ -70,7 +70,7 @@ class product extends DefaultBaseController {
 		$SortField = 'pro_name';
 		$SortType = 'asc';
 		$data ['products'] = $this->product_model->list_all ( $config ['per_page'], $start,  $SortType, $SortField);
-        $config ['total_rows'] = count($data['products']); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
+        $config ['total_rows'] = $this->product_model->count_all (); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
         if ($config ['per_page'] > $config ['total_rows']) {
             $config ['per_page'] = $config ['total_rows'];
             $page = 1;
@@ -80,6 +80,7 @@ class product extends DefaultBaseController {
 
 
 		$data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
+		
 		// tong so san pham da mua
 		$data['CurrentPage'] = $page;
 		$data ['template'] = "product/listproduct";
