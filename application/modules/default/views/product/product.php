@@ -115,8 +115,8 @@ function reload(page){
 					</p>
                     </a>
     
-                    <p>Giá gốc:<span class="reduce"> <?php echo $list['pro_price']; ?> </span> VNĐ</p>
-                    <p style="color: red;"><b>KM: <?php echo $list['pro_price_sale']; ?> VNĐ</b></p>
+                    <p>Giá gốc:<span class="reduce"> $<?php echo $list['pro_price']; ?> </span></p>
+                    <p style="color: red;"><b>KM: $<?php echo $list['pro_price_sale']; ?></b></p>
                     <p><?php echo $list['pro_desc']; ?></p>
                
                     <div class="cart" align="center"><?php

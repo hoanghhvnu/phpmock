@@ -21,9 +21,9 @@
 				foreach ( $cart as $item ) {					
 					echo "<tr>";		
 					echo "<td>" . $item ['name'] . "</td>";
-					echo "<td>" . $item ['price'] . " VNĐ</td>";
+					echo "<td>$" . $item ['price'] . "</td>";
 					echo "<td>" . $item ['qty'] . "</td>";
-					echo "<td>" . $item ['qty'] * $item ['price'] . " VNĐ</td>";
+					echo "<td>$" . $item ['qty'] * $item ['price'] . "</td>";
 					echo "</tr>";
 				} // end foreach
 				
@@ -32,12 +32,12 @@
    	
 					<?php
 					echo "<p style='font-family: verdana,arial,sans-serif;font-size:11px;'>
-		           Tổng tiền: ". $money . " VNĐ</p>";
+		           Tổng tiền: $". $money . "</p>";
 					?>		
 			</div>
 			</a> <span class="border_cart"></span>
 			<span class="price">
-            <?php if (isset($money)) echo $money; ?> VNĐ
+            $<?php if (isset($money)) echo $money; ?>
             </span>
 		</div>
 		<div class="cart_icon">
