@@ -33,6 +33,11 @@ class order extends AdminBaseController{
         }
         
         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
+        $page = trim($page);
+        if(! ctype_digit($page)){
+            echo "Trang không tồn tại!";
+            return FALSE;
+        }
 
         if($this->input->post('SearchById')){
             $page = 1;
@@ -44,7 +49,11 @@ class order extends AdminBaseController{
             $config['per_page'] = $config['total_rows'];
             $page = 1;
         }
-
+        $NumberOfPage = ceil($config['total_rows'] / $config['per_page']);
+        if($page > $NumberOfPage){
+            echo "Trang không tồn tại!";
+            return FALSE;
+        }
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
         $config['next_link'] = "Sau";
@@ -62,7 +71,7 @@ class order extends AdminBaseController{
 
         $data['template'] = "order/listorder";
         if( ! $this->input->post('SearchByName')){
-            $data['ListOrder'] = $this->order_model->get_order($column,$sortType,$start,$config['per_page']);
+            $data['ListOrder'] = $this->order_model->get_order($column,$sortType,$config['per_page'], $start);
         } else{
             $InputName = $this->input->post('SearchByName');
             // echo $order_id;

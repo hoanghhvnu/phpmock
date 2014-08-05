@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>WEB BÁN HÀNG</title>
+<title>Trang quản trị </title>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/phpmock/css/style.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/admin/AdminStyle.css" />
 <script type="text/javascript">
@@ -66,7 +66,7 @@ $(document).ready(function(){
                     <li><a href="<?php echo base_url('administrator/user/listuser');?>">Quản lý thành viên</a></li>
                     <li><a href="<?php echo base_url('administrator/cate/listcate');?>">Quản lý chuyên mục</a></li>
                     <li><a href="<?php echo base_url('administrator/product/listproduct');?>">Quản lý sản phẩm</a></li>
-                    <li><a href="<?php echo base_url('administrator/bran/listbran');?>">Quản lý thương hiệu</a></li>
+                    <li><a href="<?php echo base_url('administrator/bran/listbran');?>">Quản lý nhãn hiệu</a></li>
                     <li><a href="<?php echo base_url('administrator/order/listorder');?>">Quản lý đơn hàng </a></li>
                     <li><a href="<?php echo base_url('administrator/config');?>">Quản lý cấu hình </a></li>
                 </ul>

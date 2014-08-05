@@ -25,7 +25,7 @@
     }
     #linkpage a[bold=true]{
         /*background-color: #2cca65;*/
-
+        cursor: default;
         color: grey;
         font-weight: bold;
     }
