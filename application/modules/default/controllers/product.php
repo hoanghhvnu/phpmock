@@ -17,6 +17,9 @@ class product extends DefaultBaseController {
 		$this->load->helper ( "url" );
 		$this->load->model("menu_model");
 	}
+	public function index(){
+		$this->listproduct();
+	}
 	public function listproduct() {
         $SortedList = $this->getCategory();
 		$data = array ();

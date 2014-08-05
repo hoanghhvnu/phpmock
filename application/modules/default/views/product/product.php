@@ -38,6 +38,15 @@
         /*color: black;*/
         
     }
+    #center ul li img.product {
+    border: 1px solid #fbfbfb;
+    padding: 2px;
+    width: 96%;
+    margin-bottom: 5px;
+    }
+    #center ul li{
+        width: 20%;
+    }
     
 </style>
 <script type="text/javascript">
