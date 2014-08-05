@@ -17,6 +17,7 @@ class home extends DefaultBaseController
            * load view has no slider
            */
           $this->load->view("layout/header");
+          $this->load->view("layout/megamenu");
           
        } else{
           /**
