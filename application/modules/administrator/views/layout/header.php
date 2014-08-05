@@ -7,12 +7,21 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/admin/AdminStyle.css" />
 <script type="text/javascript">
             function CheckDelete(){
-
                     r = confirm("Bạn chắc chắn xoá không?");
                     if(r == false) return false;
                     else return true;
                                                
             } 
+</script>
+<script>
+function MyConfirm(string) {
+    
+    if (confirm(string) == true) {
+        return true;
+    } else {
+        return false;
+    }
+}
 </script>
 <script src="/phpmock/js/jquery.js"></script>
     <script>

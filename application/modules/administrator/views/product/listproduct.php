@@ -3,6 +3,8 @@
         vertical-align: middle;
     }
 </style>
+
+
 <div id = 'center'>
     <h3>List Product </h3>
     
@@ -79,8 +81,12 @@
                         <td><?php echo $ListBrandKeyValue[$list['bran_id']] ; ?></td>
                         <td><?php echo $ListCountryKeyValue[$list['country_id']] ; ?></td>
                         <td><input type = 'checkbox'<?php if($list['isSlider'] == 1) echo 'checked = TRUE' ; ?>></td>
-                        <td><a href = '<?php echo base_url("/administrator/product/update/") . "/" . $list['pro_id'] ; ?>'>Edit</a></td>
-                        <td><a href = '<?php echo base_url("/administrator/product/delete/") . "/" . $list['pro_id'] ; ?>'>Delete</a></td>
+                        <td><a href = '<?php echo base_url("/administrator/product/update/") . "/" . $list['pro_id'] ; ?>
+                        '>Edit</a></td>
+                        <td><a action = 'delete' onclick="if(MyConfirm('Bạn chắc chắn xoá sản phẩm này?') == false)
+                          return false" 
+                        href = '<?php echo base_url("/administrator/product/delete/") . "/" . $list['pro_id'] ; ?>
+                        '>Delete</a></td>
                         
                     </tr>    
                 <?php endforeach; ?>

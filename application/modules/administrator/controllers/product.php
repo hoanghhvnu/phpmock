@@ -87,6 +87,9 @@ class product extends AdminBaseController{
 
     // writen by HoangHH
     public function delete(){
+        // if(isset($_POST['hacklink']) && $_POST['hacklink'] == FALSE){
+        //     echo 'hack = false';
+        // }
         $pro_id = $this->uri->segment(4);
         $this->product_model->deleteProduct($pro_id);
         
