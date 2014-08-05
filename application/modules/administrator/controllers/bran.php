@@ -32,7 +32,7 @@ class bran extends AdminBaseController{
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
         $config['next_link'] = "Sau";
-        $config['prev_link'] = "TrÆ°á»›c";
+        $config['prev_link'] = "Trước";
         $this->pagination->initialize($config); 
 
         $start = ($page - 1) * $config['per_page'];

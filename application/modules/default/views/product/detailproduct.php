@@ -3,40 +3,53 @@
 	<div class="prod_box_big">
 		<div class="top_prod_box_big"></div>
 		<div class="center_prod_box_big">
+		
+		
+		
+		
 			<div class="product_img_big">
 				<div id="image">
 					<a
 						href="javascript:popImage('http://localhost/phpmock/public/images/big_pic.jpg','Some Title')"
 						title="header=[Zoom] body=[&nbsp;] fade=[on]"> <img id="theImage"
-						src="http://localhost/phpmock/public/images/detailpro/thumbs/<?php echo $image; ?>"
+						src="http://localhost/phpmock/public/images/detailpro/laptop1.jpg"
 						alt="Main" />
 					</a>
 				</div>
-				<div class="thumbs">
-				<table>
-				<tr>
-			<?php
+				<div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 600px; height: 30px; overflow: hidden; ">
+					<!-- Loading Screen -->
+        			<div u="loading" style="position: absolute; top: 0px; left: 0px;">
+            		<div style=" opacity:0.7; position: absolute; display: block;
+                		background-color: #000; top: 0px; left: 0px;">
+            		</div>
+            		<div style="position: absolute; display: block;;
+                		top: 0px; left: 0px;">
+            		</div>
+        			</div>
+					<div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 100px; height: 30px; overflow: hidden;">
+		    		
+			    	<div><img u="image" alt="amazon" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop1tn.jpg" /></div>
+		            <div><img u="image" alt="android" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop2tn.jpg" /></div>
+		            <div><img u="image" alt="bitly" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop3tn.jpg" /></div>
+		            <div><img u="image" alt="blogger" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop4tn.jpg" /></div>
+		            <div><img u="image" alt="dnn" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop5tn.jpg" /></div>
+		            <div><img u="image" alt="drupal" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop1tn.jpg" /></div>
+		            <div><img u="image" alt="ebay" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop2tn.jpg" /></div>
+		            <div><img u="image" alt="facebook" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop3tn.jpg" /></div>
+		            <div><img u="image" alt="google" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop4tn.jpg" /></div>
+		            <div><img u="image" alt="ibm" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop5tn.jpg" /></div>
+		            <div><img u="image" alt="ios" src="http://localhost/phpmock/public/images/detailpro/thumbs/laptop1tn.jpg" /></div>
+				
+				</div><!--end thumbs -->
+				</div>
+			</div><!-- end product img big -->
 			
-$i = 0;
-			foreach ( $thumbs as $value ) {
-				
-				$value ['img_name'];
-				?>
-				<td>
-    			 <img >
-						src="http://localhost/phpmock/public/images/detailpro/thumbs/<?php echo $value['img_name']; ?>"
-						onmouseover="swapImage(<?php echo $i;?>);" />
-						</td>
-    		<?php
-				
-$i ++;
-			}
-			?>
-			</tr>
-</table>
-				
-			</div>
-			</div>
+			
+			
+			
+			
+			
+			
 			<div class="details_big_box">
 				<div class="product_title_big"><?php echo $product['pro_name']; ?></div>
 				<div class="specifications">
@@ -88,9 +101,9 @@ $i ++;
 				id="email" class="placeholder" placeholder="Nhập địa chỉ email vào" /><br />
 			<textarea name="comments" cols="50" rows="10" class="placeholder"></textarea>
 			<br>
-			<div id="nutbam">
-				<input type="submit" value="" name="btnok" id="submit"
-					class="button"> <input type="reset" value="" id="reset"
+			<div id="nutbamk">
+				<input type="submit" value="Submit" name="btnok" id="submitk"
+					class="button"> <input type="reset" value="Reset" id="resetk"
 					class="button">
 			</div>
 		</form>
