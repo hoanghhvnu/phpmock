@@ -7,6 +7,7 @@ class DefaultBaseController extends MX_controller {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->model ( "menu_model" );
+		$this->load->model ( "cate_model" );
 	} // end __construct
 	public function loadView($url, $data = array()) {
 		$this->load->library ( 'cart' );
