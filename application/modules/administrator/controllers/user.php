@@ -101,33 +101,54 @@ class user extends AdminBaseController{
 
         $id = $this->uri->segment(4);
         $this->user_model->deleteUser($id);
-        // redirect(base_url("/administrator/user/listuser"));
-        redirect(base_url("administrator/user/listuser"));
+			// redirect(base_url("/administrator/user/listuser"));
+		redirect ( base_url ( "administrator/user/listuser"));
     }
 
     // Huan
     public function update(){
 
         $usr_id = $this->uri->segment(4);
-        $data['userInfo'] = $this->user_model->getOnce($usr_id);
+        $data['userInfo'] = $this->user_model->getUserUpdate($usr_id);
         if($this->input->post("ok")){
 
             $this->checkFormInput();
 
             $this->form_validation->set_error_delimiters("<span class='error'>", "</span>");
+            
             if($this->form_validation->run()){
+            	$pass = $this->input->post("usr_password");
+            	if($pass != null){
+            		
+            	$this->form_validation->set_rules('usr_password','Password', 'min_length[6]');
+            	if($this->form_validation->run()){
                  $dataUser = array(
                                 "usr_name"     =>$this->input->post("usr_name"),
-                                "usr_password" =>$this->input->post("usr_password"),
+                                "usr_password" =>md5($this->input->post("usr_password")),
                                 "usr_email"    =>$this->input->post("usr_email"),
                                 "usr_address"  =>$this->input->post("usr_address"),
                                 "usr_phone"    =>$this->input->post("usr_phone"),
                                 "usr_gender"   =>$this->input->post("usr_gender"),
                                 "usr_level"    =>$this->input->post("usr_level")
                             );
-                $this->user_model->update($dataUser,$usr_id);
+                 $this->user_model->update($dataUser,$usr_id);
+                 redirect(base_url("administrator/user/listuser"));
+            	}
+            	} else {
+            		$dataUser = array(
+            				"usr_name"     =>$this->input->post("usr_name"),
+            				"usr_email"    =>$this->input->post("usr_email"),
+            				"usr_address"  =>$this->input->post("usr_address"),
+            				"usr_phone"    =>$this->input->post("usr_phone"),
+            				"usr_gender"   =>$this->input->post("usr_gender"),
+            				"usr_level"    =>$this->input->post("usr_level")
+            		);
+            		$this->user_model->update($dataUser,$usr_id);
+            		redirect(base_url("administrator/user/listuser"));
+            	}
+               
                 //redirect(base_url("administrator/users/listusers"));
-                redirect(base_url("administrator/user/listuser"));
+//                 redirect(base_url("administrator/user/listuser"));
             }
         }
         $data['template'] = "user/update";
@@ -178,8 +199,8 @@ class user extends AdminBaseController{
     }
     public function checkFormInput(){
         $this->form_validation->set_rules('usr_name','Username', 'required|alpha_numeric|min_length[6]');
-        // $this->form_validation->set_rules('usr_password','Password', 'required|min_length[6]|matches[usr_retype_password]');
-        // $this->form_validation->set_rules('usr_retype_password','Retype-Password', 'required');
+        //$this->form_validation->set_rules('usr_password','Password', 'required|min_length[6]');
+        //$this->form_validation->set_rules('usr_retype_password','Retype-Password', 'required|matches[usr_retype_password]');
         $this->form_validation->set_rules('usr_email','Email', 'required|valid_email');
         $this->form_validation->set_rules('usr_address','Address', 'required');
         $this->form_validation->set_rules('usr_phone','Phone', 'required|numeric|min_length[9]|max_length[11]');

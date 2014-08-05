@@ -39,7 +39,7 @@ class home extends DefaultBaseController
              } // end foreach
 
              $data['slider'] = $Ordered;
-             // $this->load->view("layout/header",$data);
+             $this->load->view("layout/header",$data);
           } // end if isset $KeyOrder
        } // end if isset
 

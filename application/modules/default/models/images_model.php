@@ -15,6 +15,11 @@ class images_model extends CI_Model
         // Lay ra danh sach cac ban ghi trong table
         return $this->db->get($this->_table)->result_array();
     }
+    public function getAllById($id){
+    	// echo __METHOD__ . 'DEFALU';
+    	$this->db->where("pro_id = $id");
+    	return $this->db->get($this->_table)->result_array();
+    }
     public function insert($data)
     {
         $this->db->insert($this->_table,$data);
