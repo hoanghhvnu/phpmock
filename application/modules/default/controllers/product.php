@@ -15,6 +15,7 @@ class product extends DefaultBaseController {
 		$this->load->library ( 'pagination' );
 		$this->load->library ( 'cart' );
 		$this->load->helper ( "url" );
+		$this->load->model("menu_model");
 	}
 	public function listproduct() {
         $SortedList = $this->getCategory();
@@ -73,10 +74,6 @@ class product extends DefaultBaseController {
 		$SortType = 'asc';
 		$data ['products'] = $this->product_model->list_all ( $config ['per_page'], $start,  $SortType, $SortField);
 		/////////////////////////////////////
-
-
-
-        $data['html'] = $this->createMenu($SortedList);
 
 
 
@@ -153,6 +150,7 @@ class product extends DefaultBaseController {
 //     	die();
     	$data = array();
     	$mega = array();
+    	//$value = array();
     	if(!empty ($SortedList)){
     		$data['orderList'] = $SortedList;
     		foreach ($SortedList as $value){
@@ -164,20 +162,22 @@ class product extends DefaultBaseController {
     			);
     			$meta[] = $dt;
     		}
+//     		echo "<pre>";
+//     		print_r($meta);die();
     		$data['info'] = $SortedList;
     		$data['image'] = $getImageById['pro_images'];
 
     		$data['thumbs'] = $getImageThumbs;
     		
     		
-
+// 			echo "<pre>";
+// 			print_r($meta);die();
     		
     		$data['product'] = $getProductById;
     		$data['comment'] = $comment;
     		$data['bran'] = $this->getBranById($branId);
     		$data['country'] = $this->getCountryById($counId);
     		$data['template'] = "product/detailproduct";
-    		$data['html'] = $this->createMenu($meta);
     		$this->loadView("layout/layout",$data);
     	}
     }
@@ -191,35 +191,6 @@ class product extends DefaultBaseController {
     public function getProductById($id){
     	return $this->product_model->detailid($id);
     }
-    public function createMenu($listArr=array(),$parent = 0, $level=0)
-    {
-    	$html = '';
-    	if($listArr=='') return '';
-    	$html .= ($level==0 ? "<div id='menu'>" : "");
-    	$have_child = false;
-    	foreach($listArr as $value)
-    	{
-    		if($value['cate_parent']==$parent)
-    		{
-    			$have_child = true;
-    			break;
-    		}
-    	}
-    	if($have_child) $html .= "<ul>";
-    	foreach($listArr as $key=>$value)
-    	{
-    		if($value['cate_parent']==$parent)
-    		{
-    			$html .= "<li><a href='#'>".$value['cate_name']."(".$this->cateproduct_model->countProduct($value['cate_id']).")"."</a>";
-    			unset($listArr[$key]);
-    			$html .= $this->createMenu($listArr,$value['cate_id'],$level+1);
-    			$html .= "</li>";
-    		}
-    	}
-    	if($have_child) $html .= "</ul>";
-    	$html .= $level==0 ? "</div>" : "";
-    	return $html;
-    }
     
     public function getImgName($id){
     	return $this->product_model->detailid($id);
@@ -232,69 +203,5 @@ class product extends DefaultBaseController {
     public function getImgThumbs($id){
     	return $this->images_model->detailByProId($id);
     }
-
-    private function getCategory($LevelSign = "") {
-    	$SequenceList = $this->cate_model->getAll ();
-    	if (empty ( $SequenceList )) {
-    		echo "Have no category!";
-    	} else {
-    		// get Category level 0, ParentId = 0;
-    		$strLevel = "";
-    		$SortedList = $this->recursive ( 0, $SequenceList, $strLevel );
-    		return $SortedList;
-    	} // end if empty
-    } // end getCategory
-    
-    private function recursive($ParentId, &$List, $strLevel) {
-    	if (! empty ( $List )) {
-    		if ($ParentId != 0) {
-    			$strLevel .= "";
-    		} else {
-    			// $strLevel = "";
-    		}
-    			
-    		$LevelList = array ();
-    			
-    		foreach ( $List as $key => $CateDetail ) {
-    			if ($ParentId == $CateDetail ['cate_parent']) {
-    				$temp = array (
-    						'cate_id' => $CateDetail ['cate_id'],
-    						'cate_name' => $strLevel . $CateDetail ['cate_name'],
-    						'cate_parent' => $CateDetail ['cate_parent'],
-    						'cate_order' => $CateDetail ['cate_order']
-    				);
-    				$LevelList [$key] = $temp;
-    				// $LevelList[$key] = $CateDetail;
-    				unset ( $List [$key] );
-    			} // end if ParentId
-    		} // end foreach $List
-    			
-    		if (! empty ( $LevelList )) {
-    			$LevelSortByOrder = array ();
-    			foreach ( $LevelList as $key => $LevelCateDetail ) {
-    				$LevelKeyOrder [$key] = $LevelCateDetail ['cate_order'];
-    			}
-    
-    			asort ( $LevelKeyOrder );
-    
-    			$LevelSorted = array ();
-    			foreach ( $LevelKeyOrder as $key => $CateOrder ) {
-    				$LevelSorted [$key] = $LevelList [$key];
-    			}
-    
-    			$LevelAndSub = array ();
-    			foreach ( $LevelSorted as $key => $LevelCateDetail ) {
-    				$LevelAndSub [] = $LevelCateDetail;
-    				$SubLevel = $this->recursive ( $LevelCateDetail ['cate_id'], $List, $strLevel );
-    				if (! empty ( $SubLevel )) {
-    					foreach ( $SubLevel as $key => $SubLevelCateDetail ) {
-    						$LevelAndSub [] = $SubLevelCateDetail;
-    					}
-    				} // end if SubLevel
-    			} // end foreach LevelSorted
-    			return $LevelAndSub;
-    		} // end if empty $Level
-    	} // end if ! empty()
-    } // end recursive()
 
 } // end class product
