@@ -18,7 +18,6 @@ class home extends DefaultBaseController
            * load view has no slider
            */
           $this->load->view("layout/header");
-          $this->load->view("layout/megamenu");
           
        } else{
           /**
@@ -40,6 +39,7 @@ class home extends DefaultBaseController
 
              $data['slider'] = $Ordered;
              $this->load->view("layout/header",$data);
+//              $this->load->view("layout/layout", $data);
           } // end if isset $KeyOrder
        } // end if isset
 
