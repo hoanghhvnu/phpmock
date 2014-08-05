@@ -4,7 +4,7 @@
 		<div class="cart_details">
 
 
-			<a class="tooltip" href="<?php echo base_url(); ?>default/cart"> 
+			<a class="tooltipp" href="<?php echo base_url(); ?>default/cart"> 
         	
         	<?php if (isset($total)) echo $total." sản phẩm";?>
 			
