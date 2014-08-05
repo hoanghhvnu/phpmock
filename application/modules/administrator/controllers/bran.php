@@ -41,20 +41,14 @@ class bran extends AdminBaseController{
         }
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
-
         $config['next_link'] = "Next";
         $config['prev_link'] = "Prev";
 
         $this->pagination->initialize($config); 
-
         $start = ($page - 1) * $config['per_page'];
         $data['listbran'] = $this->bran_model->get_order($column,$sortType,$start,$config['per_page'], $InputSearch);
-
         $data['link'] = $this->pagination->create_links();
-        // $data['per'] = $config['
-        // per_page'];
         $data['sortType'] = $sortType;
-
         $data['column'] = $column;
 
         $data['template'] = "bran/listbran";

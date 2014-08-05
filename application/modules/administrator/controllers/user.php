@@ -51,7 +51,6 @@ class user extends AdminBaseController{
     } // end class list user
 
     public function insertUser(){
-
         $dataUser = array();
         if ($this->input->post('btnok')){
             $this->form_validation->set_rules('usr_password','Password', 'required|min_length[6]|matches[usr_retype_password]');
@@ -60,10 +59,9 @@ class user extends AdminBaseController{
             $this->checkFormInput();
 
             if($this->form_validation->run()){
-                if($this->user_model->checkUserName($this->input->post('usr_name'))
-                && $this->user_model->checkEmail($this->input->post('usr_email'))
-                ){
-                    // echo md5($this->input->post('usr_password'));
+                $validUser = $this->user_model->checkUserName($this->input->post('usr_name'));
+                $validEmail = $this->user_model->checkEmail($this->input->post('usr_email'));
+                if($validUser && $validEmail){
                     $dataUser = array(
                         'usr_name'            => $this->input->post('usr_name'),
                         'usr_password'        => md5($this->input->post('usr_password')),
@@ -77,6 +75,7 @@ class user extends AdminBaseController{
                 $this->user_model->update($dataUser);
                 redirect(base_url("administrator/user/listuser"));
                 } // end if check User
+                
                 if( ! $this->user_model->checkUserName($this->input->post('usr_name'))){
                     $data['errorUser'] = "Username đã tồn tại, vui lòng chọn tên khác!";
                 }
@@ -84,7 +83,7 @@ class user extends AdminBaseController{
                 if( ! $this->user_model->checkEmail($this->input->post('usr_email'))){
                     $data['errorEmail'] = "Email đã tồn tại, vui lòng chọn email khác";
                 }
-            } // end if val
+            } // end if valid
 
         } // end isset btnok
 

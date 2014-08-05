@@ -13,11 +13,12 @@ class home extends DefaultBaseController
     public function index(){
         include("product.php");
        $rawOrder = $this->product_model->getSlider();
+       $data['slider'] = array();
        if(! isset($rawOrder) || empty($rawOrder)){
           /**
            * load view has no slider
            */
-          $this->load->view("layout/header");
+          // $this->load->view("layout/header");
           
        } else{
           /**
@@ -38,12 +39,12 @@ class home extends DefaultBaseController
              } // end foreach
 
              $data['slider'] = $Ordered;
-             $this->load->view("layout/header",$data);
+             // $this->load->view("layout/header",$data);
           } // end if isset $KeyOrder
        } // end if isset
 
        // $pr = new product();
-       $this->load->view("layout/left_content");
+       // $this->load->view("layout/left_content");
        // echo $pr->listproduct();
        // $this->load->view('product/listproduct');
        /**
@@ -69,9 +70,11 @@ class home extends DefaultBaseController
        $data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
        // tong so san pham da mua
        $data['CurrentPage'] = $page;
-       $this->loadView("product/listproduct",$data);
-       $this->loadView("layout/right_content",$data);
-       $this->load->view("layout/footer");
+       // $this->loadView("product/listproduct",$data);
+       // $this->loadView("layout/right_content",$data);
+       // $this->load->view("layout/footer");
+       $data['template'] = "product/listproduct";
+       $this->loadView('layout/layout',$data);
     } // end index()
     public function detail()
     {
