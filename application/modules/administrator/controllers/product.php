@@ -44,9 +44,12 @@ class product extends AdminBaseController{
             $InputProductName = $this->input->post('InputProductName');
             $PatternSearch = array('pro_name' => $InputProductName);
         }
+
+
+        
         $_SESSION['per_page']  = isset($_SESSION['per_page']) ? $_SESSION['per_page'] : 5;
         $_SESSION['sort_type'] = isset($_SESSION['sort_type']) ? $_SESSION['sort_type'] : "";
-        $_SESSION['show_all'] = isset($_SESSION['show_all']) ? $_SESSION['show_all'] : "";
+        
 
         $config['per_page'] = $_SESSION['per_page'];
         $sort_type= ($_SESSION['sort_type'] != "none") ? $_SESSION['sort_type'] : "";
@@ -90,8 +93,19 @@ class product extends AdminBaseController{
         // if(isset($_POST['hacklink']) && $_POST['hacklink'] == FALSE){
         //     echo 'hack = false';
         // }
-        $pro_id = $this->uri->segment(4);
-        $this->product_model->deleteProduct($pro_id);
+        if ($this->input->post('btnDelete')){
+            $ListDelete = $this->input->post('SelectedList');
+            if(! empty($ListDelete)){
+                foreach ($ListDelete as $key => $pro_id) {
+                    // echo $value;
+                    $this->product_model->deleteProduct($pro_id);
+                } // end foreach
+            } // end if
+        } else{
+            $pro_id = $this->uri->segment(4);
+            $this->product_model->deleteProduct($pro_id);
+        }
+        
         
         redirect(base_url("administrator/product/listproduct"));
     } // end delete()

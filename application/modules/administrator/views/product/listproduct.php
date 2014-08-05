@@ -2,19 +2,20 @@
     button span{
         vertical-align: middle;
     }
+    th{
+        padding: 0px 2px;
+    }
+    td{
+        padding: 0px 2px;
+    }
 </style>
 
 
 <div id = 'center'>
     <h3>List Product </h3>
-    
-
-    
         <form action = '' method = 'post' style="margin:0px">
             <label style="float:none">Search Product: </label>
             <input class = 'txt' type = 'text' name = 'InputProductName' value = '' placeholder='Nhập tên sản phẩm'>
-            
-            
             <input type = 'submit' name = 'btnSubmit' value = 'Submit'>
             <a  href='<?php echo base_url("administrator/product/searchproduct");?>'>
                         Advance Search</a><br/>
@@ -22,18 +23,20 @@
     
     <div style="clear:both;margin:5px;padding: 5px">
     
-    <a  href='<?php echo base_url("administrator/product/insertProduct");?>'>
-                Insert Product</a>        
-
+    <a  href='<?php echo base_url("administrator/product/insertProduct");?>'>Insert Product</a>
     </div>
     
 
     <div id = 'listproduct'>
       <?php  echo "Trang: ";
                 echo isset($link) ? $link : "";  ?>
-    
+    <br/>
+    <form action = '<?php echo base_url("administrator/product/delete"); ?>' method = 'post' id = 'deleteBatch'> <!-- form to delete bath -->
+    <input type="submit" name = 'btnDelete' value = 'Xoá mục đã chọn' onclick="if(MyConfirm('Bạn chắc chắn xoá mục đã chọn?') == false)
+                          return false">
     <table border='1' cellpadding='0' cellspacing='0'>
         <tr>
+        <th>Select</th>
         <th>ID</th>
         <th>Name</th>
         <th>Image</th>
@@ -68,9 +71,10 @@
             if(isset($listproduct) && $listproduct !=null){
         ?>
                 <!-- print data here -->
-                <form>
+                
                 <?php foreach ($listproduct as $key => $list): ?>
                 <tr>
+                        <td><input type="checkbox" name = 'SelectedList[]' value="<?php echo $list['pro_id']; ?>"></td>
                         <td><?php echo $list['pro_id'] ; ?></td>
                         <td><?php echo $list['pro_name'] ; ?></td>
                         <td><img width= 90 height = 140 src='<?php echo base_url("uploads/product") . "/" . $list['pro_images'] ; ?>'></td>
@@ -88,16 +92,19 @@
                           return false" 
                         href = '<?php echo base_url("/administrator/product/delete/") . "/" . $list['pro_id'] ; ?>
                         '>Delete</a></td>
-                        <input type="hidden" name = 'DeleteId' value="<?php echo $list['pro_id']; ?>">
-                        <input type="submit">
+                        
+                        
+                        
                     </tr>    
                 <?php endforeach; ?>
-                </form>
+
+               
             <?php
         } // end if
         ?>
     </table>
-
+    
+    </form> <!-- end form id = 'deleteBatch' -->
     
     </div><!--  end div id=listproduct -->
 </div> <!-- end div center -->
