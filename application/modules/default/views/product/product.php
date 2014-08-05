@@ -1,60 +1,6 @@
-<style type="text/css">
-    #linkpage{
-        clear: both;
-        text-align: center;
-    }
-    #linkpage a{
-        
-        color: blue;
-        /*width: 10px;
-        height: 15px;*/
-        /* margin-left: 5px; */
-        display: inline-block;
-        /* background-color: #FF0202; */
-        cursor: pointer;
-        /* text-decoration: underline; */
-        /* color: blue; */
-        font-size: 120%;
-        /* font-weight: bold; */
-        padding: 5px;
-        border: thin #ddd solid;
-    }
 
-    #linkpage a[size=large]{
-        width: 40px;
-    }
-    #linkpage a[bold=true]{
-        /*background-color: #2cca65;*/
-        cursor: default;
-        color: grey;
-        font-weight: bold;
-    }
-    .error{
-        color: red;
-        background-color: gray;
-    }
-    #listitem a{
-        text-decoration: none;
-        /*color: black;*/
-        
-    }
-    #center ul li img.product {
-    border: 1px solid #fbfbfb;
-    padding: 2px;
-    width: 96%;
-    margin-bottom: 5px;
-    }
-    #center ul li{
-        width: 20%;
-    }
-    
-</style>
 <script type="text/javascript">
-    /////////////////////////////
-    // jQuery import in header //
-    ////////////////////////////
-    ///
-    //aoseu
+
 /**
  * writen by HoangHH
  * get new list product from sever

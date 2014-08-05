@@ -41,19 +41,22 @@
             <th class = 'small'>Edit</th>
             <th class = 'small'>Delete</th>
                 <?php
-                    $iterator = 1;
-                    foreach ($listbran as $list) {
+                    if(isset($listbran) && ! empty($listbran)){
+                        $iterator = 1;
+                        foreach ($listbran as $list) {
 
-                        $id = isset($list['bran_id']) ? $list['bran_id'] : "error";
-                        $name = isset($list['bran_name']) ? $list['bran_name'] : "error";
-                        echo "<tr>";
-                            echo "<td>" . $iterator++ . "</td>";
-                            echo "<td>" . $id . "</td>";
-                            echo "<td>" . $name . "</td>";
-                            echo "<td>" . "<a href = '" . base_url("administrator/bran/update") . "/" . $id . "'>Edit</a>". "</td>";
-                            echo "<td>" . "<a href = '" . base_url("administrator/bran/delete") . "/" . $id . "'>Delete</a>". "</td>";
-                        echo "</tr>";
-                    } // end foreach $listbran
+                            $id = isset($list['bran_id']) ? $list['bran_id'] : "error";
+                            $name = isset($list['bran_name']) ? $list['bran_name'] : "error";
+                            echo "<tr>";
+                                echo "<td>" . $iterator++ . "</td>";
+                                echo "<td>" . $id . "</td>";
+                                echo "<td>" . $name . "</td>";
+                                echo "<td>" . "<a href = '" . base_url("administrator/bran/update") . "/" . $id . "'>Edit</a>". "</td>";
+                                echo "<td>" . "<a href = '" . base_url("administrator/bran/delete") . "/" . $id . "'>Delete</a>". "</td>";
+                            echo "</tr>";
+                        } // end foreach $listbran
+                    }
+                    
                 ?>
         </table>
     </div> <!-- end div#listbran -->

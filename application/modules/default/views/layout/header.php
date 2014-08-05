@@ -76,7 +76,7 @@ jQuery(document).ready(function ($) {
   </div>
   <div id="header">
     <div id="logo"> <a href="http://localhost/phpmock/default/home/index">
-    <img src="http://localhost/phpmock/public/images/smartosc.jpg" alt="" border="0"
+    <img src="http://localhost/phpmock/public/images/smartosc.png" alt="" border="0"
      width="237" height="140" /></a> </div>
   </div>
       <!-- show slide der ============================================================================ -->

@@ -26,19 +26,19 @@ class bran extends AdminBaseController{
         $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'bran_id';
         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
         $page = trim($page);
-        if(! ctype_digit($page)){
-            echo "Trang không tồn tại!";
-            return FALSE;
-        }
+        // if(! ctype_digit($page)){
+        //     echo "Trang không tồn tại!";
+        //     return FALSE;
+        // }
         
         $config['base_url']   = base_url("administrator/bran/listbran/$column/$sortType/");
         $config['total_rows'] = $this->bran_model->count_all();
         $config['per_page'] = $this->config_model->getPerpage ();
         $NumberOfPage = ceil($config['total_rows'] / $config['per_page']);
-        if($page > $NumberOfPage){
-            echo "Trang không tồn tại!";
-            return FALSE;
-        }
+        // if($page > $NumberOfPage){
+        //     echo "Trang không tồn tại!";
+        //     return FALSE;
+        // }
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
         $config['next_link'] = "Next";

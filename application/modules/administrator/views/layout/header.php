@@ -5,6 +5,7 @@
 <title>Trang quản trị </title>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/phpmock/css/style.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>public/css/admin/AdminStyle.css" />
+<link rel="icon" type="image/x-ico" href="<?php echo base_url(); ?>public/images/favicon.ico" />
 <script type="text/javascript">
             function CheckDelete(){
                     r = confirm("Bạn chắc chắn xoá không?");

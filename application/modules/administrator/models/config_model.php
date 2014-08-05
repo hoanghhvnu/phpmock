@@ -6,13 +6,14 @@ class config_model extends CI_Model {
 		parent::__construct ();
 		$this->load->database ();
 	} 
+	
+
 	public function getPerpage() {
-		$result = $this->db->get ( $this->_table )->row_array ();
-		if( ! isset($result['perpage'])){
-			return 10;
-		} else{
-			return $result['perpage'];
-		}
+		$raw = $this->db->get ( $this->_table )->row_array ();
+		return $raw['perpage_admin'];
+	}
+	public function getAllPerpage(){
+		return $this->db->get ( $this->_table )->row_array ();
 	}
 	public function update($data) {
 		
