@@ -20,16 +20,15 @@ function clear_cart() {
 			onclick="window.location= '<?php echo base_url(); ?>default/product/listproduct'" />
 	</div>
 	<div style="color: #F00"><?php echo $message?></div>
-	<table border="0" cellpadding="5px" cellspacing="1px"
-		style="font-size: 12px; background-color: #1be2e2;" width="100%">
+	<table class='imagetable' width="100%">
 		<?php if ($cart = $this->cart->contents()) { ?>
-		<tr bgcolor="#FFFFFF" style="font-weight: bold">
-			<td>Số thứ tự</td>
-			<td>Tên hàng</td>
-			<td>Giá</td>
-			<td>Số lượng</td>
-			<td>Tiền</td>
-			<td>Bỏ</td>
+		<tr>
+			<th>Số thứ tự</th>
+			<th>Tên hàng</th>
+			<th>Giá</th>
+			<th>Số lượng</th>
+			<th>Tiền</th>
+			<th>Bỏ</th>
 		</tr>
 		<?php
 			echo form_open ( 'default/cart/update_cart' );

@@ -9,8 +9,7 @@
         	<?php if (isset($total)) echo $total." sản phẩm";?>
 			
 			<div class="custom info">
-					<table border='1' cellpadding="2px" style="font-size: 14px;"
-						width="100%">
+				<table class='imagetable'  >
 
 						<th>Tên hàng</th>
 						<th>Giá</th>
@@ -32,7 +31,8 @@
    		   </table>
    	
 					<?php
-					echo "<p style='color:red;'>-Tổng tiền: ". $money . " VNĐ</p>";
+					echo "<p style='font-family: verdana,arial,sans-serif;font-size:11px;'>
+		           Tổng tiền: ". $money . " VNĐ</p>";
 					?>		
 			</div>
 			</a> <span class="border_cart"></span> T&#7893;ng ti&#7873;n: <span
