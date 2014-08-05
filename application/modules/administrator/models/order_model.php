@@ -32,13 +32,13 @@ class order_model extends CI_model{
 	 * get orderdetail
 	 */
 	public function getOrderDetail($order_id){
-		$this->db->select('od.pro_name,od.pro_price,od.pro_quantity,od.pro_id');
-		$this->db->from("tbl_orderdetail as od");
-		$this->db->join('tbl_product as p', "p.pro_id = od.pro_id", 'inner');
-		$this->db->where("od.order_id = $order_id");
+		// $this->db->select('od.pro_name,od.pro_price,od.pro_quantity,od.pro_id');
+		// $this->db->from("tbl_orderdetail as od");
+		// $this->db->join('tbl_product as p', "p.pro_id = od.pro_id", 'inner');
+		$this->db->where("order_id = $order_id");
 
 		// $this->db->where("pro_id = $id");
-		return $this->db->get()->result_array();
+		return $this->db->get("tbl_orderdetail")->result_array();
 	} // end getOrderDetail
 
 	// Confirm order
@@ -62,24 +62,20 @@ class order_model extends CI_model{
 	    return $this->db->get($this->_table)->num_rows();
 	}
 
-	public function get_order($column, $sortType = '', $limit = '', $start = ''){
-	    // $this->db->select("*");
-	    // $this->db->from($this->_table);
-	    // $this->db->order_by("bran_name");
-	    // return $this->db->get($this->_table);
-	    $sql = "SELECT * FROM {$this->_table}";
-	    if($sortType) $sql .=" ORDER BY {$column} {$sortType}";
-	    $sql .= " LIMIT {$limit},{$start}";
-	    
-	    // echo $sql;
-	    $result = mysql_query($sql);
-	    $data = array();
-	    while($row = mysql_fetch_assoc($result)){
-	        $data[] = $row; 
-	    }
-	    // echo "<pre>";
-	    // print_r($data);
-	    return $data;
+	public function get_order($column = '', $sortType = '', $limit = '', $start = ''){
+		$column   = trim($column);
+		$sortType = trim($sortType);
+		$limit    = trim($limit);
+		$start    = trim($start);
+		if($column !== '' && $sortType !== ''){
+			$this->db->order_by($column,$sortType);
+		}
+		if($limit !== '' && $start != ''){
+			$this->db->limit($limit,$start);
+		}
+		
+		return $this->db->get($this->_table)->result_array();
+
 	}
 
 

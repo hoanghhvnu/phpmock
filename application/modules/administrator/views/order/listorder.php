@@ -8,8 +8,8 @@
     	    </form>
     	        
         <div style="clear:both"></div>
-    	<?php  echo "Trang: ";
-    	        echo isset($link) ? $link : "";  ?>
+    	<?php  
+    	        echo isset($link) && $link !== '' ? "Trang: " . $link   : "";  ?>
     	<table border="1"  style="clear:both">
     		<?php
     		    // print_r($column);

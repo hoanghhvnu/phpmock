@@ -3,8 +3,8 @@
 	<input type="hidden" name="command" />
 	<div class="center_content">
 		<h1 align="center" style="color: red;">THÔNG TIN ĐƠN HÀNG</h1>
-
-		<table border='1' cellpadding="2px" style="font-size: 14px; " width="100%" >
+        <br>
+		<table class="imagetable"  width="100%" >
 			<th>Mã sản phẩm</th>
 			<th>Tên hàng</th>
 			<th>Giá</th>

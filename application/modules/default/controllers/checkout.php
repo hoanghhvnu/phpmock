@@ -16,11 +16,12 @@ class checkout extends DefaultBaseController {
 			$this->form_validation->set_rules ( "name", "Tên ", "trim|required" );
 			$this->form_validation->set_rules ( "email", "Email", "trim|required|valid_email" );
 			$this->form_validation->set_rules ( "address", "Địa chỉ ", "trim|required" );
-			$this->form_validation->set_rules ( "phone", "Số điện thoại", "trim|required|numeric" );
+			$this->form_validation->set_rules ( "phone", "Số điện thoại", "trim|required|numeric|min_length[10]|max_length[11]" );
 			$this->form_validation->set_rules ( "gender", "Giới tính", "trim|required" );
 			$this->form_validation->set_message ( "required", "%s không được bỏ trống" );
 			
-			$this->form_validation->set_message ( "required", "%s không được bỏ trống" );
+			$this->form_validation->set_message ( "min_length", "%s không được nhỏ hơn 10 số" );
+			$this->form_validation->set_message ( "max_length", "%s không được lớn hơn 11 số" );
 			$this->form_validation->set_message ( "valid_email", "%s không đúng định dạng" );
 			$this->form_validation->set_message ( "numeric", "%s phải là số" );
 			$this->form_validation->set_error_delimiters ( "<span class='error'>", "</span>" );

@@ -15,17 +15,7 @@ class product_model extends CI_Model {
 	public function countTable() {
 		return $this->db->get ( $this->_table )->num_rows ();
 	}
-	public function insertProduct($data = array()) {
-		$this->db->insert ( $this->_table, $data );
-	}
-	public function updateProduct($data, $id) {
-		$this->db->where ( "pro_id = $id" );
-		$this->db->update ( $this->_table, $data );
-	}
-	public function deleteProduct($id) {
-		$this->db->where ( "pro_id = $id" );
-		$this->db->delete ( $this->_table );
-	}
+	
 	function list_all($limit, $start, $SortType = "", $Field = "") {
 		if($SortType !="" && $Field){
 			$this->db->order_by("{$Field}", "{$SortType}");

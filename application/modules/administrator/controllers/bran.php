@@ -25,23 +25,36 @@ class bran extends AdminBaseController{
         $sortType = ($this->uri->segment(5)) ? $this->uri->segment(5) : 'asc';
         $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'bran_id';
         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 1;
-
+        $page = trim($page);
+        if(! ctype_digit($page)){
+            echo "Trang không tồn tại!";
+            return FALSE;
+        }
+        
         $config['base_url']   = base_url("administrator/bran/listbran/$column/$sortType/");
         $config['total_rows'] = $this->bran_model->count_all();
         $config['per_page'] = $this->config_model->getPerpage ();
+        $NumberOfPage = ceil($config['total_rows'] / $config['per_page']);
+        if($page > $NumberOfPage){
+            echo "Trang không tồn tại!";
+            return FALSE;
+        }
         $config['use_page_numbers'] = TRUE;
         $config['uri_segment'] = 6;
-        $config['next_link'] = "Sau";
-        $config['prev_link'] = "Trước";
+
+        $config['next_link'] = "Next";
+        $config['prev_link'] = "Prev";
+
         $this->pagination->initialize($config); 
 
         $start = ($page - 1) * $config['per_page'];
         $data['listbran'] = $this->bran_model->get_order($column,$sortType,$start,$config['per_page'], $InputSearch);
 
         $data['link'] = $this->pagination->create_links();
-        $data['per'] = $config['per_page'];
+        // $data['per'] = $config['
+        // per_page'];
         $data['sortType'] = $sortType;
-        $data['show_all'] = $_SESSION['show_all'];
+
         $data['column'] = $column;
 
         $data['template'] = "bran/listbran";

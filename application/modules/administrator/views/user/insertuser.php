@@ -86,7 +86,7 @@
         'name'  => 'usr_gender',
         'value' => '2' // is female
         );
-    $female ['checked'] = set_radio('usr_gender', '2', TRUE);
+    // $female ['checked'] = set_radio('usr_gender', '2', TRUE);
     echo "<span>Nữ</span>";
     echo form_radio($female);
     echo form_error('usr_gender') . "<br/>" ."<br/>";

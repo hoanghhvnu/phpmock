@@ -54,22 +54,10 @@ class user extends AdminBaseController{
 
         $dataUser = array();
         if ($this->input->post('btnok')){
-            $this->form_validation->set_rules('usr_name','Username', 'required|alpha_numeric|min_length[6]');
             $this->form_validation->set_rules('usr_password','Password', 'required|min_length[6]|matches[usr_retype_password]');
             $this->form_validation->set_rules('usr_retype_password','Retype-Password', 'required');
-            $this->form_validation->set_rules('usr_email','Email', 'required|valid_email');
-            $this->form_validation->set_rules('usr_address','Address', 'required');
-            $this->form_validation->set_rules('usr_phone','Phone', 'required|numeric|min_length[9]|max_length[11]');
-            $this->form_validation->set_rules('usr_gender','Gender', 'required');
 
-            $this->form_validation->set_message("required","%s không được bỏ trống");
-            $this->form_validation->set_message("alpha_numeric","%s chỉ được chứa chữ cái và số");
-            $this->form_validation->set_message("min_length","%s không được nhỏ hơn %d ký tự");
-            $this->form_validation->set_message("max_length","%s không được lớn hơn %d ký tự");
-            $this->form_validation->set_message("matches","%s không khớp");
-            $this->form_validation->set_message("valid_email","%s không đúng định dạng");
-            $this->form_validation->set_message("numeric","%s phải là số");
-            $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
+            $this->checkFormInput();
 
             if($this->form_validation->run()){
                 if($this->user_model->checkUserName($this->input->post('usr_name'))
@@ -124,19 +112,8 @@ class user extends AdminBaseController{
         $usr_id = $this->uri->segment(4);
         $data['userInfo'] = $this->user_model->getOnce($usr_id);
         if($this->input->post("ok")){
-             $this->form_validation->set_rules("usr_name", "Ten thanh vien", "trim|required");
-            $this->form_validation->set_rules("usr_password", "Ten thanh vien", "trim|required");
-            $this->form_validation->set_rules("usr_email", "Email", "trim|required|valid_email");
-            $this->form_validation->set_rules("usr_address", "Dia chi khach hang", "trim|required");
-            $this->form_validation->set_rules("usr_phone", "So dien thoai", "trim|required");
-            $this->form_validation->set_rules("usr_gender", "Gioi tinh", "trim|required");
-            $this->form_validation->set_rules("usr_level", "Level", "trim|required");
 
-            $this->form_validation->set_message("required", "%s khong duoc bo trong");
-            $this->form_validation->set_message("min_length", "%s khong duoc nho hon %d ky tu");
-            $this->form_validation->set_message("matches", "%s khong dung");
-            $this->form_validation->set_message("valid_email", "%s khong dung dinh dang");
-            $this->form_validation->set_message("numeric", "%s phai la so");
+            $this->checkFormInput();
 
             $this->form_validation->set_error_delimiters("<span class='error'>", "</span>");
             if($this->form_validation->run()){
@@ -200,10 +177,23 @@ class user extends AdminBaseController{
         //$obj = new user;
         //$obj->login();
     }
-    public function success(){
-        //$dataUser['user']=$this->session->set_userdata('user',"");
-        $this->load->view("user/success");
-       //$this->load>view('user/success',$dataUser);
+    public function checkFormInput(){
+        $this->form_validation->set_rules('usr_name','Username', 'required|alpha_numeric|min_length[6]');
+        // $this->form_validation->set_rules('usr_password','Password', 'required|min_length[6]|matches[usr_retype_password]');
+        // $this->form_validation->set_rules('usr_retype_password','Retype-Password', 'required');
+        $this->form_validation->set_rules('usr_email','Email', 'required|valid_email');
+        $this->form_validation->set_rules('usr_address','Address', 'required');
+        $this->form_validation->set_rules('usr_phone','Phone', 'required|numeric|min_length[9]|max_length[11]');
+        $this->form_validation->set_rules('usr_gender','Gender', 'required');
+
+        $this->form_validation->set_message("required","%s không được bỏ trống");
+        $this->form_validation->set_message("alpha_numeric","%s chỉ được chứa chữ cái và số");
+        $this->form_validation->set_message("min_length","%s không được nhỏ hơn %d ký tự");
+        $this->form_validation->set_message("max_length","%s không được lớn hơn %d ký tự");
+        $this->form_validation->set_message("matches","%s không khớp");
+        $this->form_validation->set_message("valid_email","%s không đúng định dạng");
+        $this->form_validation->set_message("numeric","%s phải là số");
+        $this->form_validation->set_error_delimiters("<span class='error'>","</span>");
     }
 }
 // end class user

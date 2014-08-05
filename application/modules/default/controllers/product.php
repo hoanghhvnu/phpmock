@@ -31,9 +31,9 @@ class product extends DefaultBaseController {
 			$data ['message'] = $this->session->flashdata ( 'message' );
 		}
 		
-		$data ['products'] = $this->product_model->listProduct ();
+		// $data ['products'] = $this->product_model->listProduct ();
 		$config ['base_url'] = base_url ( 'default/product/listproduct' ); // xÃ¡c Ä‘á»‹nh trang phÃ¢n trang
-		$config ['total_rows'] = $this->product_model->count_all (); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
+		
 		$config ['per_page'] = $perpage;
 		$config ['use_page_numbers'] = TRUE;
 		$config ['uri_segment'] = 4;
@@ -62,10 +62,7 @@ class product extends DefaultBaseController {
 		$config['last_link'] = 'Cuá»‘i';
 		///////////////////////
 		$page = ($this->uri->segment ( 4 )) ? $this->uri->segment ( 4 ) : 1;
-		if ($config ['per_page'] > $config ['total_rows']) {
-			$config ['per_page'] = $config ['total_rows'];
-			$page = 1;
-		}
+		
 		$start = ($page - 1) * $config ['per_page'];
 		
 		$this->pagination->initialize ( $config );
@@ -73,6 +70,11 @@ class product extends DefaultBaseController {
 		$SortField = 'pro_name';
 		$SortType = 'asc';
 		$data ['products'] = $this->product_model->list_all ( $config ['per_page'], $start,  $SortType, $SortField);
+        $config ['total_rows'] = count($data['products']); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
+        if ($config ['per_page'] > $config ['total_rows']) {
+            $config ['per_page'] = $config ['total_rows'];
+            $page = 1;
+        }
 		/////////////////////////////////////
 
 
@@ -82,6 +84,7 @@ class product extends DefaultBaseController {
 		$data['CurrentPage'] = $page;
 		$data ['template'] = "product/listproduct";
 		$this->loadView("layout/layout",$data);
+        // return $this->load->view("product/listproduct",$data,true);
 	}
 
 	/**
@@ -203,5 +206,6 @@ class product extends DefaultBaseController {
     public function getImgThumbs($id){
     	return $this->images_model->detailByProId($id);
     }
+
 
 } // end class product

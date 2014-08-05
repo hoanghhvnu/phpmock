@@ -6,8 +6,8 @@
     #linkpage a{
         
         color: blue;
-        width: 15px;
-        height: 20px;
+        /*width: 10px;
+        height: 15px;*/
         /* margin-left: 5px; */
         display: inline-block;
         /* background-color: #FF0202; */
@@ -25,6 +25,7 @@
     }
     #linkpage a[bold=true]{
         /*background-color: #2cca65;*/
+        cursor: default;
         color: grey;
         font-weight: bold;
     }
@@ -55,13 +56,13 @@ function reload(page){
     var SortType = $("#SelType").val();
 
     $.ajax({
-        url: "receiveAjax",
+        url: "http://localhost/phpmock/default/product/receiveAjax",
         // url: "http://localhost/phpmock/default/product/listproduct/receiveAjax",
         type: "post", //can be post or get
         data: {'SortField':SortField,'SortType':SortType,'Page':page}, 
         success: function(result){
             $('#listitem').html(result);
-            
+            // alert('reloaded');
         } // en success
     }); // end .ajax
 } //end reload()
@@ -81,21 +82,21 @@ function reload(page){
            reload(1);
         });
 
-        $('#linkpage a').click(function(){
+        /**
+         * prevent reload current page
+         * @return {[type]} [description]
+         */
+        $('#linkpage a:not([bold=true])').click(function(){
             var page =  $(this).attr('repage');
             reload(page);
         });
+
 
 
     });
 </script>
         	<ul>
                 <?php
-                    // if(isset($CurrentPage)){
-                    //     echo "Trang hien tai " . $CurrentPage;
-                    // } else{
-                    //     echo "khong tim thay CurrentPage";
-                    // }
                     if(isset($products) && $products != null ) {
                         foreach($products as $list){
         					$id = $list['pro_id'];
@@ -120,13 +121,13 @@ function reload(page){
                
                     <div class="cart" align="center"><?php
                     $btnmua = array(
-                    		'type'      => 'image',
-							'title'     => 'Mua hàng',
-                    		'src'        => base_url().'public/images/cartbutton.png',
-                    		'name'        => 'image',
-                    		'width'     => '81',
-                    		'height'    => '20',
-                    		'value'        => 'Mua',
+                            'type'   => 'image',
+                            'title'  => 'Mua hàng',
+                            'src'    => base_url().'public/images/cartbutton.png',
+                            'name'   => 'image',
+                            'width'  => '81',
+                            'height' => '20',
+                            'value'  => 'Mua',
 							
                     
                     );
@@ -151,13 +152,13 @@ function reload(page){
 
                     // echo $CurrentPage;
                     echo "Page: ";
-                    if($total_page < 5){
+                    if(isset($total_page) && $total_page < 5 && isset($CurrentPage)){
                         for($i = 1; $i <= $total_page; $i++){
                             echo "<a repage = '" . $i . "'";
                             if($CurrentPage == $i) echo "bold = 'true'";
                             echo ">" . $i . "</a>    ";
                         }
-                    } else{
+                    } else if(isset($CurrentPage)){
                         
                         $min = $CurrentPage - 2;
                         if($min > 1){
