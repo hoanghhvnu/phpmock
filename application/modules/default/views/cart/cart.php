@@ -49,7 +49,7 @@ function clear_cart() {
 			<td><?php echo form_input('cart['. $item['id'] .'][qty]', $item['qty'], 'maxlength="3" size="1" style="text-align: right"'); ?></td>
 			<?php $grand_total = $grand_total + $item['subtotal']; ?>
 			    <td><?php echo $item['subtotal'];?> VNĐ</td>
-			<td><?php echo anchor('default/cart/remove/'.$item['rowid'],'Loại bỏ'); ?></td>
+			<td><?php echo anchor('default/cart/remove/'.$item['rowid'],'<img src='.base_url('public/images/edit-button.png').' >'); ?></td>
 			<?php } ?>
 		</tr>
 		<tr>
