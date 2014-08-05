@@ -35,9 +35,10 @@
 		           Tổng tiền: ". $money . " VNĐ</p>";
 					?>		
 			</div>
-			</a> <span class="border_cart"></span> T&#7893;ng ti&#7873;n: <span
-				class="price">
-          <?php if (isset($money)) echo $money; ?> VNĐ</span>
+			</a> <span class="border_cart"></span>
+			<span class="price">
+            <?php if (isset($money)) echo $money; ?> VNĐ
+            </span>
 		</div>
 		<div class="cart_icon">
 
