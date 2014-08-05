@@ -178,6 +178,7 @@ class product extends DefaultBaseController {
     		
     		$data['product'] = $getProductById;
     		$data['comment'] = $comment;
+    		//echo "<pre>"; print_r($data['comment']);die();
     		$data['bran'] = $this->getBranById($branId);
     		$data['country'] = $this->getCountryById($counId);
     		$data['template'] = "product/detailproduct";
