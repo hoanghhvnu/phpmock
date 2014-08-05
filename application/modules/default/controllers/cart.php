@@ -14,7 +14,7 @@ class cart extends DefaultBaseController {
 		$data ['title'] = 'Shopping carts';
 		// Huandt 1h56 8/01
 		$SortedList = $this->getCategory ();
-		$data ['html'] = $this->createMenu ( $SortedList );
+		//$data ['html'] = $this->createMenu ( $SortedList );
 		// Huandt 1h56 8/01
 		if (! $this->cart->contents ()) {
 			$data ['message'] = '<p>Chưa có sản phẩm nào trong giỏ hàng !</p>';
