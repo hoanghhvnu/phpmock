@@ -157,11 +157,11 @@ class user extends AdminBaseController{
 
     // DucTM
     public function login(){
-        
+        $data = array();
         if($this->input->post("btnLogin")){
         
             $this->form_validation->set_rules('txtUser','Username','trim|required');
-            $this->form_validation->set_rules('txtPass','Password','trim|required|min_length[5]|max_length[12]');
+            $this->form_validation->set_rules('txtPass','Password','trim|required|min_length[6]');
     
             
             $this->form_validation->set_message("required","%s không được bỏ trống");
@@ -179,11 +179,12 @@ class user extends AdminBaseController{
                     redirect(base_url('administrator/user/listuser'));
                 }else{
                     $this->_check = false;
+                    $data['errorLoginFail'] = "Username hoặc password không đúng!";
                 }
             } // end if run
         } // end if btLogin
 
-        $this->load->view("user/loginView");
+        $this->load->view("user/loginView",$data);
     } // end login()
     
     public function logout(){
