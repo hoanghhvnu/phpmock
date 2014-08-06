@@ -51,6 +51,7 @@ class order extends AdminBaseController{
 
         $config['base_url']   = base_url("administrator/order/listorder/$column/$sortType/");
         $config['total_rows'] = $this->order_model->count_all();
+
         if($config['per_page'] > $config['total_rows']){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
@@ -72,7 +73,7 @@ class order extends AdminBaseController{
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['sortType'] = $sortType;
-        $data['show_all'] = $_SESSION['show_all'];
+        
         $data['column'] = $column;
 
         $data['template'] = "order/listorder";

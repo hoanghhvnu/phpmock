@@ -57,6 +57,7 @@ class product extends AdminBaseController{
 
         $config['base_url'] = base_url("administrator/product/listproduct");
         $config['total_rows'] = $this->product_model->countAll();
+
         if($config['per_page'] > $config['total_rows']){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
@@ -79,7 +80,7 @@ class product extends AdminBaseController{
         $data['link'] = $this->pagination->create_links();
         $data['per'] = $config['per_page'];
         $data['sort_type'] = $_SESSION['sort_type'];
-        $data['show_all'] = $_SESSION['show_all'];
+        
 
         $data['ListBrand'] = $this->bran_model->get_order();
         $data['ListCountry'] = $this->country_model->getAll();
