@@ -29,13 +29,16 @@ function reload(page){
  */
     $(document).ready(function(){
         // alert("jquery ok");
+        
+        // alert(CurrentPage);
         $("#SelField").change(function(){
-            
-            reload(1);
+            var CurrentPage = $('a[bold=true]').attr('repage');
+            reload(CurrentPage);
         });
 
         $("#SelType").change(function(){
-           reload(1);
+            var CurrentPage = $('a[bold=true]').attr('repage');
+           reload(CurrentPage);
         });
 
         /**
