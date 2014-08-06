@@ -1,4 +1,4 @@
-<?php $this->load->view('main/mainhead')?>
+<?php $this->load->view('layout/header')?>
 <div id="center">
 	<h3>Detail Comment</h3>
 	<table border="0" cellspacing="0" cellpadding="0">
@@ -28,4 +28,4 @@
 		</tr>
 	</table>
 </div>
-<?php $this->load->view('main/mainfoot')?>
+<?php $this->load->view('layout/footer')?>

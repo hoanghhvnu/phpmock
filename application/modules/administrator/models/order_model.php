@@ -54,6 +54,8 @@ class order_model extends CI_model{
 	public function deleteOrder($order_id){
 		$this->db->where('order_id', $order_id);
 		$this->db->delete($this->_table);
+		$this->db->where('order_id', $order_id);
+		$this->db->delete("tbl_orderdetail");
 	} // end delete
 
 	public function count_all(){
