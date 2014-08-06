@@ -2,6 +2,7 @@
     <div id="center" class="center_content">
         <!-- form for Sorting ========================================================================= -->
         
+    <?php if(isset($products) && ! empty($products)) : ?>
         <div name = 'sort-function'>
             <form action = '' method="post" style="float:right;margin:10px">
                 <label>Sắp xếp theo</label>
@@ -22,4 +23,5 @@
         <div id = 'listitem' style="clear:both">
         <?php  $this->load->view("product/product");?>
         </div>
+    <?php endif; ?>
     </div><!--  end div center -->

@@ -67,6 +67,7 @@ class home extends DefaultBaseController
        $SortField = 'pro_name';
        $SortType = 'asc';
        $data ['products'] = $this->product_model->list_all ( $config ['per_page'], $start,  $SortType, $SortField);
+       // $data['products'] = array();
        $data ['total_page'] = ceil($config['total_rows'] / $config['per_page']);
        // tong so san pham da mua
        $data['CurrentPage'] = $page;

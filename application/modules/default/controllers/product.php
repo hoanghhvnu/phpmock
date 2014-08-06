@@ -73,6 +73,7 @@ class product extends DefaultBaseController {
 		$SortField = 'pro_name';
 		$SortType = 'asc';
 		$data ['products'] = $this->product_model->list_all ( $config ['per_page'], $start,  $SortType, $SortField);
+		// $data['products'] = array();
         $config ['total_rows'] = $this->product_model->count_all (); // xÃ¡c Ä‘á»‹nh tá»•ng sá»‘ record
         if ($config ['per_page'] > $config ['total_rows']) {
             $config ['per_page'] = $config ['total_rows'];
