@@ -24,7 +24,13 @@ class order extends AdminBaseController{
         $sortType = ($this->uri->segment(5)) ? $this->uri->segment(5) : 'desc';
         $column = ($this->uri->segment(4)) ? $this->uri->segment(4) : 'order_status';
 
+        $enumSoftType = array('asc','desc');
+        if( ! in_array($sortType, $enumSoftType)){
+            echo "Trang không tồn tại!";
+            return FALSE;
+        }
 
+        // $enumColumn = array();
         $ConfigPerpage = $this->config_model->getPerpage();
         if(isset($ConfigPerpage)){
             $config['per_page'] = $ConfigPerpage;
@@ -45,12 +51,13 @@ class order extends AdminBaseController{
 
         $config['base_url']   = base_url("administrator/order/listorder/$column/$sortType/");
         $config['total_rows'] = $this->order_model->count_all();
-        if($config['per_page'] > $config['total_rows'] ){
+
+        if($config['per_page'] > $config['total_rows']){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
         }
         $NumberOfPage = ceil($config['total_rows'] / $config['per_page']);
-        if($page > $NumberOfPage){
+        if($page > $NumberOfPage && $config['total_rows'] > 0){
             echo "Trang không tồn tại!";
             return FALSE;
         }
@@ -87,7 +94,7 @@ class order extends AdminBaseController{
      * @return [type]
      */
     public function orderDetail($order_id){
-        $OrderId = ($this->uri->segment(4)) ? $this->uri->segment(4) : "";
+        $OrderId = ($this->uri->segment(4)) ? $this->uri->segment(4) : "1";
         $Action = ($this->uri->segment(5)) ? $this->uri->segment(5) : "";
         if(isset($Action) && $Action != ""){
             if($Action == "approve"){
