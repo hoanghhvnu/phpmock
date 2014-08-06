@@ -199,7 +199,7 @@ class user extends AdminBaseController{
         //$obj->login();
     }
     public function checkFormInput(){
-        $this->form_validation->set_rules('usr_name','Username', 'required|alpha_numeric|min_length[6]');
+        $this->form_validation->set_rules('usr_name','Username', 'required|min_length[6]');
         //$this->form_validation->set_rules('usr_password','Password', 'required|min_length[6]');
         //$this->form_validation->set_rules('usr_retype_password','Retype-Password', 'required|matches[usr_retype_password]');
         $this->form_validation->set_rules('usr_email','Email', 'required|valid_email');

@@ -30,7 +30,7 @@ class user_model extends CI_Model{
     }
     // HoangHH
     public function checkUserName($usr_name){
-        $this->db->where("usr_name ='" .  $usr_name. "'" );
+        $this->db->where("usr_name", $usr_name);
         $NumRow = $this->db->get($this->_table)->num_rows(); 
         if($NumRow >= 1){
             return FALSE;

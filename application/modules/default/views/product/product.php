@@ -30,6 +30,7 @@ function reload(page){
     $(document).ready(function(){
         // alert("jquery ok");
         $("#SelField").change(function(){
+            
             reload(1);
         });
 
