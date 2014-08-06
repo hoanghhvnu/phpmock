@@ -923,7 +923,7 @@ table.imagetable td {
 	text-align: center;
 	border: 1px solid #fbfbfb;
 	padding: 2px;
-	width: 165;
+	width: 160;
 	margin-bottom: 5px;
 }
 #center ul li{
@@ -940,7 +940,4 @@ div.right_content{
 div.left_footer{
 	margin: 0px auto;
 }
-table{
-	border: 1px solid black;
 
-}
