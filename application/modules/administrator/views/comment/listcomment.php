@@ -1,4 +1,4 @@
-<?php $this->load->view('main/mainhead')?>
+<?php $this->load->view('layout/header')?>
 <div id='center'>
 	<h3>List Comment</h3>
 
@@ -27,4 +27,4 @@
     ?>
     </table>
 </div>
-<?php $this->load->view('main/mainfoot')?>
+<?php $this->load->view('layout/footer')?>
