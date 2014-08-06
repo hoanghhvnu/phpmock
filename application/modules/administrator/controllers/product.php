@@ -57,7 +57,7 @@ class product extends AdminBaseController{
 
         $config['base_url'] = base_url("administrator/product/listproduct");
         $config['total_rows'] = $this->product_model->countAll();
-        if($config['per_page'] > $config['total_rows'] || $_SESSION['show_all'] == 'show'){
+        if($config['per_page'] > $config['total_rows']){
             $config['per_page'] = $config['total_rows'];
             $page = 1;
         }

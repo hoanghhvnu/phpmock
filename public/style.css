@@ -940,3 +940,7 @@ div.right_content{
 div.left_footer{
 	margin: 0px auto;
 }
+table{
+	border: 1px solid black;
+
+}
